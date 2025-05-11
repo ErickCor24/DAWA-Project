@@ -1,31 +1,160 @@
 {
-  "agency": [
+  "client": [
     {
-      "idAgency": 0
+      "idClient": 1,
+      "fullName": "Jose Aguistin Martinez",
+      "email": "josejose25@gmail.com",
+      "phone": "0991525236",
+      "ci": "1156923301",
+      "address": "Av. 10 de Agosto y Av. Eloy Alfaro",
+      "birthDate": "1995-05-25",
+      "nationality": "Ecuadorian",
+      "status": true
+    },
+    {
+      "idClient": 2,
+      "fullName": "Carla Fernanda Paredes",
+      "email": "carla.paredes@gmail.com",
+      "phone": "0987654321",
+      "ci": "1102938475",
+      "address": "Av. República y Naciones Unidas",
+      "birthDate": "1990-10-12",
+      "nationality": "Ecuadorian",
+      "status": true
     }
   ],
 
-  "client": [
+  "userClient": [
     {
-      "idClient": 0
+      "idUserClient": 1,
+      "ideClient": 1,
+      "userName": "jose84",
+      "password": "01020304@"
+    },
+    {
+      "idUserClient": 2,
+      "ideClient": 2,
+      "userName": "carlafernanda90",
+      "password": "pass12345#"
     }
   ],
 
   "company": [
     {
-      "idCompany": 0
+      "idCompany": 1,
+      "name": "PortalCar",
+      "contactPerson": "Benito Marinez",
+      "email": "mariopineda.agecar@yahoo.com",
+      "phone": "0952320201",
+      "rucNumber": "0001523201089",
+      "registerDate": "2024-05-09",
+      "status": true
+    },
+    {
+      "idCompany": 2,
+      "name": "AutoRentXpress",
+      "contactPerson": "Lucia Terán",
+      "email": "lucia.teran@autorent.com",
+      "phone": "0970012312",
+      "rucNumber": "1015236554321",
+      "registerDate": "2023-11-21",
+      "status": true
+    }
+  ],
+
+  "userCompany": [
+    {
+      "idUserCompany": 1,
+      "ideCompany": 1,
+      "userName": "portalcar0509",
+      "password": "01020304@"
+    },
+    {
+      "idUserCompany": 2,
+      "ideCompany": 2,
+      "userName": "autorent_lucia",
+      "password": "luciaSecure@2024"
+    }
+  ],
+
+  "agency": [
+    {
+      "idAgency": 1,
+      "idCompany": 1,
+      "name": "Agencia Forestal I",
+      "address": "Mario Pineda, 1403",
+      "phone": "0991565235",
+      "email": "mariopineda.agecar@yahoo.com",
+      "workingHours": "08:00-17:00",
+      "status": true
+    },
+    {
+      "idAgency": 2,
+      "idCompany": 2,
+      "name": "Sucursal Centro Histórico",
+      "address": "Bolívar y Venezuela",
+      "phone": "0987234561",
+      "email": "info@autorent.com",
+      "workingHours": "09:00-18:00",
+      "status": true
     }
   ],
 
   "reserve": [
     {
-      "idReserve": 0
+      "idReserve": 1,
+      "idClient": 1,
+      "idVehicle": 1,
+      "idAgencyPickup": 1,
+      "pickupDate": "2025-01-10",
+      "dropoffDate": "2025-01-15",
+      "price": 199.99,
+      "status": true
+    },
+    {
+      "idReserve": 2,
+      "idClient": 2,
+      "idVehicle": 2,
+      "idAgencyPickup": 2,
+      "pickupDate": "2025-03-05",
+      "dropoffDate": "2025-03-10",
+      "price": 220.50,
+      "status": true
     }
   ],
 
   "vehicle": [
     {
-      "idVehicle": 0
+      "idVehicle": 1,
+      "brand": "Ford",
+      "model": "Focus",
+      "year": 2024,
+      "plateNumber": "LAC-2526",
+      "color": "Gris Oscuro",
+      "idCompany": 1,
+      "idAgency": 1,
+      "type": "Sedan",
+      "seats": 5,
+      "transmision": "Automatico",
+      "fuelType": "Gasolina",
+      "isAvailable": true,
+      "status": true
+    },
+    {
+      "idVehicle": 2,
+      "brand": "Chevrolet",
+      "model": "Spark GT",
+      "year": 2023,
+      "plateNumber": "ABC-8475",
+      "color": "Rojo",
+      "idCompany": 2,
+      "idAgency": 2,
+      "type": "Hatchback",
+      "seats": 5,
+      "transmision": "Manual",
+      "fuelType": "Gasolina",
+      "isAvailable": true,
+      "status": true
     }
   ]
 }
