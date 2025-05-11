@@ -1,5 +1,5 @@
 {
-  "client": [
+  "clients": [
     {
       "idClient": 1,
       "fullName": "Jose Aguistin Martinez",
@@ -24,22 +24,22 @@
     }
   ],
 
-  "userClient": [
+  "userClients": [
     {
       "idUserClient": 1,
-      "ideClient": 1,
+      "idClient": 1,
       "userName": "jose84",
       "password": "01020304@"
     },
     {
       "idUserClient": 2,
-      "ideClient": 2,
+      "idClient": 2,
       "userName": "carlafernanda90",
       "password": "pass12345#"
     }
   ],
 
-  "company": [
+  "companys": [
     {
       "idCompany": 1,
       "name": "PortalCar",
@@ -62,7 +62,7 @@
     }
   ],
 
-  "userCompany": [
+  "userCompanys": [
     {
       "idUserCompany": 1,
       "ideCompany": 1,
@@ -77,7 +77,7 @@
     }
   ],
 
-  "agency": [
+  "agencys": [
     {
       "idAgency": 1,
       "idCompany": 1,
@@ -100,7 +100,7 @@
     }
   ],
 
-  "reserve": [
+  "reserves": [
     {
       "idReserve": 1,
       "idClient": 1,
@@ -123,7 +123,7 @@
     }
   ],
 
-  "vehicle": [
+  "vehicles": [
     {
       "idVehicle": 1,
       "brand": "Ford",
