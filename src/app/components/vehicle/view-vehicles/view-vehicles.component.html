@@ -1,1 +1,35 @@
 <p>view-vehicles works!</p>
+
+<div class="div-vehicles">
+    @if(vehicles.length > 0){
+        @for(vehicle of vehicles; track $index){
+            <mat-card class="vehicle-card" appearance="outlined">
+                <mat-card-header>
+                    <mat-card-title>{{vehicle.model}} {{vehicle.type}}</mat-card-title>
+                    <mat-card-subtitle>{{vehicle.brand}}</mat-card-subtitle>
+                </mat-card-header>
+                @if(vehicle.poster){
+                    <img mat-card-image [src]="vehicle.poster" [alt]="vehicle.model">
+                }@else{
+                    <img mat-card-image src="../images/defaultCar.png" [alt]="vehicle.model">
+                }
+                <mat-card-content>
+                    <p><strong>Color: </strong>{{vehicle.color}}</p>
+                    <p><strong>Número de asientos: </strong>{{vehicle.seats}}</p>
+                    <p><strong>Transmisión: </strong>{{vehicle.transmission}}</p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button>Reservar</button>
+                </mat-card-actions>
+            </mat-card>
+
+        }
+    }
+
+</div>
+<div class="example-button-container">
+    <button mat-fab extended (click)="navigateToCreateVehicle()">
+        <mat-icon>add</mat-icon>
+          Agregar vehículo
+    </button>
+</div>

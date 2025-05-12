@@ -1,0 +1,29 @@
+.div-vehicles{
+    width: fit-content;
+    margin: auto;
+}
+
+.vehicle-card {
+    display: inline-block;
+    width: 300px;
+    padding: 5px;
+    margin: 5px;
+    place-items: center;
+
+    & mat-card-header {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    & img {
+        width: 225px;
+        height: 150px;
+    }
+
+    & mat-card-content {
+
+        p {
+            margin: 10px;
+        }
+    }
+}
