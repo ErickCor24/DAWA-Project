@@ -12,5 +12,6 @@ export interface Vehicle {
     transmission: string;
     fuelType: string;
     isAvailable: boolean;
+    poster: string;
     status: number;
 }
