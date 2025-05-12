@@ -5,20 +5,19 @@ h1 {
 
 
 .header-card {
-  color: #fff;
+  color: #151515;
   padding: 25px 0;
-  background-color: #151515;
   border-radius: 0 0 10px 10px;
   margin-bottom: 25px;
 }
 
-.register-container {
+.login-container {
   display: flex;
   justify-content: center;
   margin: 50px 0;
 }
 
-.card-register {
+.card-login {
   background-color: #fff;
   padding: 0 32px 32px 32px;
   width: 28%;
@@ -43,18 +42,8 @@ h1 {
 
 }
 
-.double-group {
-  display: flex;
-  gap: 10px;
-  width: 100%;
 
-  & input {
-    width: 100%;
-  }
-
-}
-
-.form-register-company {
+.form-login-company {
   display: flex;
   flex-direction: column;
   min-width: 150px;
@@ -70,3 +59,13 @@ h1 {
   }
 }
 
+
+p{
+  margin: 5px 0 0 0;
+  padding: 0;
+}
+
+.error-message{
+  color: #f13e2e;
+  font-weight: bold;
+}

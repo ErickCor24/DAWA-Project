@@ -65,13 +65,13 @@
   "userCompanys": [
     {
       "idUserCompany": 1,
-      "ideCompany": 1,
+      "idCompany": 1,
       "userName": "portalcar0509",
       "password": "01020304@"
     },
     {
       "idUserCompany": 2,
-      "ideCompany": 2,
+      "idCompany": 2,
       "userName": "autorent_lucia",
       "password": "luciaSecure@2024"
     }
