@@ -1,0 +1,19 @@
+
+.div-table-vehicles{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 100px;
+
+    .vehicle-table{
+        
+    & img{
+        width: 100px;
+        height: 70px;
+    }
+
+    & .mdc-data-table__cell, .mdc-data-table__header-cell{
+        text-align: center;
+    }
+
+}
+}
