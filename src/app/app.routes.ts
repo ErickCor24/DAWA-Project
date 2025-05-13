@@ -7,6 +7,7 @@ export const routes: Routes = [
     //Client
 
     //Company
+    {path: 'company', loadChildren: () =>  import('./components/company/company.routes').then(m => m.CompanyRoutes)}
 
     // Reserve
 

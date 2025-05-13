@@ -1,0 +1,22 @@
+button {
+    box-sizing: border-box;
+    font-size: 1.05rem;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    background-color: #F13E2E;
+    color: #FFF;
+}
+
+button[type="reset"] {
+    background-color: #CCCCCC;
+    color: #333;
+}
+
+button[type="button"] {
+    color: #333;
+}
+
