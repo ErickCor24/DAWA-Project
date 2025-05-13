@@ -12,30 +12,32 @@ export class VehicleService {
 
   constructor(private http: HttpClient) { }
 
-  getVehicles(): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(this.dataUrl);
-  }
-
-  getVehiclesByCompany(idCompany: number): Observable<Vehicle[]> {
+  getVehicles(idCompany?: number): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(this.dataUrl).pipe(
       map((vehicles) =>
-        vehicles.filter((vehicle) =>
-          (vehicle.idCompany === idCompany)
-        )
+        (idCompany ? vehicles.filter(vehicle => vehicle.idCompany === idCompany) : 
+                  vehicles.filter(vehicle => vehicle.isAvailable === true))
       )
     );
   }
 
-  createVehicle(vehicle: Vehicle): Observable<Vehicle>{
+  getVehicle(id: string): Observable<Vehicle> {
+    return this.http.get<Vehicle>(`${this.dataUrl}/${id}`);
+  }
+  
+  createVehicle(vehicle: Vehicle, idCompany: number): Observable<Vehicle> {
+    vehicle.isAvailable = true;
+    vehicle.status = 1;
+    vehicle.idCompany = idCompany;
     return this.http.post<Vehicle>(this.dataUrl, vehicle);
   }
 
-  updateVehicle(vehicle: Vehicle): Observable<Vehicle>{
-    return this.http.put<Vehicle>(`${this.dataUrl}/${vehicle.idVehicle}}`, vehicle)
+  updateVehicle(vehicle: Vehicle): Observable<Vehicle> {
+    return this.http.put<Vehicle>(`${this.dataUrl}/${vehicle.id}`, vehicle);
   }
 
-  deleteVehicle(vehicle: Vehicle): Observable<void>{
-    return this.http.delete<void>(`${this.dataUrl}/${vehicle.idVehicle}}`)
+  deleteVehicle(vehicle: Vehicle): Observable<void> {
+    return this.http.delete<void>(`${this.dataUrl}/${vehicle.id}`);
   }
 
 }

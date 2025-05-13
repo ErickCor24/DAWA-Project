@@ -1,5 +1,5 @@
 export interface Vehicle {
-    idVehicle?: number;
+    id?: string;
     idCompany: number;
     idAgency: number;
     brand: string;
@@ -12,6 +12,7 @@ export interface Vehicle {
     transmission: string;
     fuelType: string;
     isAvailable: boolean;
+    pricePerDay: number;
     poster: string;
     status: number;
 }
