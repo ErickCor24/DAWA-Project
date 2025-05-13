@@ -1,28 +1,28 @@
 {
   "agency": [
     {
-      "idAgency": 0
+      "idAgency": 0,
+      "id": "fbd7"
     }
   ],
-
   "client": [
     {
-      "idClient": 0
+      "idClient": 0,
+      "id": "3688"
     }
   ],
-
   "company": [
     {
-      "idCompany": 0
+      "idCompany": 0,
+      "id": "f181"
     }
   ],
-
   "reserve": [
     {
-      "idReserve": 0
+      "idReserve": 0,
+      "id": "142e"
     }
   ],
-
   "vehicle": [
     {
       "id": "1",
@@ -45,8 +45,8 @@
     {
       "id": "2",
       "idCompany": 1,
-      "idAgency": 0,
-      "brand": "Honda",
+      "idAgency": "1",
+      "brand": "Hondarrr",
       "model": "Civic",
       "year": 2019,
       "plateNumber": "XYZ789",
@@ -55,7 +55,7 @@
       "seats": 5,
       "transmission": "Manual",
       "fuelType": "Diésel",
-      "isAvailable": true,
+      "isAvailable": false,
       "pricePerDay": 80,
       "poster": "https://s3.amazonaws.com/di-honda-enrollment/2019-civic-si-coupe/model-image-2019-civic-si-coupe-front.png",
       "status": 1
@@ -95,6 +95,42 @@
       "pricePerDay": 90,
       "poster": "https://d1i6h2eptoatah.cloudfront.net/U-1225/U-1225_2.JPG",
       "status": 0
+    },
+    {
+      "id": "b7e2",
+      "model": "jbkbjk",
+      "brand": "jjkjn",
+      "type": "jkbkjb",
+      "year": 2020,
+      "plateNumber": "JJJ3333",
+      "transmission": "Manual",
+      "color": "jwnjn",
+      "seats": 9,
+      "fuelType": "wjwj",
+      "idAgency": "1",
+      "poster": "",
+      "pricePerDay": 999,
+      "isAvailable": true,
+      "status": 1,
+      "idCompany": 1
+    },
+    {
+      "id": "b039",
+      "model": "hjbjjk",
+      "brand": "hbhj",
+      "type": "hjkjbj",
+      "year": 2020,
+      "plateNumber": "ABH3333",
+      "transmission": "Automática",
+      "color": "JKNKJ",
+      "seats": 4,
+      "fuelType": "JNKJN",
+      "idAgency": "1",
+      "poster": "",
+      "pricePerDay": 6777,
+      "isAvailable": true,
+      "status": 1,
+      "idCompany": 1
     }
   ]
 }
