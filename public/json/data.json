@@ -156,5 +156,28 @@
       "isAvailable": true,
       "status": true
     }
+  ],
+
+  "Agencys": [
+    {
+      "idAgency": 1,
+      "idCompany": 1,
+      "name": "Agencia El Ejido",
+      "address": "Av. 6 de Diciembre y Tarqui, Quito",
+      "phone": "0998765432",
+      "email": "elejido@portalcar.ec",
+      "workingHours": "08:00-18:00",
+      "status": true
+    },
+    {
+      "idAgency": 2,
+      "idCompany": 2,
+      "name": "Sucursal Centro Histórico",
+      "address": "Calle García Moreno y Sucre, Quito",
+      "phone": "0987654321",
+      "email": "centrohistorico@autorentxpress.ec",
+      "workingHours": "09:00-19:00",
+      "status": true
+    }
   ]
 }
