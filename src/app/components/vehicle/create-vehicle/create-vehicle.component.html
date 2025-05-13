@@ -1,4 +1,4 @@
-<form class="form" [formGroup]="formGroup" action="/ruta-del-servidor" method="POST">
+<form class="form" [formGroup]="formGroup" (submit)="submit()">
     <h2>Registrar vehículo</h2>
 
     <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
@@ -22,10 +22,18 @@
         </mat-form-field>
     </div>
 
-    <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
-        <mat-label>Modelo:</mat-label>
-        <input matInput type="text" formControlName="model" placeholder="Modelo del vehículo" required>
-    </mat-form-field>
+    <div class="pair-group">
+        <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
+            <mat-label>Modelo:</mat-label>
+            <input matInput type="text" formControlName="model" placeholder="Modelo del vehículo" required>
+        </mat-form-field>
+        
+        <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
+            <mat-label>Precio alquiler por día:</mat-label>
+            <input matInput type="number" formControlName="pricePerDay" placeholder="Precio por hora del vehículo" required>
+        </mat-form-field>
+    </div>
+
 
     <div class="pair-group">
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
@@ -72,6 +80,11 @@
             <input matInput type="number" formControlName="seats" placeholder="Número de asientos" required>
         </mat-form-field>
     </div>
+
+    <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
+        <mat-label>Url imagen:</mat-label>
+        <input matInput type="text" formControlName="poster" placeholder="Url imagen del vehículo">
+    </mat-form-field>
 
     <div>
         <button mat-raised-button type="reset">Cancelar</button>
