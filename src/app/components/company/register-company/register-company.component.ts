@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { UserCompanyService } from '../../../services/user-company/user-company.service';
 import { MatRadioModule } from '@angular/material/radio';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-register-company',
@@ -20,44 +20,31 @@ export class RegisterCompanyComponent implements OnInit {
 
   companyForm!: FormGroup;
   companies: Company[] = [];
+  randomCode: string;
 
-  constructor(private _companyServ: CompanyService, private _userCompServ: UserCompanyService, private fb: FormBuilder) { }
+  constructor(private _companyServ: CompanyService, private _userCompServ: UserCompanyService, private fb: FormBuilder, private router: Router) { this.randomCode = this.generateRandomString(4) }
 
   ngOnInit(): void {
     this.companyForm = this.fb.group({
       name: ['', Validators.required],
-      contactPerson: [''],
-      email: [''],
-      phone: [''],
-      rucNumber: [''],
-      userName: [''],
-      password: ['']
+      contactPerson: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: ['', Validators.required],
+      rucNumber: ['', Validators.required],
+      userName: ['', Validators.required],
+      password: ['', Validators.required]
     });
-    this.screenAllData();
   }
 
   registerCompanyAndUser(event: Event): void {
     event.preventDefault();
     const rawFormValue = this.companyForm.value;
-    let id: number = this.companies.length + 1;
 
     if (this.companyForm.valid) {
-      const company: Company = this.createCompanyObject(rawFormValue, id);
-      const userCompany: UserCompany = this.createUserCompany(rawFormValue, id);
-
+      const company: Company = this.createCompanyObject(rawFormValue, this.randomCode);
+      const userCompany: UserCompany = this.createUserCompany(rawFormValue, this.randomCode);
       this.registerCompanyUser(userCompany, company);
-      this.screenAllData();
     }
-  }
-
-  screenAllData(): void {
-    this._companyServ.getCompanies().subscribe(data => {
-      console.log(data);
-      this.companies = data;
-    })
-    this._userCompServ.getUserCompanies().subscribe(data => {
-      console.log(data);
-    })
   }
 
   registerCompanyUser = (user: UserCompany, company: Company) => {
@@ -65,13 +52,14 @@ export class RegisterCompanyComponent implements OnInit {
       alert("Company registered successfully");
     });
     this._userCompServ.addUserCompany(user).subscribe(data => {
-      alert("User Company registered done");
+      alert("Company registered successfully");
     })
+    this.router.navigate(['/company/login']);
   }
 
-  createCompanyObject = (rawFormValue: any, id: number): Company => {
+  createCompanyObject = (rawFormValue: any, id: string): Company => {
     const company: Company = {
-      idCompany: id,
+      id: id,
       name: rawFormValue.name,
       contactPerson: rawFormValue.contactPerson,
       email: rawFormValue.email,
@@ -83,14 +71,27 @@ export class RegisterCompanyComponent implements OnInit {
     return company;
   }
 
-  createUserCompany = (rawFormValue: any, id: number): UserCompany => {
+  createUserCompany = (rawFormValue: any, id: string): UserCompany => {
     const userCompany: UserCompany = {
-      idUserCompany: id,
+      id: id,
       idCompany: id,
       userName: rawFormValue.userName,
       password: rawFormValue.password
     }
     return userCompany;
+  }
+
+
+  generateRandomString(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
   }
 
 }

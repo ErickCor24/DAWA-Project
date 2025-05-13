@@ -1,0 +1,39 @@
+<section class="profile-container">
+  <div *ngIf="company" class="card-container">
+    <h1 class="card-title">Perfil empresarial</h1>
+    <div class="info-container">
+      <p class="info-card">Visualiza y edita tu información</p>
+      <p class="register-date">Fecha de registro: {{company.registerDate | date: 'dd MMMM - yyyy'}}</p>
+    </div>
+    <form id="profile-form" class="info-company-form" [formGroup]="formProfile" (ngSubmit)="updateCompany()">
+      <mat-form-field class="contain-1 form-group" appearance="outline" color="primary" floatLabel="always" hideRequiredMarker>
+        <mat-label>Nombre de la empresa</mat-label>
+        <input matInput formControlName="name" required>
+      </mat-form-field>
+
+      <mat-form-field class="contain-2 form-group" appearance="outline" color="primary" floatLabel="always" hideRequiredMarker>
+        <mat-label>Persona responsable</mat-label>
+        <input matInput formControlName="contactPerson" required>
+      </mat-form-field>
+
+      <mat-form-field class="contain-3 form-group" appearance="outline" color="primary" floatLabel="always" hideRequiredMarker>
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput formControlName="email" required>
+      </mat-form-field>
+
+      <mat-form-field class="contain-4 form-group" appearance="outline" color="primary" floatLabel="always" hideRequiredMarker>
+        <mat-label>N° Celular</mat-label>
+        <input type="number" matInput formControlName="phone" [maxLength]="10" [minLength]="10" required>
+      </mat-form-field>
+
+      <mat-form-field class="contain-5 form-group" appearance="outline" color="primary" floatLabel="always" hideRequiredMarker>
+        <mat-label>N° RUC</mat-label>
+        <input type="number" matInput formControlName="ruc" required>
+      </mat-form-field>
+    </form>
+    <button mat-stroked-button form="profile-form" type="submit" [hidden]="!hidden">Guardar cambios</button>
+    <button mat-stroked-button [hidden]="!hidden" (click)="[changeStatusButtons(), disabledInputs()]">Cancelar</button>
+    <button mat-stroked-button [hidden]="hidden" (click)="[changeStatusButtons(), enableInputs()]">Editar</button>
+    <button mat-stroked-button [hidden]="hidden">Eliminar cuenta</button>
+  </div>
+</section>
