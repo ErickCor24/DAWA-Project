@@ -35,7 +35,6 @@ export class AgencyManagementComponent implements OnInit {
 
   
   ngOnInit(): void {
-    console.log('✅ AgencyManagementComponent cargado correctamente');  // <-- Aquí el log
     this.getAgencies();
   }
 
