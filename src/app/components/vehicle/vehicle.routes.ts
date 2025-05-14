@@ -4,7 +4,7 @@ import { ViewVehiclesComponent } from "./view-vehicles/view-vehicles.component";
 import { ListVehiclesComponent } from "./list-vehicles/list-vehicles.component";
 import { UpdateVehicleComponent } from "./update-vehicle/update-vehicle.component";
 
-export const VEHICLE_ROUTES: Routes = [
+export const VehicleRoutes: Routes = [
     { path: '', component: ViewVehiclesComponent },
     { path: 'view-vehicles', component: ViewVehiclesComponent },
     { path: 'create-vehicle', component: CreateVehicleComponent },

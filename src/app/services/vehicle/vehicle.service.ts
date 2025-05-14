@@ -8,15 +8,15 @@ import { Vehicle } from '../../models/Vehicle';
 })
 export class VehicleService {
 
-  private dataUrl: string = 'http://localhost:3000/vehicle';
+  private dataUrl: string = 'http://localhost:3000/vehicles';
 
   constructor(private http: HttpClient) { }
 
-  getVehicles(idCompany?: number): Observable<Vehicle[]> {
+  getVehicles(idCompany?: string): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(this.dataUrl).pipe(
       map((vehicles) =>
-        (idCompany ? vehicles.filter(vehicle => vehicle.idCompany === idCompany) : 
-                  vehicles.filter(vehicle => vehicle.isAvailable === true))
+      (idCompany ? vehicles.filter(vehicle => vehicle.idCompany === idCompany) :
+        vehicles.filter(vehicle => vehicle.isAvailable === true))
       )
     );
   }
@@ -24,8 +24,20 @@ export class VehicleService {
   getVehicle(id: string): Observable<Vehicle> {
     return this.http.get<Vehicle>(`${this.dataUrl}/${id}`);
   }
-  
-  createVehicle(vehicle: Vehicle, idCompany: number): Observable<Vehicle> {
+
+  getVehicleByField(field: string, dataInput: string) {
+  return this.http.get<Vehicle[]>(this.dataUrl).pipe(
+    map((vehicles) =>
+      vehicles.filter((vehicle) =>
+        dataInput
+          ? String((vehicle as any)[field]).toLowerCase().includes(dataInput.toLowerCase())
+          : true
+      )
+    )
+  );
+}
+
+  createVehicle(vehicle: Vehicle, idCompany: string): Observable<Vehicle> {
     vehicle.isAvailable = true;
     vehicle.status = 1;
     vehicle.idCompany = idCompany;
