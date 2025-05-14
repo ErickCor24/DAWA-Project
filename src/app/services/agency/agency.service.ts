@@ -14,7 +14,7 @@ export class AgencyService {
 
   getAgencies(): Observable<Agency[]> {
     return this.http.get<any>(this.dataUrl).pipe(
-      map(data => data.agency as Agency[])
+      map(data => data.agencys as Agency[])
     );
   }
 }
