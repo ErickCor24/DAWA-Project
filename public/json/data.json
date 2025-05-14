@@ -9,7 +9,8 @@
       "address": "Av. 10 de Agosto y Av. Eloy Alfaro",
       "birthDate": "1995-05-25",
       "nationality": "Ecuadorian",
-      "status": true
+      "status": true,
+      "id": "e1e9"
     },
     {
       "idClient": 2,
@@ -20,28 +21,29 @@
       "address": "Av. República y Naciones Unidas",
       "birthDate": "1990-10-12",
       "nationality": "Ecuadorian",
-      "status": true
+      "status": true,
+      "id": "4476"
     }
   ],
-
   "userClients": [
     {
       "idUserClient": 1,
       "idClient": 1,
       "userName": "jose84",
-      "password": "01020304@"
+      "password": "01020304@",
+      "id": "edc1"
     },
     {
       "idUserClient": 2,
       "idClient": 2,
       "userName": "carlafernanda90",
-      "password": "pass12345#"
+      "password": "pass12345#",
+      "id": "aea8"
     }
   ],
-
   "companys": [
     {
-      "idCompany": 1,
+      "id": "abca",
       "name": "PortalCar",
       "contactPerson": "Benito Marinez",
       "email": "mariopineda.agecar@yahoo.com",
@@ -51,55 +53,70 @@
       "status": true
     },
     {
-      "idCompany": 2,
+      "id": "2845",
       "name": "AutoRentXpress",
       "contactPerson": "Lucia Terán",
       "email": "lucia.teran@autorent.com",
       "phone": "0970012312",
-      "rucNumber": "1015236554321",
+      "rucNumber": "0001523201089",
       "registerDate": "2023-11-21",
+      "status": true
+    },
+    {
+      "id": "fJwB",
+      "name": "Alajitos Car",
+      "contactPerson": "Erick Alejandro",
+      "email": "alajitos.15@gmail.com",
+      "phone": 960495721,
+      "rucNumber": 1104949977741,
+      "registerDate": "2025-05-13T23:38:45.962Z",
       "status": true
     }
   ],
-
   "userCompanys": [
     {
-      "idUserCompany": 1,
-      "ideCompany": 1,
+      "id": "abca",
+      "idCompany": "abca",
       "userName": "portalcar0509",
       "password": "01020304@"
     },
     {
-      "idUserCompany": 2,
-      "ideCompany": 2,
+      "id": "2845",
+      "idCompany": "2845",
       "userName": "autorent_lucia",
       "password": "luciaSecure@2024"
+    },
+    {
+      "id": "IZ72",
+      "idCompany": "IZ72",
+      "userName": "europcar610",
+      "password": "europcar610"
     }
   ],
-
   "agencys": [
     {
-      "id": 1,
+      "idAgency": 1,
       "idCompany": 1,
       "name": "Agencia Forestal I",
       "address": "Mario Pineda, 1403",
       "phone": "0991565235",
       "email": "mariopineda.agecar@yahoo.com",
       "workingHours": "08:00-17:00",
-      "status": true
+      "status": true,
+      "id": "4196"
     },
     {
-      "id": 2,
+      "idAgency": 2,
       "idCompany": 2,
       "name": "Sucursal Centro Histórico",
       "address": "Bolívar y Venezuela",
       "phone": "0987234561",
       "email": "info@autorent.com",
       "workingHours": "09:00-18:00",
-      "status": true
+      "status": true,
+      "id": "1b5b"
     }
   ],
-
   "reserves": [
     {
       "idReserve": 1,
@@ -109,7 +126,8 @@
       "pickupDate": "2025-01-10",
       "dropoffDate": "2025-01-15",
       "price": 199.99,
-      "status": true
+      "status": true,
+      "id": "3b48"
     },
     {
       "idReserve": 2,
@@ -118,11 +136,11 @@
       "idAgencyPickup": 2,
       "pickupDate": "2025-03-05",
       "dropoffDate": "2025-03-10",
-      "price": 220.50,
-      "status": true
+      "price": 220.5,
+      "status": true,
+      "id": "253e"
     }
   ],
-
   "vehicles": [
     {
       "idVehicle": 1,
@@ -138,7 +156,8 @@
       "transmision": "Automatico",
       "fuelType": "Gasolina",
       "isAvailable": true,
-      "status": true
+      "status": true,
+      "id": "4442"
     },
     {
       "idVehicle": 2,
@@ -154,7 +173,8 @@
       "transmision": "Manual",
       "fuelType": "Gasolina",
       "isAvailable": true,
-      "status": true
+      "status": true,
+      "id": "f53b"
     }
   ]
 }

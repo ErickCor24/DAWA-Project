@@ -1,0 +1,24 @@
+<section class="login-container">
+  <div class="card-login">
+    <header class="header-card">
+      <h1>Inicir Sesión Compañía</h1>
+    </header>
+    <main>
+      <form class="form-login-company" [formGroup]="companyLoginForm" (ngSubmit)="submitLogin($event)">
+        <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput placeholder="Nombre de usuario" formControlName="userName" required>
+        </mat-form-field>
+
+        <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" placeholder="Contraseña" formControlName="password" required>
+        </mat-form-field>
+
+        <button type="submit">Iniciar Sesión</button>
+      </form>
+    </main>
+    <p class="error-message">{{messageLogin}}</p>
+    <p>¿Aun no tiene cuenta? <a routerLink="/company/register">Registrar mi compañía</a></p>
+  </div>
+</section>
