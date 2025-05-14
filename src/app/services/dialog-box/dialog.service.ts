@@ -21,9 +21,11 @@ export class DialogService {
     return dialogref.afterClosed().pipe(
       map(x => x === true),
       tap(confirmed => {
-        if(confirmed && path){
+        if (confirmed) {
           runFunction();
-          this.router.navigate([path]);
+          if (path) {
+            this.router.navigate([path]);
+          }
         }
       })
     )
