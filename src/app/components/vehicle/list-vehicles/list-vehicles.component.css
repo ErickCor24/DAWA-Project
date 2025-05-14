@@ -1,19 +1,61 @@
-
-.div-table-vehicles{
-    width: 100%;
+.div-list-vehicles {
+    height: fit-content;
     box-sizing: border-box;
-    padding: 20px 100px;
+    padding: 20px;
+    width: 90%;
+    margin: 20px auto;
+    background-color: #FEFFFE;
+    place-items: center;
 
-    .vehicle-table{
-        
-    & img{
-        width: 100px;
-        height: 70px;
+    & .div-search-new {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        place-items: center;
+        justify-content: space-between;
+
+        & .form {
+            display: flex;
+            text-align: start;
+            height: fit-content;
+            padding-bottom: 0;
+            gap: 20px;
+
+            & .mat-mdc-form-field {
+                height: 60px;
+                margin: 10px 0 5px 0;
+                background-color: #FEFFFE;
+            }
+        }
     }
 
-    & .mdc-data-table__cell, .mdc-data-table__header-cell{
-        text-align: center;
+    .div-table-vehicles {
+        width: 90%;
+
+        & .vehicle-table {
+
+            & img {
+                width: 100px;
+                height: 70px;
+            }
+
+            & .mdc-data-table__cell,
+            .mdc-data-table__header-cell {
+                text-align: center;
+                place-items: center;
+
+                & .div-cell-buttons{
+                    width: fit-content;
+                    display: flex;
+                    gap: 20px;
+                }
+            }
+        }
+
+        & mat-paginator {
+            text-align: end;
+        }
     }
 
-}
+
 }
