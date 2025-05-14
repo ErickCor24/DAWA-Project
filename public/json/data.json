@@ -126,7 +126,7 @@
   "vehicles": [
     {
       "id": "1",
-      "idCompany": 0,
+      "idCompany": "0",
       "idAgency": 0,
       "brand": "Toyota",
       "model": "Corolla",
@@ -144,7 +144,7 @@
     },
     {
       "id": "2",
-      "idCompany": 1,
+      "idCompany": "1",
       "idAgency": "1",
       "brand": "Hondarrr",
       "model": "Civic",
@@ -162,7 +162,7 @@
     },
     {
       "id": "3",
-      "idCompany": 1,
+      "idCompany": "1",
       "idAgency": 0,
       "brand": "Ford",
       "model": "Escape",
@@ -180,7 +180,7 @@
     },
     {
       "id": "4",
-      "idCompany": 1,
+      "idCompany": "1",
       "idAgency": 1,
       "brand": "Chevrolet",
       "model": "Spark",
@@ -195,42 +195,6 @@
       "pricePerDay": 90,
       "poster": "https://d1i6h2eptoatah.cloudfront.net/U-1225/U-1225_2.JPG",
       "status": 0
-    },
-    {
-      "id": "b7e2",
-      "model": "jbkbjk",
-      "brand": "jjkjn",
-      "type": "jkbkjb",
-      "year": 2020,
-      "plateNumber": "JJJ3333",
-      "transmission": "Manual",
-      "color": "jwnjn",
-      "seats": 9,
-      "fuelType": "wjwj",
-      "idAgency": "1",
-      "poster": "",
-      "pricePerDay": 999,
-      "isAvailable": true,
-      "status": 1,
-      "idCompany": 1
-    },
-    {
-      "id": "b039",
-      "model": "hjbjjk",
-      "brand": "hbhj",
-      "type": "hjkjbj",
-      "year": 2020,
-      "plateNumber": "ABH3333",
-      "transmission": "Automática",
-      "color": "JKNKJ",
-      "seats": 4,
-      "fuelType": "JNKJN",
-      "idAgency": "1",
-      "poster": "",
-      "pricePerDay": 6777,
-      "isAvailable": true,
-      "status": 1,
-      "idCompany": 1
     }
   ]
 }
