@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   templateUrl: './create-vehicle.component.html',
   styleUrl: './create-vehicle.component.css'
 })
-export class CreateVehicleComponent {
+export class CreateVehicleComponent implements OnInit{
 
   formGroup!: FormGroup;
 
