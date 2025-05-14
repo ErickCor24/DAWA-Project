@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { UserCompanyService } from '../../../services/user-company/user-company.service';
+import { DialogService } from '../../../services/dialog-box/dialog.service';
 
 @Component({
   selector: 'app-view-company',
@@ -23,7 +25,7 @@ export class ViewCompanyComponent implements OnInit {
   formProfile!: FormGroup;
   hidden: boolean = false;
 
-  constructor(private _companyService: CompanyService, private fb: FormBuilder, private router: Router) { }
+  constructor(private _companyService: CompanyService, private _userService: UserCompanyService, private fb: FormBuilder, private router: Router, private _dialogService: DialogService) { }
 
 
   ngOnInit(): void {
@@ -63,6 +65,19 @@ export class ViewCompanyComponent implements OnInit {
     );
   }
 
+  deleteCompany = () => {
+    this._dialogService.openDialog("Eliminar", "Estas seguro que quieres eliminar", this.deleteObjects, "/company/login").subscribe(x => x === true ? sessionStorage.removeItem('idCompany') : false)
+  }
+
+
+  deleteObjects = () => {
+    this._companyService.deleteCompany(this.token!.toString()).subscribe(x => {
+      console.log("Account company deleted");
+    });
+    this._userService.deleteUserCompany(this.token!.toString()).subscribe(x => {
+      console.log("Account company deleted");
+    });
+  }
 
   //Create form object with company attribute
   createFormObject = (object: Company): void => {

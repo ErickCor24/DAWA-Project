@@ -35,5 +35,10 @@ export class CompanyService {
     return this.http.put<Company>(URL, company);
   }
 
+  deleteCompany = (id: string): Observable<void> => {
+    const URL = `${this.URL_COMPANY}/${id}`;
+    return this.http.delete<void>(URL);
+  }
+
 
 }

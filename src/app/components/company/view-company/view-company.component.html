@@ -34,6 +34,6 @@
     <button mat-stroked-button form="profile-form" type="submit" [hidden]="!hidden">Guardar cambios</button>
     <button mat-stroked-button [hidden]="!hidden" (click)="[changeStatusButtons(), disabledInputs()]">Cancelar</button>
     <button mat-stroked-button [hidden]="hidden" (click)="[changeStatusButtons(), enableInputs()]">Editar</button>
-    <button mat-stroked-button [hidden]="hidden">Eliminar cuenta</button>
+    <button mat-stroked-button [hidden]="hidden" (click)="[deleteCompany()]">Eliminar cuenta</button>
   </div>
 </section>

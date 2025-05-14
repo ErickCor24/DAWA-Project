@@ -36,4 +36,9 @@ export class UserCompanyService {
       return true;
     } else return false;
   }
+
+  deleteUserCompany = (id: string): Observable<void> => {
+    const URL = `${this.URL_USER_COMPANY}/${id}`;
+    return this.http.delete<void>(URL);
+  }
 }
