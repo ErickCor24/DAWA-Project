@@ -1,6 +1,8 @@
 .div-vehicles {
-    width: fit-content;
-    margin: auto;
+    box-sizing: border-box;
+    padding: 0 10px;
+    width: 100%;
+    text-align: center;
 }
 
 .vehicle-card {

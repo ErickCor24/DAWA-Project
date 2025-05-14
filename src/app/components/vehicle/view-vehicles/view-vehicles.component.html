@@ -19,7 +19,7 @@
                     <p><strong>Transmisión: </strong>{{vehicle.transmission}}</p>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-button>Reservar</button>
+                    <app-button [name]="'Reservar'"></app-button>
                 </mat-card-actions>
             </mat-card>
 
@@ -28,8 +28,7 @@
 
 </div>
 <div class="example-button-container">
-
-    <button mat-raised-button  (click)="navigateToListVehiclesByCompany()">
-          Lista de vehículos registrados
-    </button>
+    <app-button [name]="'Lista de vehículos registrados'" [type]="'button'" 
+        (clicked)="navigateToListVehiclesByCompany()">
+    </app-button>
 </div>

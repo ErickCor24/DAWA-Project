@@ -88,7 +88,7 @@
     <mat-checkbox formControlName="isAvailable">Disponible</mat-checkbox>
 
     <div>
-        <button mat-raised-button type="reset" (click)="navigateToListVehiclesByCompany()">Cancelar</button>
-        <button mat-raised-button type="submit">Guardar</button>
+        <app-button [name]="'Cancelar'" [type]="'reset'" (clicked)="navigateToListVehiclesByCompany()"></app-button>
+        <app-button [name]="'Guardar'" [type]="'submit'"></app-button>
     </div>
 </form>

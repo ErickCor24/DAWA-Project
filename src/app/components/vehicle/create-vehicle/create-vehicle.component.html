@@ -87,7 +87,8 @@
     </mat-form-field>
 
     <div>
-        <button mat-raised-button type="reset">Cancelar</button>
-        <button mat-raised-button type="submit">Guardar</button>
+        <!-- <app-button [name]="'Cancelar'"></app-button> -->
+        <app-button [name]="'Limpiar'" [type]="'reset'"></app-button>
+        <app-button [name]="'Guardar'" [type]="'submit'"></app-button>
     </div>
 </form>

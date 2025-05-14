@@ -6,12 +6,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { VehicleService } from '../../../services/vehicle/vehicle.service';
+import { ButtonComponent } from "../../shared/button/button.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-vehicle',
   imports: [MatFormFieldModule, MatInputModule,
-    ReactiveFormsModule, MatSelectModule, MatCardModule, MatButtonModule
-  ],
+    ReactiveFormsModule, MatSelectModule, MatCardModule, MatButtonModule, ButtonComponent],
   templateUrl: './create-vehicle.component.html',
   styleUrl: './create-vehicle.component.css'
 })
@@ -19,7 +20,7 @@ export class CreateVehicleComponent {
 
   formGroup!: FormGroup;
 
-  constructor(private service: VehicleService, private fb: FormBuilder) {}
+  constructor(private service: VehicleService, private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
@@ -39,8 +40,9 @@ export class CreateVehicleComponent {
   }
 
   submit(): void {
-    this.service.createVehicle(this.formGroup.value, 1).subscribe((createVehicle) => {
+    this.service.createVehicle(this.formGroup.value, "1").subscribe((createVehicle) => {
       alert("vEHICLE CREATE");
+      this.router.navigate(['/vehicle/list-vehicles'])
     })
 
   }

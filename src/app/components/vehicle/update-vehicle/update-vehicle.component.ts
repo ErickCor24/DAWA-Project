@@ -9,11 +9,12 @@ import { VehicleService } from '../../../services/vehicle/vehicle.service';
 import { Vehicle } from '../../../models/Vehicle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ButtonComponent } from "../../shared/button/button.component";
 
 @Component({
   selector: 'app-update-vehicle',
   imports: [MatFormFieldModule, MatInputModule,
-    ReactiveFormsModule, MatSelectModule, MatCardModule, MatButtonModule, MatCheckboxModule],
+    ReactiveFormsModule, MatSelectModule, MatCardModule, MatButtonModule, MatCheckboxModule, ButtonComponent],
   templateUrl: './update-vehicle.component.html',
   styleUrl: './update-vehicle.component.css'
 })
@@ -71,7 +72,7 @@ export class UpdateVehicleComponent implements OnInit {
   }
 
   navigateToListVehiclesByCompany(): void {
-    this.router.navigate(['/vehicle/list-vehicles'])
+    this.router.navigate(['/vehicle/list-vehicles']);
   }
 
   submit(): void {
