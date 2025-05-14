@@ -9,7 +9,8 @@
       "address": "Av. 10 de Agosto y Av. Eloy Alfaro",
       "birthDate": "1995-05-25",
       "nationality": "Ecuadorian",
-      "status": true
+      "status": true,
+      "id": "54a8"
     },
     {
       "idClient": 2,
@@ -20,7 +21,8 @@
       "address": "Av. República y Naciones Unidas",
       "birthDate": "1990-10-12",
       "nationality": "Ecuadorian",
-      "status": true
+      "status": true,
+      "id": "c197"
     }
   ],
   "userClients": [
@@ -28,13 +30,15 @@
       "idUserClient": 1,
       "idClient": 1,
       "userName": "jose84",
-      "password": "01020304@"
+      "password": "01020304@",
+      "id": "766e"
     },
     {
       "idUserClient": 2,
       "idClient": 2,
       "userName": "carlafernanda90",
-      "password": "pass12345#"
+      "password": "pass12345#",
+      "id": "42f9"
     }
   ],
   "companys": [
@@ -46,7 +50,8 @@
       "phone": "0952320201",
       "rucNumber": "0001523201089",
       "registerDate": "2024-05-09",
-      "status": true
+      "status": true,
+      "id": "62c1"
     },
     {
       "idCompany": 2,
@@ -56,7 +61,8 @@
       "phone": "0970012312",
       "rucNumber": "1015236554321",
       "registerDate": "2023-11-21",
-      "status": true
+      "status": true,
+      "id": "4579"
     }
   ],
   "userCompanys": [
@@ -64,13 +70,15 @@
       "idUserCompany": 1,
       "ideCompany": 1,
       "userName": "portalcar0509",
-      "password": "01020304@"
+      "password": "01020304@",
+      "id": "ee7b"
     },
     {
       "idUserCompany": 2,
       "ideCompany": 2,
       "userName": "autorent_lucia",
-      "password": "luciaSecure@2024"
+      "password": "luciaSecure@2024",
+      "id": "9227"
     }
   ],
   "agencys": [
@@ -82,7 +90,8 @@
       "phone": "0991565235",
       "email": "mariopineda.agecar@yahoo.com",
       "workingHours": "08:00-17:00",
-      "status": true
+      "status": true,
+      "id": "80d7"
     },
     {
       "idAgency": 2,
@@ -92,7 +101,8 @@
       "phone": "0987234561",
       "email": "info@autorent.com",
       "workingHours": "09:00-18:00",
-      "status": true
+      "status": true,
+      "id": "b9a9"
     }
   ],
   "reserves": [
@@ -104,7 +114,8 @@
       "pickupDate": "2025-01-10",
       "dropoffDate": "2025-01-15",
       "price": 199.99,
-      "status": true
+      "status": true,
+      "id": "d745"
     },
     {
       "idReserve": 2,
@@ -114,7 +125,8 @@
       "pickupDate": "2025-03-05",
       "dropoffDate": "2025-03-10",
       "price": 220.5,
-      "status": true
+      "status": true,
+      "id": "dd74"
     },
     {
       "id": "2a77",
@@ -157,6 +169,26 @@
       "dropoffDate": "2024-12-25",
       "price": 500,
       "status": true
+    },
+    {
+      "id": "8cc0",
+      "idClient": "54a8",
+      "idVehicle": "e2be",
+      "idAgencyPickup": "80d7",
+      "pickupDate": "2025-01-04",
+      "dropoffDate": "2025-01-09",
+      "price": 0,
+      "status": true
+    },
+    {
+      "id": "7365",
+      "idClient": "54a8",
+      "idVehicle": "e2be",
+      "idAgencyPickup": "80d7",
+      "pickupDate": "2024-01-04",
+      "dropoffDate": "2024-01-25",
+      "price": 840,
+      "status": true
     }
   ],
   "vehicles": [
@@ -175,7 +207,8 @@
       "fuelType": "Gasolina",
       "isAvailable": true,
       "status": true,
-      "dailyPrice": 40
+      "dailyPrice": 40,
+      "id": "e2be"
     },
     {
       "idVehicle": 2,
@@ -192,7 +225,8 @@
       "fuelType": "Gasolina",
       "isAvailable": true,
       "status": true,
-      "dailyPrice": 40
+      "dailyPrice": 40,
+      "id": "ccdf"
     }
   ]
 }
