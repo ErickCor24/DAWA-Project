@@ -29,10 +29,10 @@ export class RegisterCompanyComponent implements OnInit {
       name: ['', Validators.required],
       contactPerson: ['', Validators.required],
       email: ['', Validators.required],
-      phone: ['', Validators.required],
-      rucNumber: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.max(999999999), Validators.min(111111111)]],
+      rucNumber: ['', [Validators.required, Validators.max(9999999999999)]],
       userName: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', [Validators.required, Validators.min(8)]]
     });
   }
 
@@ -63,7 +63,7 @@ export class RegisterCompanyComponent implements OnInit {
       name: rawFormValue.name,
       contactPerson: rawFormValue.contactPerson,
       email: rawFormValue.email,
-      phone: rawFormValue.phone,
+      phone: "0" + rawFormValue.phone,
       rucNumber: rawFormValue.rucNumber,
       registerDate: new Date(),
       status: true
