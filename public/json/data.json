@@ -23,7 +23,6 @@
       "status": true
     }
   ],
-
   "userClients": [
     {
       "idUserClient": 1,
@@ -38,7 +37,6 @@
       "password": "pass12345#"
     }
   ],
-
   "companys": [
     {
       "idCompany": 1,
@@ -61,7 +59,6 @@
       "status": true
     }
   ],
-
   "userCompanys": [
     {
       "idUserCompany": 1,
@@ -76,7 +73,6 @@
       "password": "luciaSecure@2024"
     }
   ],
-
   "agencys": [
     {
       "idAgency": 1,
@@ -99,7 +95,6 @@
       "status": true
     }
   ],
-
   "reserves": [
     {
       "idReserve": 1,
@@ -118,11 +113,52 @@
       "idAgencyPickup": 2,
       "pickupDate": "2025-03-05",
       "dropoffDate": "2025-03-10",
-      "price": 220.50,
+      "price": 220.5,
+      "status": true
+    },
+    {
+      "id": "2a77",
+      "idClient": 0,
+      "idVehicle": 0,
+      "idAgencyPickup": 1,
+      "pickupDate": "2025-05-13T05:00:00.000Z",
+      "dropoffDate": "2025-05-20T05:00:00.000Z",
+      "price": 0,
+      "status": true
+    },
+    {
+      "id": "977e",
+      "idClient": 0,
+      "idVehicle": 0,
+      "idAgencyPickup": 1,
+      "pickupDate": "2025-05-13T05:00:00.000Z",
+      "dropoffDate": "2025-05-21T05:00:00.000Z",
+      "price": 0,
+      "status": true
+    },
+    {
+      "id": "3ed7",
+      "idReserve": 3,
+      "idClient": 1,
+      "idVehicle": 1,
+      "idAgencyPickup": 1,
+      "pickupDate": "2025-01-04",
+      "dropoffDate": "2025-02-01",
+      "price": 12,
+      "status": true
+    },
+    {
+      "id": "3f83",
+      "idReserve": 4,
+      "idClient": 1,
+      "idVehicle": 1,
+      "idAgencyPickup": 1,
+      "pickupDate": "2024-12-12",
+      "dropoffDate": "2024-12-25",
+      "price": 500,
       "status": true
     }
   ],
-
   "vehicles": [
     {
       "idVehicle": 1,
@@ -138,7 +174,8 @@
       "transmision": "Automatico",
       "fuelType": "Gasolina",
       "isAvailable": true,
-      "status": true
+      "status": true,
+      "dailyPrice": 40
     },
     {
       "idVehicle": 2,
@@ -154,7 +191,8 @@
       "transmision": "Manual",
       "fuelType": "Gasolina",
       "isAvailable": true,
-      "status": true
+      "status": true,
+      "dailyPrice": 40
     }
   ]
 }
