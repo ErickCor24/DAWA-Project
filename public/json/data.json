@@ -55,10 +55,10 @@
     {
       "id": "2845",
       "name": "AutoRentXpress",
-      "contactPerson": "Lucia Terán",
-      "email": "lucia.teran@autorent.com",
-      "phone": "0970012312",
-      "rucNumber": "0001523201089",
+      "contactPerson": "Lucia Teran",
+      "email": "lucia.teran@autoren.com",
+      "phone": "00960495721",
+      "rucNumber": 1001523201089,
       "registerDate": "2023-11-21",
       "status": true
     },
@@ -70,6 +70,16 @@
       "phone": 960495721,
       "rucNumber": 1104949977741,
       "registerDate": "2025-05-13T23:38:45.962Z",
+      "status": true
+    },
+    {
+      "id": "xKlR",
+      "name": "TenCar Rent",
+      "contactPerson": "Erick Cordova VIteri",
+      "email": "cordova.e230@gmail.com",
+      "phone": "0991802320",
+      "rucNumber": 1200121058598,
+      "registerDate": "2025-05-14T20:32:58.268Z",
       "status": true
     }
   ],
@@ -91,6 +101,12 @@
       "idCompany": "IZ72",
       "userName": "europcar610",
       "password": "europcar610"
+    },
+    {
+      "id": "xKlR",
+      "idCompany": "xKlR",
+      "userName": "rickRentCar",
+      "password": "nmnmgg12"
     }
   ],
   "agencys": [
