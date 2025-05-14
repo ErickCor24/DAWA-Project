@@ -1,42 +1,53 @@
 <section class="register-container">
-    <div class="card-register">
-        <header class="header-card">
-            <h1>Registrar companía</h1>
-        </header>
-        <main>
-            <form class="form-register-company" action="">
-                <div class="form-group">
-                    <label for="">Nombre empresarial</label>
-                    <input placeholder="Nombre de la empresa">
-                </div>
-                <div class="form-group">
-                    <label for="">Persona responsable</label>
-                    <input placeholder="Persona responsable">
-                </div>
-                <div class="form-group">
-                    <label for="">Correo electrónico</label>
-                    <input placeholder="Correo electronico empresarial">
-                </div>
-                <div class="double-group">
-                    <div class="form-group">
-                        <label for="">Número de celular</label>
-                        <input placeholder="N° Celular">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Numero de RUC</label>
-                        <input placeholder="Numero de RUC">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="">Nombre de usuario</label>
-                    <input placeholder="Nombre de usuario">
-                </div>
-                <div class="form-group">
-                    <label for="">Contraseña</label>
-                    <input type="password" placeholder="Contraseña">
-                </div>
-                <button>Registrarse</button>
-            </form>
-        </main>
-    </div>
+  <div class="card-register">
+    <header class="header-card">
+      <h1>Registrar compañía</h1>
+    </header>
+    <main>
+      <form class="form-register-company" [formGroup]="companyForm" (ngSubmit)="registerCompanyAndUser($event)">
+        <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+          <mat-label>Nombre empresarial</mat-label>
+          <input matInput placeholder="Nombre de la empresa" formControlName="name" required>
+        </mat-form-field>
+
+        <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+          <mat-label>Persona responsable</mat-label>
+          <input matInput placeholder="Persona responsable" formControlName="contactPerson" required>
+        </mat-form-field>
+
+        <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput placeholder="Correo electronico empresarial" formControlName="email" required>
+        </mat-form-field>
+
+        <div class="double-group">
+          <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+            <mat-label>Número de celular</mat-label>
+            <input matInput placeholder="N° Celular" type="number" formControlName="phone" required maxlength="10"
+              minlength="10">
+            <mat-hint class="hint-label">10 digitos</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+            <mat-label>Numero de RUC</mat-label>
+            <input matInput placeholder="Numero de RUC" type="number" formControlName="rucNumber" required
+              maxlength="13" minlength="13">
+            <mat-hint class="hint-label">13 digitos</mat-hint>
+          </mat-form-field>
+        </div>
+        <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput placeholder="Nombre de usuario" formControlName="userName" required>
+        </mat-form-field>
+
+        <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" placeholder="Contraseña" formControlName="password" required>
+          <mat-hint class="hint-label">min 8 caracteres*</mat-hint>
+        </mat-form-field>
+        <button type="submit">Registrarse</button>
+        <p>¿Ya tiene cuenta? <a routerLink="/company/login">Iniciar Sesión</a></p>
+      </form>
+    </main>
+  </div>
 </section>

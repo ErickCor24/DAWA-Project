@@ -30,7 +30,7 @@ header {
 }
 
 .nav-bar-header {
-    
+
     & a {
         padding: 0 10px;
         text-decoration: none;
@@ -47,10 +47,11 @@ header {
 .btn-container {
     display: flex;
     flex-grow: 1;
-    flex-basis: 0px; 
+    flex-basis: 0px;
     justify-content: flex-end;
 
-    & button {
+    & a, button {
+      text-decoration: none;
         margin: 0;
         border: none;
         padding: 0;
