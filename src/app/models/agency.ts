@@ -1,6 +1,6 @@
 export interface Agency {
-    idAgency: number;
-    idCompany: number;
+    id: number;            
+    idCompany: number;     
     name: string;
     address: string;
     phone: string;
