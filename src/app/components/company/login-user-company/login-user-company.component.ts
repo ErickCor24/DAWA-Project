@@ -33,14 +33,16 @@ export class LoginUserCompanyComponent implements OnInit {
 
   submitLogin = (event: Event) => {
     let result: boolean = true;
-    const rawFormValue = this.companyLoginForm.value;
-    this._userService.loginSystem(rawFormValue.userName.trim(), rawFormValue.password.trim()).subscribe(x => {
-      console.log(x);
-      if(!this._userService.createSessionUser(x)) {
-        result = false;
-        this.messageLogin = "Usuario no encontrado";
-        console.log("no encontrado");
-      } else this.router.navigate(['/home']);
-    });
+    if (this.companyLoginForm.valid) {
+      const rawFormValue = this.companyLoginForm.value;
+      this._userService.loginSystem(rawFormValue.userName.trim(), rawFormValue.password.trim()).subscribe(x => {
+        console.log(x);
+        if (!this._userService.createSessionUser(x)) {
+          result = false;
+          this.messageLogin = "Usuario no encontrado";
+          console.log("no encontrado");
+        } else this.router.navigate(['/home']);
+      });
+    }
   }
 }
