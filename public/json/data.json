@@ -1,44 +1,114 @@
 {
   "clients": [
     {
-      "idClient": 1,
-      "fullName": "Jose Aguistin Martinez",
-      "email": "josejose25@gmail.com",
-      "phone": "0991525236",
-      "ci": "1156923301",
-      "address": "Av. 10 de Agosto y Av. Eloy Alfaro",
-      "birthDate": "1995-05-25",
-      "nationality": "Ecuadorian",
-      "status": true,
-      "id": "e1e9"
+      "id": "1",
+      "fullName": "diavlo",
+      "email": "diablo@gmail.com",
+      "password": "diablo1234",
+      "phone": "021456879",
+      "ci": "0236441258",
+      "address": "sssss",
+      "birthDate": "2025-05-29",
+      "nationality": "ssssss",
+      "status": true
     },
     {
-      "idClient": 2,
-      "fullName": "Carla Fernanda Paredes",
-      "email": "carla.paredes@gmail.com",
-      "phone": "0987654321",
-      "ci": "1102938475",
-      "address": "Av. República y Naciones Unidas",
-      "birthDate": "1990-10-12",
-      "nationality": "Ecuadorian",
-      "status": true,
-      "id": "4476"
+      "id": "2",
+      "fullName": "diegoant",
+      "email": "diegoant@gmail.com",
+      "password": "diego123",
+      "phone": "8520741086",
+      "ci": "4512045120",
+      "address": "diegoant",
+      "birthDate": "2025-05-23",
+      "nationality": "diegoant",
+      "status": true
+    },
+    {
+      "id": "3",
+      "fullName": "juana",
+      "email": "juana@gmail.com",
+      "password": "juana123",
+      "phone": "1501201650",
+      "ci": "8602415025",
+      "address": "juana",
+      "birthDate": "2025-05-16",
+      "nationality": "juana",
+      "status": true
+    },
+    {
+      "id": "4",
+      "fullName": "pedro",
+      "email": "correos@gmail.com",
+      "password": "pedro85102",
+      "phone": "8451024815",
+      "ci": "8150285623",
+      "address": "pedro",
+      "birthDate": "2025-05-29",
+      "nationality": "Ecuatorina",
+      "status": true
+    },
+    {
+      "id": "5",
+      "fullName": "juanita",
+      "email": "juanita@gmail.com",
+      "password": "juanita123",
+      "phone": "2580658938",
+      "ci": "8520410963",
+      "address": "juanita",
+      "birthDate": "2025-05-30",
+      "nationality": "juanita",
+      "status": true
+    },
+    {
+      "id": "6",
+      "fullName": "angie",
+      "email": "angie@gmail.com",
+      "password": "angie1234",
+      "phone": "0565002034",
+      "ci": "8500565050",
+      "address": "angie",
+      "birthDate": "2025-05-16",
+      "nationality": "angie",
+      "status": true
     }
   ],
   "userClients": [
     {
-      "idUserClient": 1,
-      "idClient": 1,
-      "userName": "jose84",
-      "password": "01020304@",
-      "id": "edc1"
+      "id": "1",
+      "userName": "diablo@gmail.com",
+      "password": "diablo1234",
+      "status": true
     },
     {
-      "idUserClient": 2,
-      "idClient": 2,
-      "userName": "carlafernanda90",
-      "password": "pass12345#",
-      "id": "aea8"
+      "id": "2",
+      "userName": "diegoant@gmail.com",
+      "password": "diego123",
+      "status": true
+    },
+    {
+      "id": "3",
+      "userName": "juana@gmail.com",
+      "password": "juana123",
+      "status": true
+    },
+    {
+      "id": "4",
+      "userName": "correos@gmail.com",
+      "password": "pedro85102",
+      "status": true
+    },
+    {
+      "id": "5",
+      "userName": "juanita@gmail.com",
+      "password": "juanita123",
+      "status": true
+    },
+    {
+      "id": "6",
+      "userName": "angie@gmail.com",
+      "password": "angie1234",
+      "status": true
     }
   ],
   "companys": [
