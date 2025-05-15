@@ -1,42 +1,114 @@
 {
   "clients": [
     {
-      "id": "54a8",
-      "fullName": "Jose Aguistin Martinez",
-      "email": "josejose25@gmail.com",
-      "phone": "0991525236",
-      "ci": "1156923301",
-      "address": "Av. 10 de Agosto y Av. Eloy Alfaro",
-      "birthDate": "1995-05-25",
-      "nationality": "Ecuadorian",
+      "id": "1",
+      "fullName": "diavlo",
+      "email": "diablo@gmail.com",
+      "password": "diablo1234",
+      "phone": "021456879",
+      "ci": "0236441258",
+      "address": "sssss",
+      "birthDate": "2025-05-29",
+      "nationality": "ssssss",
       "status": true
     },
     {
-      "id": "c197",
-      "fullName": "Carla Fernanda Paredes",
-      "email": "carla.paredes@gmail.com",
-      "phone": "0987654321",
-      "ci": "1102938475",
-      "address": "Av. República y Naciones Unidas",
-      "birthDate": "1990-10-12",
-      "nationality": "Ecuadorian",
+      "id": "2",
+      "fullName": "diegoant",
+      "email": "diegoant@gmail.com",
+      "password": "diego123",
+      "phone": "8520741086",
+      "ci": "4512045120",
+      "address": "diegoant",
+      "birthDate": "2025-05-23",
+      "nationality": "diegoant",
+      "status": true
+    },
+    {
+      "id": "3",
+      "fullName": "juana",
+      "email": "juana@gmail.com",
+      "password": "juana123",
+      "phone": "1501201650",
+      "ci": "8602415025",
+      "address": "juana",
+      "birthDate": "2025-05-16",
+      "nationality": "juana",
+      "status": true
+    },
+    {
+      "id": "4",
+      "fullName": "pedro",
+      "email": "correos@gmail.com",
+      "password": "pedro85102",
+      "phone": "8451024815",
+      "ci": "8150285623",
+      "address": "pedro",
+      "birthDate": "2025-05-29",
+      "nationality": "Ecuatorina",
+      "status": true
+    },
+    {
+      "id": "5",
+      "fullName": "juanita",
+      "email": "juanita@gmail.com",
+      "password": "juanita123",
+      "phone": "2580658938",
+      "ci": "8520410963",
+      "address": "juanita",
+      "birthDate": "2025-05-30",
+      "nationality": "juanita",
+      "status": true
+    },
+    {
+      "id": "6",
+      "fullName": "angie",
+      "email": "angie@gmail.com",
+      "password": "angie1234",
+      "phone": "0565002034",
+      "ci": "8500565050",
+      "address": "angie",
+      "birthDate": "2025-05-16",
+      "nationality": "angie",
       "status": true
     }
   ],
   "userClients": [
     {
-      "idUserClient": 1,
-      "idClient": 1,
-      "userName": "jose84",
-      "password": "01020304@",
-      "id": "766e"
+      "id": "1",
+      "userName": "diablo@gmail.com",
+      "password": "diablo1234",
+      "status": true
     },
     {
-      "idUserClient": 2,
-      "idClient": 2,
-      "userName": "carlafernanda90",
-      "password": "pass12345#",
-      "id": "42f9"
+      "id": "2",
+      "userName": "diegoant@gmail.com",
+      "password": "diego123",
+      "status": true
+    },
+    {
+      "id": "3",
+      "userName": "juana@gmail.com",
+      "password": "juana123",
+      "status": true
+    },
+    {
+      "id": "4",
+      "userName": "correos@gmail.com",
+      "password": "pedro85102",
+      "status": true
+    },
+    {
+      "id": "5",
+      "userName": "juanita@gmail.com",
+      "password": "juanita123",
+      "status": true
+    },
+    {
+      "id": "6",
+      "userName": "angie@gmail.com",
+      "password": "angie1234",
+      "status": true
     }
   ],
   "companys": [
@@ -54,13 +126,32 @@
     {
       "idCompany": 2,
       "name": "AutoRentXpress",
-      "contactPerson": "Lucia Terán",
-      "email": "lucia.teran@autorent.com",
-      "phone": "0970012312",
-      "rucNumber": "1015236554321",
+      "contactPerson": "Lucia Teran",
+      "email": "lucia.teran@autoren.com",
+      "phone": "00960495721",
+      "rucNumber": 1001523201089,
       "registerDate": "2023-11-21",
-      "status": true,
-      "id": "4579"
+      "status": true
+    },
+    {
+      "id": "fJwB",
+      "name": "Alajitos Car",
+      "contactPerson": "Erick Alejandro",
+      "email": "alajitos.15@gmail.com",
+      "phone": 960495721,
+      "rucNumber": 1104949977741,
+      "registerDate": "2025-05-13T23:38:45.962Z",
+      "status": true
+    },
+    {
+      "id": "xKlR",
+      "name": "TenCar Rent",
+      "contactPerson": "Erick Cordova VIteri",
+      "email": "cordova.e230@gmail.com",
+      "phone": "0991802320",
+      "rucNumber": 1200121058598,
+      "registerDate": "2025-05-14T20:32:58.268Z",
+      "status": true
     }
   ],
   "userCompanys": [
@@ -75,8 +166,19 @@
       "idUserCompany": 2,
       "ideCompany": 2,
       "userName": "autorent_lucia",
-      "password": "luciaSecure@2024",
-      "id": "9227"
+      "password": "luciaSecure@2024"
+    },
+    {
+      "id": "IZ72",
+      "idCompany": "IZ72",
+      "userName": "europcar610",
+      "password": "europcar610"
+    },
+    {
+      "id": "xKlR",
+      "idCompany": "xKlR",
+      "userName": "rickRentCar",
+      "password": "nmnmgg12"
     }
   ],
   "agencys": [

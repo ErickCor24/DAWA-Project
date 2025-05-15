@@ -8,10 +8,10 @@ import { LoginUserCompanyComponent } from './components/company/login-user-compa
 import { ViewCompanyComponent } from './components/company/view-company/view-company.component';
 
 export const routes: Routes = [
-  //Agency
-
+   //Agency
+    { path: 'agency', loadChildren: () => import('./components/agency/agency.module').then(m => m.AgencyModule) },
   //Client
-
+    { path: 'client', loadChildren: () => import('./components/client/client.routes').then(m => m.clientRoutes) },
   //Company
     { path: 'company', loadChildren: () => import('./components/company/company.routes').then(m => m.CompanyRoutes)},
 

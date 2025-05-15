@@ -40,5 +40,12 @@ export class CompanyService {
     return this.http.delete<void>(URL);
   }
 
+  getCompaniesByName = (input: string): Observable<Company[]> => {
+    return this.http.get<Company[]>(this.URL_COMPANY).pipe(
+      map(companies =>
+        companies.filter(company => input ? company.name.toLowerCase().includes(input.toLowerCase()) : true)
+      )
+    )
+  }
 
 }

@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, signal } from '@angular/core';
 import { CompanyService } from '../../../services/company/company.service';
 import { Company } from '../../../models/Company';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {  FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
@@ -24,6 +24,7 @@ export class ViewCompanyComponent implements OnInit {
   hide = signal(true);
   formProfile!: FormGroup;
   hidden: boolean = false;
+
 
   constructor(private _companyService: CompanyService, private _userService: UserCompanyService, private fb: FormBuilder, private router: Router, private _dialogService: DialogService) { }
 
@@ -45,24 +46,26 @@ export class ViewCompanyComponent implements OnInit {
   }
 
   updateCompany = (): void => {
-    const rawFormValue = this.formProfile.value;
-    const company: Company = {
-      id: this.token!.toString(),
-      name: rawFormValue.name,
-      contactPerson: rawFormValue.contactPerson,
-      email: rawFormValue.email,
-      phone: rawFormValue.phone,
-      rucNumber: rawFormValue.ruc,
-      registerDate: this.company.registerDate,
-      status: true
-    }
-    console.log(company);
-    this._companyService.updateCompany(company, this.token!).subscribe(
-      {
-        next: (data) => console.log('Update:', data),
-        error: (err) => console.error('Error tryng update:', err)
+    if (this.formProfile.valid) {
+      const rawFormValue = this.formProfile.value;
+      const company: Company = {
+        id: this.token!.toString(),
+        name: rawFormValue.name,
+        contactPerson: rawFormValue.contactPerson,
+        email: rawFormValue.email,
+        phone: "0" + rawFormValue.phone,
+        rucNumber: rawFormValue.ruc,
+        registerDate: this.company.registerDate,
+        status: true
       }
-    );
+      console.log(company);
+      this._companyService.updateCompany(company, this.token!).subscribe(
+        {
+          next: (data) => console.log('Update:', data),
+          error: (err) => console.error('Error tryng update:', err)
+        }
+      );
+    }
   }
 
   deleteCompany = () => {
@@ -82,11 +85,11 @@ export class ViewCompanyComponent implements OnInit {
   //Create form object with company attribute
   createFormObject = (object: Company): void => {
     this.formProfile = this.fb.group({
-      name: [{ value: object.name, disabled: true }],
-      contactPerson: [{ value: object.contactPerson, disabled: true }],
-      email: [{ value: object.email, disabled: true }],
-      phone: [{ value: object.phone, disabled: true }, [Validators.required, Validators.maxLength(10)]],
-      ruc: [{ value: object.rucNumber, disabled: true }, [Validators.required, Validators.minLength(13)]]
+      name: [{ value: object.name, disabled: true }, [Validators.required]],
+      contactPerson: [{ value: object.contactPerson, disabled: true }, [Validators.required]],
+      email: [{ value: object.email, disabled: true }, [Validators.required]],
+      phone: [{ value: object.phone, disabled: true }, [Validators.required, Validators.max(999999999), Validators.min(100000000)]],
+      ruc: [{ value: object.rucNumber, disabled: true }, [Validators.required, Validators.max(9999999999999)]]
     })
   }
 
