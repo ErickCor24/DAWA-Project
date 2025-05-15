@@ -1,0 +1,40 @@
+<div>
+  <div class="search-section">
+    <h2>Empresas asociadas</h2>
+    <mat-form-field appearance="outline" color="primary" floatLabel="always">
+      <mat-label>Buscar</mat-label>
+      <input matInput placeholder="Buscar empresas asociadas" #searchInput (keyup)="searchNameCompany(searchInput)">
+    </mat-form-field>
+  </div>
+  <section *ngIf="companies" class="grid-companies">
+    <div *ngFor="let item of companies; index as i; first as isFirst" class="company-card">
+      <div class="header-card">
+        <p>{{item.name}}</p>
+      </div>
+      <div class="content-card">
+        <div class="info-section">
+          <mat-icon aria-hidden="false" aria-label="User icon" fontIcon="person" style="color: #3c6e71aa"></mat-icon>
+          <div>
+            <span>Persona Responsable</span>
+            <p> {{item.contactPerson}}</p>
+          </div>
+        </div>
+        <div class="info-section">
+          <mat-icon aria-hidden="false" aria-label="User icon" fontIcon="email" color="warn"
+            style="color: #3c6e71aa"></mat-icon>
+          <div>
+            <span>Email</span>
+            <p>{{item.email}}</p>
+          </div>
+        </div>
+        <div class="info-section">
+          <mat-icon aria-hidden="false" aria-label="User icon" fontIcon="call" style="color: #3c6e71aa"></mat-icon>
+          <div>
+            <span>Número de Contacto</span>
+            <p>{{item.phone}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
