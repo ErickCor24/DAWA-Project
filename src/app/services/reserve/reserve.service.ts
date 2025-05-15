@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { map, Observable } from 'rxjs';
 import { Reserve } from '../../models/reserve';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,5 +18,8 @@ private jsonUrl:string = "http://localhost:3000/reserves";
       const reserveCleaned = { ...reserve };
   delete (reserveCleaned as any).id;
     return this.http.post<Reserve>(this.jsonUrl, reserve);
+  }
+    deleteReserve(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.jsonUrl}/${id}`);
   }
 }

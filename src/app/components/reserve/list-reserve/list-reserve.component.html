@@ -1,0 +1,33 @@
+<h2>Lista de Reservas</h2>
+
+<table class="reserve-table">
+  <thead>
+    <tr>
+      <th>Cliente</th>
+      <th>Vehículo</th>
+      <th>Agencia</th>
+      <th>Fecha Inicio</th>
+      <th>Fecha Fin</th>
+      <th>Precio</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let reserve of reserves">
+      <td>{{ getClientName(reserve.idClient.toString()) }}</td>
+    <td>{{ getClientName(reserve.idClient.toString()) }}</td>
+     <td>{{ getClientName(reserve.idClient.toString()) }}</td>
+      <td>{{ reserve.pickupDate | date:'yyyy-MM-dd' }}</td>
+      <td>{{ reserve.dropoffDate | date:'yyyy-MM-dd' }}</td>
+      <td>${{ reserve.price }}</td>
+      <td>{{ reserve.status ? 'Activo' : 'Inactivo' }}</td>
+      <td>
+        <app-button [name]="'Eliminar'" [type]="'button'" (clicked)="deleteReserve(reserve.id)"></app-button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<app-button [name]="'Registrar Nueva Reserva'" [type]="'button'" (clicked)="goToRegister()"></app-button>
+

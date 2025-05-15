@@ -1,5 +1,5 @@
 export interface Reserve {
-  id: number;        // Opcional si es autogenerado
+  id: string;        // Opcional si es autogenerado
   idClient: number;
   idVehicle: number;
   idAgencyPickup: number;

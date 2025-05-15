@@ -7,14 +7,23 @@
     <main>
       <form [formGroup]="reserveForm" (ngSubmit)="onSubmit()">
         <div class="double-group">
-          <!--<mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+          <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
             <mat-label>Cliente</mat-label>
             <mat-select formControlName="idClient" required>
               <mat-option *ngFor="let client of clients" [value]="client.id">
                 {{ client.fullName }}
               </mat-option>
             </mat-select>
-          </mat-form-field>!-->
+             <mat-error>
+        @if(reserveForm.get('idClient')?.invalid  && reserveForm.get('idClient')?.dirty || reserveForm.get('idClient')?.touched){
+          @if(reserveForm.get('idClient')?.errors?.['required']){
+            Nombre de cliente requerido
+
+          }
+          
+        }
+      </mat-error>
+          </mat-form-field>
 
           <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
             <mat-label>Agencia de Retiro</mat-label>
@@ -23,28 +32,63 @@
                 {{ agency.name }}
               </mat-option>
             </mat-select>
+              <mat-error>
+        @if(reserveForm.get('idAgencyPickup')?.invalid  && reserveForm.get('idAgencyPickup')?.dirty || reserveForm.get('idAgencyPickup')?.touched){
+          @if(reserveForm.get('idAgencyPickup')?.errors?.['required']){
+            Debe seleccionar una agencia
+
+          }
+          
+        }
+      </mat-error>
           </mat-form-field>
         </div>
 
         <div class="double-group">
           <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
             <mat-label>Fecha de Retiro</mat-label>
-             <input matInput [matDatepicker]="picker" placeholder="fecha de retiro"
+             <input matInput [matDatepicker]="picker1" placeholder="fecha de retiro"
              formControlName="pickupDate">
              <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+             <mat-error>
+        @if(reserveForm.get('pickupDate')?.invalid  && reserveForm.get('pickupDate')?.dirty || reserveForm.get('pickupDate')?.touched){
+          @if(reserveForm.get('pickupDate')?.errors?.['required']){
+            Debe seleccionar una fecha de retiro
+
+          }
+          
+        }
+      </mat-error>
           </mat-form-field>
 
           <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
             <mat-label>Fecha de Entrega</mat-label>
-             <input matInput [matDatepicker]="picker" placeholder="fecha de entrega"
+             <input matInput [matDatepicker]="picker2" placeholder="fecha de entrega"
              formControlName="dropoffDate">
              <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error>
+        @if(reserveForm.get('dropoffDate')?.invalid  && reserveForm.get('dropoffDate')?.dirty || reserveForm.get('dropoffDate')?.touched){
+          @if(reserveForm.get('dropoffDate')?.errors?.['required']){
+            Debe seleccionar una fecha de entrega 
+
+          }
+          
+        }
+      </mat-error>
           </mat-form-field>
         </div>
+<div class="days-info" *ngIf="rentalDays > 0">
+  <p>{{ rentalDays }} día{{ rentalDays > 1 ? 's' : '' }} seleccionados</p>
+</div>
+
+<div class="error-message" *ngIf="reserveForm.errors?.['dateInvalid']">
+
+  <p style="color: red;">⚠ La fecha de entrega debe ser mayor que la de retiro.</p>
+</div>
 
         <div class="double-group">
           <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
@@ -63,7 +107,12 @@
           </mat-form-field>
         </div>
 
-        <app-button [name]="'Guardar'" [type]="'submit'"></app-button>
+      <div class="double-group">
+        <app-button [name]="'Guardar Reserva'" [type]="'button'" (clicked)="onSubmit()"> </app-button>
+
+        <app-button [name]="'Cancelar'" [type]="'button'" (clicked)="onCancel()"> </app-button>
+      </div>
+
       </form>
     </main>
   </div>

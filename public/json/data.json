@@ -1,7 +1,7 @@
 {
   "clients": [
     {
-      "idClient": 1,
+      "id": "54a8",
       "fullName": "Jose Aguistin Martinez",
       "email": "josejose25@gmail.com",
       "phone": "0991525236",
@@ -9,11 +9,10 @@
       "address": "Av. 10 de Agosto y Av. Eloy Alfaro",
       "birthDate": "1995-05-25",
       "nationality": "Ecuadorian",
-      "status": true,
-      "id": "54a8"
+      "status": true
     },
     {
-      "idClient": 2,
+      "id": "c197",
       "fullName": "Carla Fernanda Paredes",
       "email": "carla.paredes@gmail.com",
       "phone": "0987654321",
@@ -21,8 +20,7 @@
       "address": "Av. República y Naciones Unidas",
       "birthDate": "1990-10-12",
       "nationality": "Ecuadorian",
-      "status": true,
-      "id": "c197"
+      "status": true
     }
   ],
   "userClients": [
@@ -107,17 +105,6 @@
   ],
   "reserves": [
     {
-      "idReserve": 1,
-      "idClient": 1,
-      "idVehicle": 1,
-      "idAgencyPickup": 1,
-      "pickupDate": "2025-01-10",
-      "dropoffDate": "2025-01-15",
-      "price": 199.99,
-      "status": true,
-      "id": "d745"
-    },
-    {
       "idReserve": 2,
       "idClient": 2,
       "idVehicle": 2,
@@ -127,16 +114,6 @@
       "price": 220.5,
       "status": true,
       "id": "dd74"
-    },
-    {
-      "id": "2a77",
-      "idClient": 0,
-      "idVehicle": 0,
-      "idAgencyPickup": 1,
-      "pickupDate": "2025-05-13T05:00:00.000Z",
-      "dropoffDate": "2025-05-20T05:00:00.000Z",
-      "price": 0,
-      "status": true
     },
     {
       "id": "977e",
@@ -160,17 +137,6 @@
       "status": true
     },
     {
-      "id": "3f83",
-      "idReserve": 4,
-      "idClient": 1,
-      "idVehicle": 1,
-      "idAgencyPickup": 1,
-      "pickupDate": "2024-12-12",
-      "dropoffDate": "2024-12-25",
-      "price": 500,
-      "status": true
-    },
-    {
       "id": "8cc0",
       "idClient": "54a8",
       "idVehicle": "e2be",
@@ -189,11 +155,71 @@
       "dropoffDate": "2024-01-25",
       "price": 840,
       "status": true
+    },
+    {
+      "id": "8ae5",
+      "idClient": "54a8",
+      "idVehicle": "e2be",
+      "idAgencyPickup": "80d7",
+      "pickupDate": "2025-05-14T05:00:00.000Z",
+      "dropoffDate": "2025-05-21T05:00:00.000Z",
+      "price": 280,
+      "status": true
+    },
+    {
+      "id": "abdb",
+      "idClient": "54a8",
+      "idVehicle": "e2be",
+      "idAgencyPickup": "80d7",
+      "pickupDate": "2025-05-07T05:00:00.000Z",
+      "dropoffDate": "2025-05-17T05:00:00.000Z",
+      "price": 400,
+      "status": true
+    },
+    {
+      "id": "28df",
+      "idClient": "54a8",
+      "idVehicle": "e2be",
+      "idAgencyPickup": "b9a9",
+      "pickupDate": "2025-05-28",
+      "dropoffDate": "2025-05-31",
+      "price": 120,
+      "status": true
+    },
+    {
+      "id": "ba42",
+      "idClient": "54a8",
+      "idVehicle": "ccdf",
+      "idAgencyPickup": "b9a9",
+      "pickupDate": "2025-05-07",
+      "dropoffDate": "2025-05-28",
+      "price": 1050,
+      "status": true
+    },
+    {
+      "id": "ea51",
+      "idClient": "54a8",
+      "idVehicle": "e2be",
+      "idAgencyPickup": "b9a9",
+      "pickupDate": "2025-05-07",
+      "dropoffDate": "2025-05-28",
+      "price": 840,
+      "status": true
+    },
+    {
+      "id": "d526",
+      "idClient": "c197",
+      "idVehicle": "e2be",
+      "idAgencyPickup": "b9a9",
+      "pickupDate": "2025-05-08",
+      "dropoffDate": "2025-05-22",
+      "price": 560,
+      "status": true
     }
   ],
   "vehicles": [
     {
-      "idVehicle": 1,
+      "id": "e2be",
       "brand": "Ford",
       "model": "Focus",
       "year": 2024,
@@ -207,11 +233,10 @@
       "fuelType": "Gasolina",
       "isAvailable": true,
       "status": true,
-      "dailyPrice": 40,
-      "id": "e2be"
+      "dailyPrice": 40
     },
     {
-      "idVehicle": 2,
+      "id": "ccdf",
       "brand": "Chevrolet",
       "model": "Spark GT",
       "year": 2023,
@@ -225,8 +250,7 @@
       "fuelType": "Gasolina",
       "isAvailable": true,
       "status": true,
-      "dailyPrice": 40,
-      "id": "ccdf"
+      "dailyPrice": 50
     }
   ]
 }
