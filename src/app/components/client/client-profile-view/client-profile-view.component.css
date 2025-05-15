@@ -1,0 +1,102 @@
+.login-page {
+  background-color: #e3e3e3; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+.avatar-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  margin-bottom: 1rem;
+}
+
+.profile-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+  
+  .profile-card {
+    background: #fafafa;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    
+  }
+  .profile-name {
+    margin-top: 0.5rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .profile-avatar {
+    font-size: 96px ; 
+    color: #3c6E71;
+    line-height: 1 ; 
+    width: auto;
+    height: auto;
+    overflow: visible;
+  }
+  
+  mat-chip {
+    height: 28px;
+    font-weight: bold;
+    margin: 0.5rem 0; 
+  }
+  
+  mat-list-item {
+    padding: 0.5rem 0;
+  }
+  
+  mat-icon[matListIcon] {
+    color: #3c6E71;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  mat-card-actions button {
+    color: #3c6E71 !important;
+    font-weight: bold;
+  }
+  
+  .inactive-card {
+    background-color: #ffebee;
+  }
+  
+  .loading-text {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 1.2rem;
+    color: #151515;
+  }
+  
+  
+  
+  @media (max-width: 600px) {
+    .profile-card {
+      margin: 1rem;
+      font-size: 0.95rem;
+    }
+  
+    .profile-avatar {
+      font-size: 56px;
+    }
+  
+    mat-card-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+  

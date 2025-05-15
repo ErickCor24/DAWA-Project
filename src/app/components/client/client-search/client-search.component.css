@@ -1,0 +1,82 @@
+.search-container {
+  padding: 3rem 5rem;
+  background-color: #e3e3e3;
+  color: #151515;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.title {
+  color: #3C6E71;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 2.5rem;
+}
+
+
+.search-bar-wrapper {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  justify-content: flex-start;
+  max-width: 600px;
+  margin-bottom: 2.5rem;
+}
+
+.search-field {
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-button {
+  margin: 0;
+  height: 66px;
+  align-self: flex-end;
+}
+
+.full-width-table {
+  width: 100%;
+  border-radius: 10px;
+  background-color: #FEFFFE;
+  overflow: hidden;
+  border-collapse: collapse;
+}
+
+.mat-header-cell {
+  background-color: #151515;
+  color: #FEFFFE;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 14px;
+}
+
+.mat-cell {
+  font-size: 14px;
+  padding: 14px;
+  vertical-align: middle;
+}
+
+.mat-row {
+  background-color: white;
+  transition: background-color 0.2s;
+}
+
+.mat-row:hover {
+  background-color: #f4f4f4;
+}
+
+.mat-icon {
+  vertical-align: middle;
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+mat-chip {
+  color: #fff;
+  font-weight: 500;
+  border-radius: 5px;
+  font-size: 13px;
+  padding: 0 10px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+}
