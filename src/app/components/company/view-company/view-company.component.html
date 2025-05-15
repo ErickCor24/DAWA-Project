@@ -18,7 +18,7 @@
 
       <mat-form-field class="contain-3 form-group" appearance="outline" color="primary" floatLabel="always" hideRequiredMarker>
         <mat-label>Correo electrónico</mat-label>
-        <input matInput formControlName="email" required>
+        <input matInput type="email" [email]="true" formControlName="email" required>
       </mat-form-field>
 
       <mat-form-field class="contain-4 form-group" appearance="outline" color="primary" floatLabel="always" hideRequiredMarker>
