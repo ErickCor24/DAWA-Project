@@ -6,9 +6,9 @@ import { UpdateVehicleComponent } from "./update-vehicle/update-vehicle.componen
 
 export const VehicleRoutes: Routes = [
     { path: '', component: ViewVehiclesComponent },
-    { path: 'view-vehicles', component: ViewVehiclesComponent },
-    { path: 'create-vehicle', component: CreateVehicleComponent },
+    { path: 'view', component: ViewVehiclesComponent },
+    { path: 'create', component: CreateVehicleComponent },
     { path: 'list-vehicles', component: ListVehiclesComponent },
-    { path: 'update-vehicle/:id', component: UpdateVehicleComponent }
+    { path: 'update/:id', component: UpdateVehicleComponent }
 
 ];

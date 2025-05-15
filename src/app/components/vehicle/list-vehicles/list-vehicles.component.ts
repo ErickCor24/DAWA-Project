@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { Vehicle } from '../../../models/Vehicle';
@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from "../../shared/button/button.component";
+import { DialogService } from '../../../services/dialog-box/dialog.service';
 
 @Component({
   selector: 'app-list-vehicles',
@@ -18,7 +19,7 @@ import { ButtonComponent } from "../../shared/button/button.component";
   templateUrl: './list-vehicles.component.html',
   styleUrl: './list-vehicles.component.css'
 })
-export class ListVehiclesComponent {
+export class ListVehiclesComponent implements OnInit{
 
   displayedColumns: string[] = ['poster', 'brand', 'model', 'year', 'plateNumber', 'color', 'type', 'transmission', 'actions'];
   dataSource = new MatTableDataSource<Vehicle>();
@@ -30,24 +31,36 @@ export class ListVehiclesComponent {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private service: VehicleService, private fb: FormBuilder, private router: Router) { }
+  constructor(private service: VehicleService, private fb: FormBuilder, private router: Router, private dialogService: DialogService) { }
+
+  idCompany!: string;
+
 
   ngOnInit(): void {
-    this.loadVehicles();
-    this.formSearch = this.fb.group({
-      searchBy: [''],
-      inputSearch: ['']
-    })
+    console.log(`idCompanyLogued ${sessionStorage.getItem('idCompany')}`);
+    this.idCompany = sessionStorage.getItem('idCompany') ?? '';
+    if (this.idCompany != null &&
+      typeof this.idCompany === 'string' &&
+      this.idCompany != '') {
+      this.loadVehicles(this.idCompany);
+      this.formSearch = this.fb.group({
+        searchBy: [''],
+        inputSearch: ['']
+      })
+    } else {
+      this.navigateTo("company/login");
+    }
+
   }
 
-  loadVehicles(): void {
-    this.service.getVehicles("1").subscribe((data: Vehicle[]) => {
+  loadVehicles(idCompany: string): void {
+    this.service.getVehicles(idCompany).subscribe((data: Vehicle[]) => {
       this.dataSource.data = data;
     })
   }
 
-  navigateToCreateVehicle(): void {
-    this.router.navigate(['/vehicle/create-vehicle']);
+  navigateTo(toComponent: string): void {
+    this.router.navigate([`/${toComponent}`]);
   }
 
   searchVehicle(): void {
@@ -58,14 +71,14 @@ export class ListVehiclesComponent {
         this.dataSource.data = data;
       });
     } else {
-      this.loadVehicles();
+      this.loadVehicles(this.idCompany);
     }
   }
 
   updateVehicle(vehicle: Vehicle): void {
     console.log('Selected vehicle for update:', vehicle);
     if (vehicle && typeof vehicle.id === 'string') {
-      this.router.navigate(['/vehicle/update-vehicle', vehicle.id]);
+      this.router.navigate(['/vehicle/update', vehicle.id]);
       console.log(`VEHICULO ID: ${vehicle.id}`)
     } else {
       console.error('Vehicle ID is undefined.');
@@ -73,7 +86,19 @@ export class ListVehiclesComponent {
   }
 
 
-  deleteVehicle(): void {
+  deleteVehicle(vehicle: Vehicle): void {
+  this.dialogService.openDialog("Eliminar vehículo","¿Estás seguro de eliminar este vehículo?",
+    () => this.deleteVehicleObject(vehicle)
+  ).subscribe((confirmed) => {
+    if (confirmed) {
+      this.deleteVehicleObject(vehicle);
+    }
+  });
+}
 
-  }
+deleteVehicleObject(vehicle: Vehicle): void {
+  this.service.deleteVehicle(vehicle).subscribe(() => {
+    console.log("Vehículo eliminado");
+  });
+}
 }

@@ -40,7 +40,7 @@ export class CreateVehicleComponent implements OnInit{
   }
 
   submit(): void {
-    this.service.createVehicle(this.formGroup.value, "1").subscribe((createVehicle) => {
+    this.service.createVehicle(this.formGroup.value, sessionStorage.getItem('idCompany')!).subscribe((createVehicle) => {
       alert("vEHICLE CREATE");
       this.router.navigate(['/vehicle/list-vehicles'])
     })

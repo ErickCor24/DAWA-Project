@@ -1,37 +1,45 @@
-.div-vehicles {
+.div-view-vehicles {
+    width: 80%;
+    height: fit-content;
     box-sizing: border-box;
-    padding: 0 10px;
-    width: 100%;
-    text-align: center;
-}
+    padding: 30px 40px;
+    margin: 30px auto;
+    background-color: #FEFFFE;
 
-.vehicle-card {
-    display: inline-block;
-    width: 300px;
-    padding: 5px;
-    margin: 5px;
-    place-items: center;
-
-    & mat-card-header {
-        margin-left: 0;
+    & .div-vehicles {
+        box-sizing: border-box;
+        width: 100%;
         text-align: center;
-    }
 
-    & img {
-        width: 225px;
-        height: 150px;
-    }
+        & .vehicle-card {
+            display: inline-block;
+            width: 300px;
+            padding: 5px;
+            margin: 5px;
+            place-items: center;
 
-    & mat-card-content {
+            & mat-card-header {
+                margin-left: 0;
+                text-align: center;
+            }
 
-        p {
-            margin: 10px;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            & img {
+                width: 225px;
+                height: 150px;
+            }
+
+            & mat-card-content {
+
+                p {
+                    margin: 10px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
         }
     }
 }

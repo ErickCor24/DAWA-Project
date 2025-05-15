@@ -1,18 +1,18 @@
 .div-list-vehicles {
     height: fit-content;
     box-sizing: border-box;
-    padding: 20px;
-    width: 90%;
-    margin: 20px auto;
+    overflow-x: hidden;
     background-color: #FEFFFE;
-    place-items: center;
+    width: 80%;
+    padding: 30px 50px;
+    margin: 30px auto;
 
     & .div-search-new {
-        width: 90%;
         display: flex;
         flex-direction: row;
         place-items: center;
         justify-content: space-between;
+        margin-bottom: 20px;
 
         & .form {
             display: flex;
@@ -30,32 +30,38 @@
     }
 
     .div-table-vehicles {
-        width: 90%;
+        overflow: auto;
 
-        & .vehicle-table {
+
+        & .mat-mdc-table,
+        table {
+            width: 100%;
+            table-layout: fixed;
+            word-wrap: break-word;
 
             & img {
-                width: 100px;
-                height: 70px;
+                width: 100%;
+                height: auto;
             }
 
             & .mdc-data-table__cell,
             .mdc-data-table__header-cell {
                 text-align: center;
-                place-items: center;
+                width: auto;
 
-                & .div-cell-buttons{
-                    width: fit-content;
+                & .div-cell-buttons {
                     display: flex;
-                    gap: 20px;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 10px;
                 }
             }
         }
 
-        & mat-paginator {
-            text-align: end;
-        }
     }
 
-
+    & mat-paginator {
+        width: 100%;
+        text-align: end;
+    }
 }
