@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Company } from '../../../models/Company';
+import { Company } from '../../../models/company';
 import { CompanyService } from '../../../services/company/company.service';
 import { CommonModule } from '@angular/common';
 import { MatFormField, MatHint, MatInput, MatLabel } from '@angular/material/input';

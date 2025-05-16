@@ -11,7 +11,7 @@ export class ReserveService {
 private jsonUrl:string = "http://localhost:3000/reserves";
   constructor(private http: HttpClient) { }
   
-  getReserve():Observable<Reserve[]>{
+  getReserves():Observable<Reserve[]>{
     return this.http.get<Reserve[]>(this.jsonUrl);
   }
   addReserve(reserve: Reserve): Observable<Reserve> {

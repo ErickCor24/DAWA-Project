@@ -131,7 +131,8 @@
       "phone": "00960495721",
       "rucNumber": 1001523201089,
       "registerDate": "2023-11-21",
-      "status": true
+      "status": true,
+      "id": "ee7f"
     },
     {
       "id": "fJwB",
@@ -166,7 +167,8 @@
       "idUserCompany": 2,
       "ideCompany": 2,
       "userName": "autorent_lucia",
-      "password": "luciaSecure@2024"
+      "password": "luciaSecure@2024",
+      "id": "6211"
     },
     {
       "id": "IZ72",
@@ -207,116 +209,34 @@
   ],
   "reserves": [
     {
-      "idReserve": 2,
-      "idClient": 2,
-      "idVehicle": 2,
-      "idAgencyPickup": 2,
-      "pickupDate": "2025-03-05",
-      "dropoffDate": "2025-03-10",
-      "price": 220.5,
-      "status": true,
-      "id": "dd74"
-    },
-    {
-      "id": "977e",
-      "idClient": 0,
-      "idVehicle": 0,
-      "idAgencyPickup": 1,
-      "pickupDate": "2025-05-13T05:00:00.000Z",
-      "dropoffDate": "2025-05-21T05:00:00.000Z",
-      "price": 0,
-      "status": true
-    },
-    {
-      "id": "3ed7",
-      "idReserve": 3,
-      "idClient": 1,
-      "idVehicle": 1,
-      "idAgencyPickup": 1,
-      "pickupDate": "2025-01-04",
-      "dropoffDate": "2025-02-01",
-      "price": 12,
-      "status": true
-    },
-    {
-      "id": "8cc0",
-      "idClient": "54a8",
-      "idVehicle": "e2be",
-      "idAgencyPickup": "80d7",
-      "pickupDate": "2025-01-04",
-      "dropoffDate": "2025-01-09",
-      "price": 0,
-      "status": true
-    },
-    {
-      "id": "7365",
-      "idClient": "54a8",
-      "idVehicle": "e2be",
-      "idAgencyPickup": "80d7",
-      "pickupDate": "2024-01-04",
-      "dropoffDate": "2024-01-25",
-      "price": 840,
-      "status": true
-    },
-    {
-      "id": "8ae5",
-      "idClient": "54a8",
-      "idVehicle": "e2be",
-      "idAgencyPickup": "80d7",
-      "pickupDate": "2025-05-14T05:00:00.000Z",
-      "dropoffDate": "2025-05-21T05:00:00.000Z",
-      "price": 280,
-      "status": true
-    },
-    {
-      "id": "abdb",
-      "idClient": "54a8",
-      "idVehicle": "e2be",
-      "idAgencyPickup": "80d7",
-      "pickupDate": "2025-05-07T05:00:00.000Z",
-      "dropoffDate": "2025-05-17T05:00:00.000Z",
-      "price": 400,
-      "status": true
-    },
-    {
-      "id": "28df",
-      "idClient": "54a8",
+      "id": "4ac3",
+      "idClient": "1",
       "idVehicle": "e2be",
       "idAgencyPickup": "b9a9",
-      "pickupDate": "2025-05-28",
-      "dropoffDate": "2025-05-31",
-      "price": 120,
+      "pickupDate": "2025-05-16",
+      "dropoffDate": "2025-05-18",
+      "price": 80,
       "status": true
     },
     {
-      "id": "ba42",
-      "idClient": "54a8",
-      "idVehicle": "ccdf",
-      "idAgencyPickup": "b9a9",
-      "pickupDate": "2025-05-07",
-      "dropoffDate": "2025-05-28",
-      "price": 1050,
-      "status": true
-    },
-    {
-      "id": "ea51",
-      "idClient": "54a8",
+      "id": "4f38",
+      "idClient": "3",
       "idVehicle": "e2be",
-      "idAgencyPickup": "b9a9",
-      "pickupDate": "2025-05-07",
-      "dropoffDate": "2025-05-28",
-      "price": 840,
-      "status": true
-    },
-    {
-      "id": "d526",
-      "idClient": "c197",
-      "idVehicle": "e2be",
-      "idAgencyPickup": "b9a9",
-      "pickupDate": "2025-05-08",
+      "idAgencyPickup": "80d7",
+      "pickupDate": "2025-05-20",
       "dropoffDate": "2025-05-22",
-      "price": 560,
+      "price": 80,
       "status": true
+    },
+    {
+      "id": "4fc8",
+      "idClient": "3",
+      "idVehicle": "e2be",
+      "idAgencyPickup": "80d7",
+      "pickupDate": "2025-04-20",
+      "dropoffDate": "2025-04-22",
+      "price": 80,
+      "status": false
     }
   ],
   "vehicles": [
@@ -333,7 +253,7 @@
       "seats": 5,
       "transmision": "Automatico",
       "fuelType": "Gasolina",
-      "isAvailable": true,
+      "isAvailable": false,
       "status": true,
       "dailyPrice": 40
     },

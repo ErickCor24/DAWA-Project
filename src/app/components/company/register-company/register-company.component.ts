@@ -1,4 +1,4 @@
-import { Company } from './../../../models/Company';
+import { Company } from '../../../models/company';
 import { UserCompany } from './../../../models/UserCompany';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CompanyService } from '../../../services/company/company.service';

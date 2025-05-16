@@ -6,25 +6,16 @@
 
     <main>
       <form [formGroup]="reserveForm" (ngSubmit)="onSubmit()">
+        <!-- Cliente autenticado -->
         <div class="double-group">
           <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
             <mat-label>Cliente</mat-label>
-            <mat-select formControlName="idClient" required>
-              <mat-option *ngFor="let client of clients" [value]="client.id">
-                {{ client.fullName }}
-              </mat-option>
-            </mat-select>
-             <mat-error>
-        @if(reserveForm.get('idClient')?.invalid  && reserveForm.get('idClient')?.dirty || reserveForm.get('idClient')?.touched){
-          @if(reserveForm.get('idClient')?.errors?.['required']){
-            Nombre de cliente requerido
-
-          }
-          
-        }
-      </mat-error>
+            <input matInput [value]="selectedClientName" disabled>
           </mat-form-field>
+        </div>
 
+        <!-- Agencia -->
+        <div class="double-group">
           <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
             <mat-label>Agencia de Retiro</mat-label>
             <mat-select formControlName="idAgencyPickup" required>
@@ -32,71 +23,45 @@
                 {{ agency.name }}
               </mat-option>
             </mat-select>
-              <mat-error>
-        @if(reserveForm.get('idAgencyPickup')?.invalid  && reserveForm.get('idAgencyPickup')?.dirty || reserveForm.get('idAgencyPickup')?.touched){
-          @if(reserveForm.get('idAgencyPickup')?.errors?.['required']){
-            Debe seleccionar una agencia
-
-          }
-          
-        }
-      </mat-error>
+            <mat-error *ngIf="reserveForm.get('idAgencyPickup')?.hasError('required') && (reserveForm.get('idAgencyPickup')?.touched || reserveForm.get('idAgencyPickup')?.dirty)">
+              Debe seleccionar una agencia
+            </mat-error>
           </mat-form-field>
         </div>
 
+        <!-- Fechas -->
         <div class="double-group">
           <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
             <mat-label>Fecha de Retiro</mat-label>
-             <input matInput [matDatepicker]="picker1" placeholder="fecha de retiro"
-             formControlName="pickupDate">
-             <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <input matInput [matDatepicker]="picker1" formControlName="pickupDate" placeholder="MM/DD/YYYY" [min]="fechaMin">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
-             <mat-error>
-        @if(reserveForm.get('pickupDate')?.invalid  && reserveForm.get('pickupDate')?.dirty || reserveForm.get('pickupDate')?.touched){
-          @if(reserveForm.get('pickupDate')?.errors?.['required']){
-            Debe seleccionar una fecha de retiro
-
-          }
-          
-        }
-      </mat-error>
+            <mat-error *ngIf="reserveForm.get('pickupDate')?.hasError('required') && (reserveForm.get('pickupDate')?.touched || reserveForm.get('pickupDate')?.dirty)">
+              Debe seleccionar una fecha de retiro
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
             <mat-label>Fecha de Entrega</mat-label>
-             <input matInput [matDatepicker]="picker2" placeholder="fecha de entrega"
-             formControlName="dropoffDate">
-             <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <input matInput [matDatepicker]="picker2" formControlName="dropoffDate" placeholder="MM/DD/YYYY" [min]="fechaMin">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
-            <mat-error>
-        @if(reserveForm.get('dropoffDate')?.invalid  && reserveForm.get('dropoffDate')?.dirty || reserveForm.get('dropoffDate')?.touched){
-          @if(reserveForm.get('dropoffDate')?.errors?.['required']){
-            Debe seleccionar una fecha de entrega 
-
-          }
-          
-        }
-      </mat-error>
+            <mat-error *ngIf="reserveForm.get('dropoffDate')?.hasError('required') && (reserveForm.get('dropoffDate')?.touched || reserveForm.get('dropoffDate')?.dirty)">
+              Debe seleccionar una fecha de entrega
+            </mat-error>
           </mat-form-field>
         </div>
-<div class="days-info" *ngIf="rentalDays > 0">
-  <p>{{ rentalDays }} día{{ rentalDays > 1 ? 's' : '' }} seleccionados</p>
-</div>
 
-<div class="error-message" *ngIf="reserveForm.errors?.['dateInvalid']">
+        <!-- Días y error de rango -->
+        <div class="days-info" *ngIf="rentalDays > 0">
+          <p>{{ rentalDays }} día{{ rentalDays > 1 ? 's' : '' }} seleccionados</p>
+        </div>
+        <div class="error-message" *ngIf="reserveForm.errors?.['dateInvalid']">
+          <p style="color: red;">⚠ La fecha de entrega debe ser mayor que la de retiro.</p>
+        </div>
 
-  <p style="color: red;">⚠ La fecha de entrega debe ser mayor que la de retiro.</p>
-</div>
-
+        <!-- Vehículo y Precio -->
         <div class="double-group">
-          <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
-            <mat-label>Precio</mat-label>
-            <input matInput type="number" formControlName="price" required>
-            <mat-hint class="hint-label">USD</mat-hint>
-          </mat-form-field>
-
           <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
             <mat-label>Vehículo</mat-label>
             <mat-select formControlName="idVehicle" required>
@@ -104,15 +69,32 @@
                 {{ vehicle.brand }} {{ vehicle.model }} - {{ vehicle.plateNumber }}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="reserveForm.get('idVehicle')?.hasError('required') && (reserveForm.get('idVehicle')?.touched || reserveForm.get('idVehicle')?.dirty)">
+              Debe seleccionar un vehículo
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form-group readonly-price" appearance="outline" color="primary" floatLabel="always">
+            <mat-label>Precio</mat-label>
+            <input matInput formControlName="price">
+            <mat-hint class="hint-label">USD</mat-hint>
           </mat-form-field>
         </div>
 
-      <div class="double-group">
-        <app-button [name]="'Guardar Reserva'" [type]="'button'" (clicked)="onSubmit()"> </app-button>
+        <!-- Botones -->
+        <div class="double-group">
+          <app-button
+            [name]="'Guardar Reserva'"
+            [type]="'button'"
+            (clicked)="onSubmit()">
+          </app-button>
 
-        <app-button [name]="'Cancelar'" [type]="'button'" (clicked)="onCancel()"> </app-button>
-      </div>
-
+          <app-button
+            [name]="'Cancelar'"
+            [type]="'button'"
+            (clicked)="onCancel()">
+          </app-button>
+        </div>
       </form>
     </main>
   </div>

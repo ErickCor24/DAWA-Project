@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, signal } from '@angular/core';
 import { CompanyService } from '../../../services/company/company.service';
-import { Company } from '../../../models/Company';
+import { Company } from '../../../models/company';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
