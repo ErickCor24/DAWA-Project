@@ -1,0 +1,119 @@
+<div class="registration-page"> 
+  <div class="registration-container">
+    <div class="form-header">
+      <h2>Registrar Cliente</h2>
+    </div>
+
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit($event)" novalidate>
+
+      <!-- Full Name -->
+      <div class="form-group">
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>Full Name</mat-label>
+          <input matInput formControlName="fullName" placeholder="Full Name">
+          <mat-icon matSuffix>badge</mat-icon>
+        </mat-form-field>
+        <div class="error" *ngIf="registrationForm.get('fullName')?.touched && registrationForm.get('fullName')?.invalid">
+          Nombre requerido (mínimo 3 caracteres).
+        </div>
+      </div>
+
+      <!-- Email & Password -->
+      <div class="double-group">
+        <div class="form-group">
+          <mat-form-field appearance="outline" color="primary">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="pat@example.com" autocomplete="email">
+            <mat-icon matSuffix>alternate_email</mat-icon>
+          </mat-form-field>
+          <div class="error" *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid">
+            Ingresa un correo válido.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="outline" color="primary">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" placeholder="Password" autocomplete="new-password">
+            <button mat-icon-button matSuffix type="button" (click)="clickEvent($event)" [attr.aria-label]="'Toggle password visibility'" [attr.aria-pressed]="!hide()">
+              <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </mat-form-field>
+          <div class="error" *ngIf="registrationForm.get('password')?.touched && registrationForm.get('password')?.invalid">
+            La contraseña debe tener al menos 6 caracteres, incluyendo letras y números.
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone -->
+       <div class="double-group">
+        <div class="form-group">
+<mat-form-field appearance="outline" color="primary">
+  <mat-label>Phone Number</mat-label>
+  <input matInput formControlName="phone" placeholder="N° Celular">
+  <mat-icon matSuffix>call</mat-icon>
+</mat-form-field>
+<div class="error" *ngIf="registrationForm.get('phone')?.touched && registrationForm.get('phone')?.invalid">
+  El número debe tener exactamente 10 dígitos.
+</div>
+</div>
+<!-- CI -->
+ <div class="form-group">
+<mat-form-field appearance="outline" color="primary">
+  <mat-label>CI</mat-label>
+  <input matInput formControlName="ci" placeholder="Cédula">
+  <mat-icon matSuffix>badge</mat-icon>
+</mat-form-field>
+<div class="error" *ngIf="registrationForm.get('ci')?.touched && registrationForm.get('ci')?.invalid">
+  La cédula debe ser numérica y tener exactamente 10 dígitos.
+</div>
+</div>
+</div>
+
+      <!-- Address -->
+      <div class="form-group">
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="address" placeholder="Dirección">
+          <mat-icon matSuffix>pin_drop</mat-icon>
+        </mat-form-field>
+        <div class="error" *ngIf="registrationForm.get('address')?.touched && registrationForm.get('address')?.invalid">
+          Dirección requerida (mínimo 5 caracteres).
+        </div>
+      </div>
+
+      <!-- Birth Date & Nationality -->
+      <div class="double-group">
+        <div class="form-group">
+          <mat-form-field appearance="outline" color="primary">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="birthDate" placeholder="MM/DD/YYYY">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <div class="error" *ngIf="registrationForm.get('birthDate')?.touched && registrationForm.get('birthDate')?.invalid">
+            Fecha de nacimiento requerida.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="outline" color="primary">
+            <mat-label>Nationality</mat-label>
+            <input matInput formControlName="nationality" placeholder="Nacionalidad">
+            <mat-icon matSuffix>flag</mat-icon>
+          </mat-form-field>
+          <div class="error" *ngIf="registrationForm.get('nationality')?.touched && registrationForm.get('nationality')?.invalid">
+            Nacionalidad requerida.
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón -->
+      <button mat-raised-button color="primary" type="submit">
+        Registrarse
+      </button>
+      <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
+
+    </form>
+  </div>
+</div>
