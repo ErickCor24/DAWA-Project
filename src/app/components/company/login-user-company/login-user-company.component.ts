@@ -8,10 +8,11 @@ import { Router, RouterLink } from '@angular/router';
 import { UserCompanyService } from '../../../services/user-company/user-company.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { ButtonComponent } from "../../shared/button/button.component";
 
 @Component({
   selector: 'app-login-user-company',
-  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, FormsModule, MatRadioModule, RouterLink, CommonModule],
+  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, FormsModule, MatRadioModule, RouterLink, CommonModule, ButtonComponent],
   templateUrl: './login-user-company.component.html',
   styleUrl: './login-user-company.component.css'
 })

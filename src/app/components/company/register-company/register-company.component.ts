@@ -8,10 +8,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { UserCompanyService } from '../../../services/user-company/user-company.service';
 import { MatRadioModule } from '@angular/material/radio';
 import { Router, RouterLink } from '@angular/router';
+import { ButtonComponent } from "../../shared/button/button.component";
 
 @Component({
   selector: 'app-register-company',
-  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, FormsModule, MatRadioModule, RouterLink],
+  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, FormsModule, MatRadioModule, RouterLink, ButtonComponent],
   templateUrl: './register-company.component.html',
   styleUrl: './register-company.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
