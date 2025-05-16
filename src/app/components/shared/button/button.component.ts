@@ -11,7 +11,7 @@ export class ButtonComponent implements OnInit{
   
   @Input() name: string = '';
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  
+  @Input() class: string = ''; 
   @Output() clicked = new EventEmitter<string>;
   
   ngOnInit(): void {

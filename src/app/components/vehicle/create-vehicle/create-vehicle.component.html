@@ -5,8 +5,12 @@
         <mat-label>Agencia:</mat-label>
         <mat-select formControlName="idAgency" required>
             <mat-option value="">Seleccione la agencia..</mat-option>
+            <!-- @for (agency of agencies; track $index) {
+                <mat-option value="{{agency.id}}">{{agency.name}}</mat-option>
+            } -->
             <mat-option value="1">Norte</mat-option>
             <mat-option value="2">Sur</mat-option>
+
         </mat-select>
     </mat-form-field>
 
@@ -14,11 +18,14 @@
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Marca:</mat-label>
             <input matInput type="text" formControlName="brand" placeholder="Marca del vehículo" required>
+            <mat-hint>Mínimo 3 caracteres</mat-hint>
         </mat-form-field>
 
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Tipo de vehículo:</mat-label>
             <input matInput type="text" formControlName="type" placeholder="Tipo de vehículo" required>
+            <mat-hint>Mínimo 3 caracteres</mat-hint>
+
         </mat-form-field>
     </div>
 
@@ -26,11 +33,16 @@
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Modelo:</mat-label>
             <input matInput type="text" formControlName="model" placeholder="Modelo del vehículo" required>
+            <mat-hint>Mínimo 3 caracteres</mat-hint>
+
         </mat-form-field>
-        
+
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Precio alquiler por día:</mat-label>
-            <input matInput type="number" formControlName="pricePerDay" placeholder="Precio por hora del vehículo" required>
+            <input matInput type="number" formControlName="pricePerDay" placeholder="Precio por hora del vehículo"
+                required>
+            <mat-hint>Debe ser mayor a 1</mat-hint>
+
         </mat-form-field>
     </div>
 
@@ -38,7 +50,9 @@
     <div class="pair-group">
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Número de placa:</mat-label>
-            <input matInput type="text" formControlName="plateNumber" placeholder="Número de placa" required>
+            <input matInput type="text" formControlName="plateNumber" placeholder="ABC1234" required>
+            <mat-hint>Formato: 3 letras y 4 números</mat-hint>
+
         </mat-form-field>
 
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
@@ -61,11 +75,12 @@
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Año:</mat-label>
             <input matInput type="number" formControlName="year" placeholder="Año" required>
-        </mat-form-field>
+            <mat-hint>Año entre 1886 y {{ nextYear }}</mat-hint> </mat-form-field>
 
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Tipo de gasolina:</mat-label>
             <input matInput type="text" formControlName="fuelType" placeholder="Tipo de gasolina" required>
+            <mat-hint>Mínimo 3 caracteres</mat-hint>
         </mat-form-field>
     </div>
 
@@ -73,11 +88,13 @@
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Color:</mat-label>
             <input matInput type="text" formControlName="color" placeholder="Color" required>
+            <mat-hint>Mínimo 3 caracteres</mat-hint>
         </mat-form-field>
 
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Número de asientos:</mat-label>
             <input matInput type="number" formControlName="seats" placeholder="Número de asientos" required>
+            <mat-hint>Debe ser mayor o igual a 2</mat-hint>
         </mat-form-field>
     </div>
 
@@ -86,8 +103,8 @@
         <input matInput type="text" formControlName="poster" placeholder="Url imagen del vehículo">
     </mat-form-field>
 
-    <div>
-        <!-- <app-button [name]="'Cancelar'"></app-button> -->
+    <div class="div-buttons">
+        <app-button [name]="'Cancelar'" (clicked)="navigateTo('/vehicle/view')"></app-button>
         <app-button [name]="'Limpiar'" [type]="'reset'"></app-button>
         <app-button [name]="'Guardar'" [type]="'submit'"></app-button>
     </div>

@@ -28,20 +28,20 @@ export class UpdateVehicleComponent implements OnInit {
     private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    // Inicializa el formulario con los campos vacíos o valores por defecto
+    //serviceAgency to obtain the agencies by company
     this.formGroup = this.fb.group({
-      idAgency: [''],
-      brand: [''],
-      type: [''],
-      model: [''],
-      plateNumber: [''],
-      transmission: [''],
-      year: [''],
-      fuelType: [''],
-      color: [''],
-      seats: [''],
+      idAgency: ['', Validators.required],
+      brand: ['', [Validators.required, Validators.minLength(3)]],
+      type: ['', [Validators.required, Validators.minLength(3)]],
+      model: ['', [Validators.required, Validators.minLength(3)]],
+      plateNumber: ['', [Validators.required, Validators.pattern(/^[A-Z]{3}[0-9]{4}$/)]],
+      transmission: ['', Validators.required],
+      year: ['', [Validators.required, Validators.min(1886), Validators.max(new Date().getFullYear() + 1)]],
+      fuelType: ['', [Validators.required, Validators.minLength(3)]],
+      color: ['', [Validators.required, Validators.minLength(3)]],
+      seats: ['', [Validators.required, Validators.min(2)]],
       poster: [''],
-      pricePerDay: [''],
+      pricePerDay: ['', [Validators.required, Validators.min(1)]],
       isAvailable: [false]
     });
 
@@ -72,7 +72,7 @@ export class UpdateVehicleComponent implements OnInit {
   }
 
   navigateToListVehiclesByCompany(): void {
-    this.router.navigate(['/vehicle/list-vehicles']);
+    this.router.navigate(['/vehicle/view']);
   }
 
   submit(): void {
@@ -80,9 +80,13 @@ export class UpdateVehicleComponent implements OnInit {
       ...this.currentVehicle,
       ...this.formGroup.value
     };
-    this.service.updateVehicle(updatedVehicle).subscribe(() => {
-      alert("Updated alert");
-      this.navigateToListVehiclesByCompany();
-    });
+    if (this.formGroup.invalid) {
+      this.formGroup.markAllAsTouched();
+      return;
+    } else {
+      this.service.updateVehicle(updatedVehicle).subscribe(() => {
+        this.navigateToListVehiclesByCompany();
+      });
+    }
   }
 }

@@ -1,45 +1,39 @@
 <form class="form" [formGroup]="formGroup" (submit)="submit()">
     <h2>Actualizar vehículo</h2>
-
     <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
-        <mat-label>Agencia:</mat-label>
-        <mat-select formControlName="idAgency" required>
-            <mat-option value="">Seleccione la agencia..</mat-option>
-            <mat-option value="1">Norte</mat-option>
-            <mat-option value="2">Sur</mat-option>
-        </mat-select>
-    </mat-form-field>
-
+            <mat-label>Agencia:</mat-label>
+            <mat-select formControlName="idAgency" required>
+                <mat-option value="">Seleccione la agencia..</mat-option>
+                <mat-option value="1">Norte</mat-option>
+                <mat-option value="2">Sur</mat-option>
+            </mat-select>
+        </mat-form-field>
     <div class="pair-group">
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Marca:</mat-label>
             <input matInput type="text" formControlName="brand" placeholder="Marca del vehículo" required>
         </mat-form-field>
-
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Tipo de vehículo:</mat-label>
             <input matInput type="text" formControlName="type" placeholder="Tipo de vehículo" required>
         </mat-form-field>
     </div>
-
     <div class="pair-group">
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Modelo:</mat-label>
             <input matInput type="text" formControlName="model" placeholder="Modelo del vehículo" required>
         </mat-form-field>
-        
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Precio alquiler por día:</mat-label>
-            <input matInput type="number" formControlName="pricePerDay" placeholder="Precio por hora del vehículo" required>
+            <input matInput type="number" formControlName="pricePerDay" placeholder="Precio por hora del vehículo"
+                required>
         </mat-form-field>
     </div>
-
     <div class="pair-group">
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Número de placa:</mat-label>
-            <input matInput type="text" formControlName="plateNumber" placeholder="Número de placa" required>
+            <input matInput type="text" formControlName="plateNumber" placeholder="ABC1234" required>
         </mat-form-field>
-
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Transmisión:</mat-label>
             <mat-select formControlName="transmission" required>
@@ -55,39 +49,32 @@
             </mat-select>
         </mat-form-field>
     </div>
-
     <div class="pair-group">
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Año:</mat-label>
             <input matInput type="number" formControlName="year" placeholder="Año" required>
         </mat-form-field>
-
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Tipo de gasolina:</mat-label>
             <input matInput type="text" formControlName="fuelType" placeholder="Tipo de gasolina" required>
         </mat-form-field>
     </div>
-
     <div class="pair-group">
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Color:</mat-label>
             <input matInput type="text" formControlName="color" placeholder="Color" required>
         </mat-form-field>
-
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Número de asientos:</mat-label>
             <input matInput type="number" formControlName="seats" placeholder="Número de asientos" required>
         </mat-form-field>
+        <mat-checkbox formControlName="isAvailable">Disponible</mat-checkbox>
     </div>
-
     <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
         <mat-label>Url imagen:</mat-label>
         <input matInput type="text" formControlName="poster" placeholder="Url imagen del vehículo" required>
     </mat-form-field>
-
-    <mat-checkbox formControlName="isAvailable">Disponible</mat-checkbox>
-
-    <div>
+    <div class="div-buttons">
         <app-button [name]="'Cancelar'" [type]="'reset'" (clicked)="navigateToListVehiclesByCompany()"></app-button>
         <app-button [name]="'Guardar'" [type]="'submit'"></app-button>
     </div>
