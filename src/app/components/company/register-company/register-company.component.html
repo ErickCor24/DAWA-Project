@@ -45,7 +45,7 @@
           <input matInput type="password" placeholder="Contraseña" formControlName="password" required>
           <mat-hint class="hint-label">min 8 caracteres*</mat-hint>
         </mat-form-field>
-        <button type="submit">Registrarse</button>
+        <app-button [type]="'submit'" [name]="'Registrarse'" style="width: 100%;"></app-button>
         <p>¿Ya tiene cuenta? <a routerLink="/company/login">Iniciar Sesión</a></p>
       </form>
     </main>

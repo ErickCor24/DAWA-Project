@@ -64,3 +64,4 @@ export class ClientSearchComponent implements OnInit {
     return status ? 'Activo' : 'Inactivo';
   }
 }
+
