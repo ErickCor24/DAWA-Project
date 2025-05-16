@@ -19,8 +19,3 @@ button[type="reset"] {
 button[type="button"] {
     color: #333;
 }
-
-.actions-buttons{
-    font-size: 0.8rem;
-    padding: 5px;
-}

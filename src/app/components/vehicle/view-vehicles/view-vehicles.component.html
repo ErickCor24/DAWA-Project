@@ -71,8 +71,8 @@
                     <th mat-header-cell *matHeaderCellDef> </th>
                     <td mat-cell *matCellDef="let vehicle" class="actions-vehicle">
                         <div class="div-cell-buttons">
-                            <app-button class="actions-buttons" [name]="'Editar'" (clicked)="updateVehicle(vehicle)"></app-button>
-                            <app-button class="actions-buttons" [name]="'Eliminar'" (clicked)="deleteVehicle(vehicle)"></app-button>
+                            <app-button [name]="'Editar'" (clicked)="updateVehicle(vehicle)" style="font-size: 0.8rem; padding: 5px;"></app-button>
+                            <app-button [name]="'Eliminar'" (clicked)="deleteVehicle(vehicle)" style="font-size: 0.8rem; padding: 5px;"></app-button>
                         </div>
                     </td>
                 </ng-container>
