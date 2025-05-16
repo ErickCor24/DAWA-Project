@@ -17,7 +17,11 @@ export const routes: Routes = [
 
   // Reserve
 
-  //Vehicle
+    //Vehicle
+    {
+        path: 'vehicle', 
+        loadChildren:() => import('./components/vehicle/vehicle.routes').then(m => m.VehicleRoutes)
+    },
 
   //Special
   { path: 'home', component: HomeComponent, canActivate: [companyGuard] },
