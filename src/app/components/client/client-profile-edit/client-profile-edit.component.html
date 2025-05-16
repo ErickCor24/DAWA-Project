@@ -1,0 +1,72 @@
+<div class="edit-page">
+  <div class="edit-container">
+    <div class="form-header">
+      <h2>Editar Perfil</h2>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+
+      <!-- Nombre completo -->
+      <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+        <mat-label>Nombre completo</mat-label>
+        <input matInput formControlName="fullName" placeholder="Nombre completo">
+        <mat-error *ngIf="form.get('fullName')?.touched && form.get('fullName')?.invalid">
+          Nombre requerido (mínimo 3 caracteres)
+        </mat-error>
+      </mat-form-field>
+
+      <!-- celular -->
+      <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+        <mat-label>Celular</mat-label>
+        <input matInput formControlName="phone" placeholder="Celular">
+        <mat-hint>10 dígitos</mat-hint>
+        <mat-error *ngIf="form.get('phone')?.touched && form.get('phone')?.invalid">
+          Ingrese un número válido (10 dígitos)
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Direccion -->
+      <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+        <mat-label>Dirección</mat-label>
+        <input matInput formControlName="address" placeholder="Dirección">
+        <mat-error *ngIf="form.get('address')?.touched && form.get('address')?.invalid">
+          Dirección requerida
+        </mat-error>
+      </mat-form-field>
+
+      <!-- nacionalidad -->
+      <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+        <mat-label>Nacionalidad</mat-label>
+        <input matInput formControlName="nationality" placeholder="Ecuatoriana">
+        <mat-error *ngIf="form.get('nationality')?.touched && form.get('nationality')?.invalid">
+          Nacionalidad requerida
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Botones -->
+      <div class="form-actions">
+
+        <!-- Guardar -->
+        <app-button
+          *ngIf="!form.pristine && form.valid && !loading()"
+          [name]="'Guardar cambios'"
+          [type]="'submit'"
+          class="save-button"
+        ></app-button>
+
+     
+        <mat-spinner *ngIf="loading()" diameter="24"></mat-spinner>
+
+        <!-- Cancelar -->
+        <app-button
+          [name]="'Cancelar y volver'"
+          [type]="'reset'"
+          (clicked)="goBack()"
+          class="cancel-button"
+        ></app-button>
+
+      </div>
+
+    </form>
+  </div>
+</div>

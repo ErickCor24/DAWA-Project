@@ -8,12 +8,13 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './button.component.css'
 })
 export class ButtonComponent implements OnInit{
-  
+
   @Input() name: string = '';
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  @Input() class: string = ''; 
+  @Input() style: string = '';
+
   @Output() clicked = new EventEmitter<string>;
-  
+
   ngOnInit(): void {
   }
 
