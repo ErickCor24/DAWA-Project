@@ -15,7 +15,7 @@
           <input matInput type="password" placeholder="Contraseña" formControlName="password" required>
         </mat-form-field>
 
-        <button type="submit">Iniciar Sesión</button>
+        <app-button [type]="'submit'" [name]="'Iniciar Sesión'" style="width: 100%; margin-bottom: 5px;"></app-button>
       </form>
     </main>
     <p class="error-message">{{messageLogin}}</p>

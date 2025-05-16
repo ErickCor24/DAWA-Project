@@ -1,0 +1,60 @@
+.form {
+    width: 50%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+    place-items: center;
+    background-color: #FEFFFE;
+    padding: 0 35px 30px 35px;
+    border-radius: 10px;
+
+
+    & h2 {
+        box-sizing: border-box;
+        padding: 15px;
+        margin-top: 0;
+        width: 100%;
+        text-align: center;
+        color: #FEFFFE;
+        background-color: #151515;
+        border-radius: 10px;
+    }
+
+    & .pair-group {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        gap: 20px;
+        flex: 1;
+
+        & mat-checkbox{
+            margin-top: 1%;
+        }
+    }
+
+}
+
+.form-group{
+    margin-bottom: 10px;
+    width: 100%;
+
+    & input{
+        box-sizing: border-box;
+        font-family: "Onest";
+        font-size: 1.01rem;
+        width: 100%;
+    }
+
+    & .hint-label{
+        color: #3C6E71;
+    }
+}
+
+.div-buttons{
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    place-items: center;
+
+}

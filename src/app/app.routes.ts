@@ -19,6 +19,12 @@ export const routes: Routes = [
     {path: 'reserve', loadChildren: () =>  import('./components/reserve/reserve.routes').then(m => m.ReserveRoutes)},
   //Vehicle
 
+    //Vehicle
+    {
+        path: 'vehicle', 
+        loadChildren:() => import('./components/vehicle/vehicle.routes').then(m => m.VehicleRoutes)
+    },
+
   //Special
   { path: 'home', component: HomeComponent, canActivate: [companyGuard] },
 
