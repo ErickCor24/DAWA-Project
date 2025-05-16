@@ -33,32 +33,6 @@
   align-self: flex-end;
 }
 
-.full-width-table {
-  width: 100%;
-  border-radius: 10px;
-  background-color: #FEFFFE;
-  overflow: hidden;
-  border-collapse: collapse;
-}
-
-.mat-header-cell {
-  background-color: #151515;
-  color: #FEFFFE;
-  font-weight: bold;
-  font-size: 15px;
-  padding: 14px;
-}
-
-.mat-cell {
-  font-size: 14px;
-  padding: 14px;
-  vertical-align: middle;
-}
-
-.mat-row {
-  background-color: white;
-  transition: background-color 0.2s;
-}
 
 .mat-row:hover {
   background-color: #f4f4f4;
@@ -70,13 +44,20 @@
   margin-right: 8px;
 }
 
-mat-chip {
-  color: #fff;
-  font-weight: 500;
-  border-radius: 5px;
-  font-size: 13px;
-  padding: 0 10px;
-  height: 28px;
-  display: inline-flex;
-  align-items: center;
+.mi-chip {
+  box-sizing: border-box;
+  width: 90px;
+  font-size: 1.05rem;
+  border: none;
+  padding: 10px;
 }
+
+.mi-chip.chip-activo {
+  background-color: #99f538 ;
+}
+
+.mi-chip.chip-inactivo {
+  background-color: #F13E2E ;
+  
+}
+
