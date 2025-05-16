@@ -52,18 +52,12 @@ export class ClientSearchComponent implements OnInit {
 
   onSearch(): void {
     const term = (this.searchForm.get('query')?.value || '').trim().toLowerCase();
-    this.searchForm.get('query')?.valueChanges.subscribe(value => {
-      const term = (value || '').toLowerCase().trim();
-      this.filteredData = this.dataSource.filter(client =>
-        client.fullName.toLowerCase().includes(term) ||
-        client.email.toLowerCase().includes(term) ||
-        client.ci.toLowerCase().includes(term)
-      );
-    });
-  }
 
-  getStatusColor(status: boolean): string {
-    return status ? '#3C6E71' : '#EF2917';
+    this.filteredData = this.dataSource.filter(client =>
+      client.fullName.toLowerCase().includes(term) ||
+      client.email.toLowerCase().includes(term) ||
+      client.ci.toLowerCase().includes(term)
+    );
   }
 
   getStatusLabel(status: boolean): string {
