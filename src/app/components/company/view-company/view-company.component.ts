@@ -10,10 +10,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { UserCompanyService } from '../../../services/user-company/user-company.service';
 import { DialogService } from '../../../services/dialog-box/dialog.service';
+import { ButtonComponent } from "../../shared/button/button.component";
 
 @Component({
   selector: 'app-view-company',
-  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, MatIconModule, ButtonComponent],
   templateUrl: './view-company.component.html',
   styleUrl: './view-company.component.css',
 })
@@ -53,7 +54,7 @@ export class ViewCompanyComponent implements OnInit {
         name: rawFormValue.name,
         contactPerson: rawFormValue.contactPerson,
         email: rawFormValue.email,
-        phone: "0" + rawFormValue.phone,
+        phone: rawFormValue.phone,
         rucNumber: rawFormValue.ruc,
         registerDate: this.company.registerDate,
         status: true

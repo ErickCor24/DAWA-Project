@@ -88,6 +88,17 @@ mat-label {
   font-size: 1.1rem;
 }
 
-.card-title-down{
+.card-title-down {
   margin-bottom: 15px;
+}
+
+.btn-editar {
+  box-sizing: border-box;
+  font-size: 1.05rem;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: 1px solid #ff1900;
+  color: #fff;
 }
