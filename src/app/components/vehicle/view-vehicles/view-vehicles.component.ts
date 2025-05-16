@@ -49,7 +49,7 @@ export class ViewVehiclesComponent implements OnInit {
   ngOnInit(): void {
     console.log(`idCompanyLogued ${sessionStorage.getItem('idCompany')}`);
     this.idCompany = sessionStorage.getItem('idCompany') ?? '';
-    //this.idClient = '1'; //para probar con cliente
+    this.idClient = sessionStorage.getItem('clientSession') ?? '';
     if (this.idCompany != null &&
       typeof this.idCompany === 'string' &&
       this.idCompany != '') {
