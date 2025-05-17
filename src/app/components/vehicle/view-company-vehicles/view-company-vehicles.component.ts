@@ -1,34 +1,31 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Vehicle } from '../../../models/Vehicle';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { VehicleService } from '../../../services/vehicle/vehicle.service';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
-import { ButtonComponent } from "../../shared/button/button.component";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
+import { ButtonComponent } from '../../shared/button/button.component';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { Vehicle } from '../../../models/Vehicle';
+import { VehicleService } from '../../../services/vehicle/vehicle.service';
+import { Router } from '@angular/router';
 import { DialogService } from '../../../services/dialog-box/dialog.service';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'app-view-vehicles',
-  imports: [MatCardModule, MatButtonModule, MatIconModule, ButtonComponent,
-    MatFormFieldModule, MatSelectModule, ReactiveFormsModule, MatInputModule,
-    MatTableModule, MatPaginatorModule, MatPaginator,
+  selector: 'app-view-company-vehicles',
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatSelectModule,
+    ButtonComponent, MatTableModule, MatPaginatorModule, MatInputModule
   ],
-  templateUrl: './view-vehicles.component.html',
-  styleUrl: './view-vehicles.component.css'
+  templateUrl: './view-company-vehicles.component.html',
+  styleUrl: './view-company-vehicles.component.css'
 })
-export class ViewVehiclesComponent implements OnInit {
-  vehicles: Vehicle[] = [];
-  formSearch!: FormGroup;
+export class ViewCompanyVehiclesComponent implements OnInit{
 
+  formSearch!: FormGroup;
   displayedColumns: string[] = ['poster', 'brand', 'model', 'year', 'plateNumber', 'color', 'type', 'transmission', 'actions'];
   dataSource = new MatTableDataSource<Vehicle>();
+
+  idCompany!: string;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -43,40 +40,26 @@ export class ViewVehiclesComponent implements OnInit {
     private dialogService: DialogService
   ) { }
 
-  idCompany!: string;
-  idClient!: string;
-
   ngOnInit(): void {
     console.log(`idCompanyLogued ${sessionStorage.getItem('idCompany')}`);
     this.idCompany = sessionStorage.getItem('idCompany') ?? '';
-    this.idClient = sessionStorage.getItem('clientSession') ?? '';
     if (this.idCompany != null &&
       typeof this.idCompany === 'string' &&
       this.idCompany != '') {
       this.loadVehicles(this.idCompany);
-    } else if (this.idClient != null &&
-      typeof this.idClient === 'string' &&
-      this.idClient != '') {
-      this.loadVehicles();
     } else {
-      this.navigateTo("/company/login")
+      this.navigateTo("/company/login");
     }
     this.formSearch = this.fb.group({
       searchBy: ['', Validators.required],
       inputSearch: ['', Validators.required]
-    })
+    });
   }
 
-  loadVehicles(idCompany?: string): void {
-    if (idCompany) {
-      this.service.getVehicles(idCompany).subscribe((data: Vehicle[]) => {
-        this.dataSource.data = data;
-      })
-    } else {
-      this.service.getVehicles().subscribe((data: Vehicle[]) => {
-        this.vehicles = data;
-      });
-    }
+  loadVehicles(idCompany: string): void {
+    this.service.getVehicles(idCompany).subscribe((data: Vehicle[]) => {
+      this.dataSource.data = data;
+    })
   }
 
   navigateTo(toComponent: string): void {
@@ -88,18 +71,10 @@ export class ViewVehiclesComponent implements OnInit {
     const dataInput = this.formSearch.get('inputSearch')?.value;
     if (field && dataInput) {
       this.service.getVehicleByField(field, dataInput).subscribe((data: Vehicle[]) => {
-        if (this.idCompany != null && this.idCompany != '') {
-          this.dataSource.data = data;
-        } else {
-          this.vehicles = data;
-        }
+        this.dataSource.data = data;
       });
     } else {
-      if (this.idCompany != null && this.idCompany != '') {
-        this.loadVehicles(this.idCompany);
-      } else {
-        this.loadVehicles();
-      }
+      this.loadVehicles(this.idCompany);
     }
   }
 
@@ -108,10 +83,9 @@ export class ViewVehiclesComponent implements OnInit {
       this.router.navigate(['/vehicle/update', vehicle.id]);
       console.log(`VEHICULO ID: ${vehicle.id}`);
     } else {
-      console.error('Vehicle ID is undefined.');
+      this.navigateTo('/not-found');
     }
   }
-
 
   deleteVehicle(vehicle: Vehicle): void {
     this.dialogService.openDialog("Eliminar vehículo", "¿Estás seguro de eliminar este vehículo?",

@@ -49,7 +49,7 @@ export class CreateVehicleComponent implements OnInit{
       return;
     } else{
       this.service.createVehicle(this.formGroup.value, sessionStorage.getItem('idCompany')!).subscribe((createVehicle) => {
-      this.router.navigate(['/vehicle/view'])
+      this.router.navigate(['/vehicle/view-company-vehicles'])
     })
     }
   }
