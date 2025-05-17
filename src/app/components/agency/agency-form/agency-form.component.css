@@ -1,0 +1,51 @@
+.agency-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #FEFFFE;
+  padding: 24px;
+  border: 1px solid #E3E3E3;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+  color: #151515;
+}
+
+.agency-form input[type="text"],
+.agency-form input[type="email"],
+.agency-form input[type="tel"],
+.agency-form input[type="checkbox"],
+.agency-form input {
+  padding: 10px;
+  border: 1px solid #E3E3E3;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.btn {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.save-btn {
+  background-color: #3C6E71;
+  color: #FEFFFE;
+  transition: background-color 0.3s ease;
+}
+
+.save-btn:hover {
+  background-color: #EF2917;
+}

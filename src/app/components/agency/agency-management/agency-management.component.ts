@@ -1,57 +1,74 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { Agency } from '../../../models/agency';
+import { Component, OnInit } from '@angular/core';
 import { AgencyService } from '../../../services/agency/agency.service';
+import { Agency } from '../../../models/agency';
+import { AgencyListComponent } from '../agency-list/agency-list.component';
+import { AgencyFormComponent } from '../agency-form/agency-form.component';
+import { AgencyFilterComponent } from '../agency-filter/agency-filter.component';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-agency-management',
   standalone: true,
-  templateUrl: './agency-management.component.html',
-  styleUrls: ['./agency-management.component.css'],
   imports: [
     CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule
-  ]
+    AgencyListComponent,
+    AgencyFormComponent,
+    AgencyFilterComponent
+  ],
+  templateUrl: './agency-management.component.html',
+  styleUrls: ['./agency-management.component.css']
 })
 export class AgencyManagementComponent implements OnInit {
+  agencies: Agency[] = [];
+  filteredAgencies: Agency[] = [];
+  selectedAgency: Agency | null = null;
 
-  displayedColumns: string[] = ['idAgency', 'name', 'address', 'phone', 'email', 'workingHours', 'status'];
-  dataSource = new MatTableDataSource<Agency>();
+  constructor(private agencyService: AgencyService) {}
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  constructor(private agencyService: AgencyService) { }
-
-  
   ngOnInit(): void {
-    this.getAgencies();
+    this.loadAgencies();
   }
 
-  getAgencies(): void {
-    this.agencyService.getAgencies().subscribe((data: Agency[]) => {
-      this.dataSource.data = data;
-
-      // Asigna el paginador después de que el DOM esté listo
-      setTimeout(() => {
-        this.dataSource.paginator = this.paginator;
-      });
+  loadAgencies(): void {
+    this.agencyService.getAgencies().subscribe((data) => {
+      this.agencies = data;
+      this.filteredAgencies = [...this.agencies];
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.dataSource.filter = filterValue;
+  onFilterChange(term: string): void {
+    const lowerTerm = term.toLowerCase();
+    this.filteredAgencies = this.agencies.filter(agency =>
+      agency.name.toLowerCase().includes(lowerTerm) ||
+      agency.address.toLowerCase().includes(lowerTerm) ||
+      agency.email.toLowerCase().includes(lowerTerm)
+    );
+  }
+
+  onSaveAgency(agency: Agency): void {
+    if (this.selectedAgency) {
+      // Edición
+      const index = this.agencies.findIndex(a => a === this.selectedAgency);
+      if (index !== -1) {
+        this.agencies[index] = { ...this.selectedAgency, ...agency };
+      }
+    } else {
+      // Nuevo
+      this.agencies.push(agency);
+    }
+    this.filteredAgencies = [...this.agencies];
+    this.selectedAgency = null;
+  }
+
+  onEditAgency(agency: Agency): void {
+    this.selectedAgency = { ...agency };
+  }
+
+  onDeleteAgency(agency: Agency): void {
+    this.agencies = this.agencies.filter(a => a !== agency);
+    this.filteredAgencies = [...this.agencies];
+    if (this.selectedAgency === agency) {
+      this.selectedAgency = null;
+    }
   }
 }
-

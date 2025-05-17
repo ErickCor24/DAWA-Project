@@ -1,0 +1,24 @@
+<table class="agency-table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Dirección</th>
+      <th>Teléfono</th>
+      <th>Email</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let agency of agencies">
+      <td>{{ agency.name }}</td>
+      <td>{{ agency.address }}</td>
+      <td>{{ agency.phone }}</td>
+      <td>{{ agency.email }}</td>
+      <td>
+        <button class="btn edit-btn" (click)="onEdit(agency)">Editar</button>
+        <button class="btn delete-btn" (click)="onDelete(agency)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
