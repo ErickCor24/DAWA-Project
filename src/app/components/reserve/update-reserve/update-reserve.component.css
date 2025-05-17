@@ -1,0 +1,43 @@
+.registerR-container {
+  background-color: #FEFFFE;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.header-reserve h1 {
+  color: #151515;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.double-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.days-info {
+  color: #3C6E71;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.error-message {
+  color: #EF2917;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+mat-form-field .hint-label {
+  color: #3C6E71;
+}
+
+app-button {
+  margin-right: 1rem;
+}

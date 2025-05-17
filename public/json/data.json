@@ -1,5 +1,5 @@
 {
- "clients": [
+  "clients": [
     {
       "id": "1",
       "fullName": "diablo perez",
@@ -205,26 +205,34 @@
   ],
   "reserves": [
     {
-      "idReserve": 1,
-      "idClient": 1,
-      "idVehicle": 1,
-      "idAgencyPickup": 1,
+      "id": "3b48",
+      "idClient": "1",
+      "idVehicle": "2",
+      "idAgencyPickup": "4196",
       "pickupDate": "2025-01-10",
       "dropoffDate": "2025-01-15",
       "price": 199.99,
-      "status": true,
-      "id": "3b48"
+      "status": false
     },
     {
-      "idReserve": 2,
-      "idClient": 2,
-      "idVehicle": 2,
-      "idAgencyPickup": 2,
+      "id": "253e",
+      "idClient": "2",
+      "idVehicle": "2",
+      "idAgencyPickup": "1b5b",
       "pickupDate": "2025-03-05",
       "dropoffDate": "2025-03-10",
       "price": 220.5,
-      "status": true,
-      "id": "253e"
+      "status": false
+    },
+    {
+      "id": "b453",
+      "idClient": "1",
+      "idVehicle": "3",
+      "idAgencyPickup": "1b5b",
+      "pickupDate": "2025-05-19",
+      "dropoffDate": "2025-05-23",
+      "price": 200,
+      "status": true
     }
   ],
   "vehicles": [
@@ -277,7 +285,7 @@
       "seats": 5,
       "transmission": "Automática",
       "fuelType": "Híbrido",
-      "isAvailable": true,
+      "isAvailable": false,
       "pricePerDay": 50,
       "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpIsAFUrZX1yDIqFNLqxNge47iJ1FNqQsflQ&s",
       "status": 1
