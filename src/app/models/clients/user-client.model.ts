@@ -1,6 +1,6 @@
 
 export interface UserClient {
-  id: number;
+  id: string;
   userName: string;
   password: string;
   status: boolean;
