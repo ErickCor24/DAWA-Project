@@ -1,0 +1,46 @@
+<div class="div-view-vehicles">
+    <h3>Vehículos disponibles para alquilar</h3>
+    <div class="div-search-new">
+        <form class="form" [formGroup]="formSearch">
+            <mat-form-field floatLabel="always" appearance="outline" color="primary">
+                <mat-label>Buscar por:</mat-label>
+                <mat-select formControlName="searchBy" required #field>
+                    <mat-option value="">Seleccione campo a buscar...</mat-option>
+                    <mat-option value="brand">Marca</mat-option>
+                    <mat-option value="model">Modelo</mat-option>
+                    <mat-option value="color">Color</mat-option>
+                    <mat-option value="transmission">Transmisión</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="form-group" appearance="outline">
+                <input matInput type="search" formControlName="inputSearch" placeholder="Dato a buscar" name="input"
+                    (keyup)="searchVehicle()">
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="div-cards-vehicles">
+        @if(vehicles.length > 0){
+        @for(vehicle of vehicles; track $index){
+        <mat-card class="vehicle-card" appearance="outlined">
+            <mat-card-header>
+                <mat-card-title>{{vehicle.model}} {{vehicle.type}}</mat-card-title>
+                <mat-card-subtitle>{{vehicle.brand}}</mat-card-subtitle>
+            </mat-card-header>
+            @if(vehicle.poster){
+            <img mat-card-image [src]="vehicle.poster" [alt]="vehicle.model">
+            }@else{
+            <img mat-card-image src="../images/defaultCar.png" [alt]="vehicle.model">
+            }
+            <mat-card-content>
+                <p><strong>Color: </strong>{{vehicle.color}}</p>
+                <p><strong>Número de asientos: </strong>{{vehicle.seats}}</p>
+                <p><strong>Transmisión: </strong>{{vehicle.transmission}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <app-button [name]="'Reservar'"></app-button>
+            </mat-card-actions>
+        </mat-card>
+        }
+        }
+    </div>
+</div>

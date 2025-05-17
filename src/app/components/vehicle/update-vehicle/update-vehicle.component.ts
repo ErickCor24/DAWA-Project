@@ -72,7 +72,7 @@ export class UpdateVehicleComponent implements OnInit {
   }
 
   navigateToListVehiclesByCompany(): void {
-    this.router.navigate(['/vehicle/view']);
+    this.router.navigate(['/vehicle/view-company-vehicles']);
   }
 
   submit(): void {
