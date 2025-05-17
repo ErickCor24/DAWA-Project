@@ -1,0 +1,101 @@
+<section class="registerR-container">
+  <div class="container">
+    <header class="header-reserve">
+      <h1>Registro de Reserva</h1>
+    </header>
+
+    <main>
+      <form [formGroup]="reserveForm" (ngSubmit)="onSubmit()">
+        <!-- Cliente autenticado -->
+        <div class="double-group">
+          <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+            <mat-label>Cliente</mat-label>
+            <input matInput [value]="selectedClientName" disabled>
+          </mat-form-field>
+        </div>
+
+        <!-- Agencia -->
+        <div class="double-group">
+          <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+            <mat-label>Agencia de Retiro</mat-label>
+            <mat-select formControlName="idAgencyPickup" required>
+              <mat-option *ngFor="let agency of agencies" [value]="agency.id">
+                {{ agency.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="reserveForm.get('idAgencyPickup')?.hasError('required') && (reserveForm.get('idAgencyPickup')?.touched || reserveForm.get('idAgencyPickup')?.dirty)">
+              Debe seleccionar una agencia
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Fechas -->
+        <div class="double-group">
+          <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+            <mat-label>Fecha de Retiro</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="pickupDate" placeholder="MM/DD/YYYY" [min]="fechaMin">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="reserveForm.get('pickupDate')?.hasError('required') && (reserveForm.get('pickupDate')?.touched || reserveForm.get('pickupDate')?.dirty)">
+              Debe seleccionar una fecha de retiro
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+            <mat-label>Fecha de Entrega</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="dropoffDate" placeholder="MM/DD/YYYY" [min]="fechaMin">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error *ngIf="reserveForm.get('dropoffDate')?.hasError('required') && (reserveForm.get('dropoffDate')?.touched || reserveForm.get('dropoffDate')?.dirty)">
+              Debe seleccionar una fecha de entrega
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Días y error de rango -->
+        <div class="days-info" *ngIf="rentalDays > 0">
+          <p>{{ rentalDays }} día{{ rentalDays > 1 ? 's' : '' }} seleccionados</p>
+        </div>
+        <div class="error-message" *ngIf="reserveForm.errors?.['dateInvalid']">
+          <p style="color: red;">⚠ La fecha de entrega debe ser mayor que la de retiro.</p>
+        </div>
+
+        <!-- Vehículo y Precio -->
+        <div class="double-group">
+          <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
+            <mat-label>Vehículo</mat-label>
+            <mat-select formControlName="idVehicle" required>
+              <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+                {{ vehicle.brand }} {{ vehicle.model }} - {{ vehicle.plateNumber }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="reserveForm.get('idVehicle')?.hasError('required') && (reserveForm.get('idVehicle')?.touched || reserveForm.get('idVehicle')?.dirty)">
+              Debe seleccionar un vehículo
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form-group readonly-price" appearance="outline" color="primary" floatLabel="always">
+            <mat-label>Precio</mat-label>
+            <input matInput formControlName="price">
+            <mat-hint class="hint-label">USD</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <!-- Botones -->
+        <div class="double-group">
+          <app-button
+            [name]="'Guardar Reserva'"
+            [type]="'button'"
+            (clicked)="onSubmit()">
+          </app-button>
+
+          <app-button
+            [name]="'Cancelar'"
+            [type]="'button'"
+            (clicked)="onCancel()">
+          </app-button>
+        </div>
+      </form>
+    </main>
+  </div>
+</section>

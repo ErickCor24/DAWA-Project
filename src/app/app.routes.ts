@@ -16,7 +16,7 @@ export const routes: Routes = [
     { path: 'company', loadChildren: () => import('./components/company/company.routes').then(m => m.CompanyRoutes)},
 
   // Reserve
-
+    {path: 'reserve', loadChildren: () =>  import('./components/reserve/reserve.routes').then(m => m.ReserveRoutes)},
     //Vehicle
     {
         path: 'vehicle', 

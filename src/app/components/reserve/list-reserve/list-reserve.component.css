@@ -1,0 +1,42 @@
+.title {
+  color: #151515;
+  margin-bottom: 1rem;
+}
+
+.filter-select {
+  width: 200px;
+  margin-bottom: 1rem;
+}
+
+.table-card {
+  background-color: #FEFFFE;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(21, 21, 21, 0.15);
+}
+
+.custom-table th {
+  background-color: #151515;
+  color: #FEFFFE;
+  font-weight: bold;
+}
+
+.custom-table td {
+  background-color: #E3E3E3;
+  color: #151515;
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 12px;
+  text-align: center;
+}
+
+.btn-new {
+  margin-top: 1rem;
+  text-align: left;
+}
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
