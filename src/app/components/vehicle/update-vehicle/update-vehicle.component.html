@@ -55,8 +55,8 @@
             <input matInput type="number" formControlName="year" placeholder="Año" required>
         </mat-form-field>
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
-            <mat-label>Tipo de gasolina:</mat-label>
-            <input matInput type="text" formControlName="fuelType" placeholder="Tipo de gasolina" required>
+            <mat-label>Tipo de combustible:</mat-label>
+            <input matInput type="text" formControlName="fuelType" placeholder="Tipo de combustible" required>
         </mat-form-field>
     </div>
     <div class="pair-group">
@@ -72,7 +72,7 @@
     </div>
     <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
         <mat-label>Url imagen:</mat-label>
-        <input matInput type="text" formControlName="poster" placeholder="Url imagen del vehículo" required>
+        <input matInput type="text" formControlName="poster" placeholder="Url imagen del vehículo">
     </mat-form-field>
     <div class="div-buttons">
         <app-button [name]="'Cancelar'" [type]="'reset'" (clicked)="navigateToListVehiclesByCompany()"></app-button>
