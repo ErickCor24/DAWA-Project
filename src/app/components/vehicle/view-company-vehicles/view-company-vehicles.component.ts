@@ -71,7 +71,7 @@ export class ViewCompanyVehiclesComponent implements OnInit{
     const dataInput = this.formSearch.get('inputSearch')?.value;
     if (field && dataInput) {
       this.service.getVehicleByField(field, dataInput).subscribe((data: Vehicle[]) => {
-        this.dataSource.data = data;
+        this.dataSource.data = data.filter(vehicle => vehicle.idCompany === this.idCompany);
       });
     } else {
       this.loadVehicles(this.idCompany);
