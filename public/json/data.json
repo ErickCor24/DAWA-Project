@@ -1,15 +1,15 @@
 {
-  "clients": [
+ "clients": [
     {
       "id": "1",
-      "fullName": "diavlo",
+      "fullName": "diablo perez",
       "email": "diablo@gmail.com",
       "password": "diablo1234",
       "phone": "021456879",
       "ci": "0236441258",
-      "address": "sssss",
+      "address": "Av.9 de octubre",
       "birthDate": "2025-05-29",
-      "nationality": "ssssss",
+      "nationality": "nula",
       "status": true
     },
     {
@@ -19,9 +19,9 @@
       "password": "diego123",
       "phone": "8520741086",
       "ci": "4512045120",
-      "address": "diegoant",
+      "address": "Los Rios",
       "birthDate": "2025-05-23",
-      "nationality": "diegoant",
+      "nationality": "Ecuatoriana",
       "status": true
     },
     {
@@ -31,9 +31,9 @@
       "password": "juana123",
       "phone": "1501201650",
       "ci": "8602415025",
-      "address": "juana",
+      "address": "av.10 de agosto",
       "birthDate": "2025-05-16",
-      "nationality": "juana",
+      "nationality": "Ecuatoriana",
       "status": true
     },
     {
@@ -43,7 +43,7 @@
       "password": "pedro85102",
       "phone": "8451024815",
       "ci": "8150285623",
-      "address": "pedro",
+      "address": "Pajara Azul",
       "birthDate": "2025-05-29",
       "nationality": "Ecuatorina",
       "status": true
@@ -55,9 +55,9 @@
       "password": "juanita123",
       "phone": "2580658938",
       "ci": "8520410963",
-      "address": "juanita",
+      "address": "San felipe",
       "birthDate": "2025-05-30",
-      "nationality": "juanita",
+      "nationality": "Ecuatoriana",
       "status": true
     },
     {
@@ -67,9 +67,9 @@
       "password": "angie1234",
       "phone": "0565002034",
       "ci": "8500565050",
-      "address": "angie",
+      "address": "Sauces",
       "birthDate": "2025-05-16",
-      "nationality": "angie",
+      "nationality": "Ecuatoriana",
       "status": true
     }
   ],
