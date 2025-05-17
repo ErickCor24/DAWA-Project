@@ -78,8 +78,8 @@
             <mat-hint>Año entre 1886 y {{ nextYear }}</mat-hint> </mat-form-field>
 
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
-            <mat-label>Tipo de gasolina:</mat-label>
-            <input matInput type="text" formControlName="fuelType" placeholder="Tipo de gasolina" required>
+            <mat-label>Tipo de combustible:</mat-label>
+            <input matInput type="text" formControlName="fuelType" placeholder="Tipo de combustible" required>
             <mat-hint>Mínimo 3 caracteres</mat-hint>
         </mat-form-field>
     </div>
@@ -104,7 +104,7 @@
     </mat-form-field>
 
     <div class="div-buttons">
-        <app-button [name]="'Cancelar'" (clicked)="navigateTo('/vehicle/view')"></app-button>
+        <app-button [name]="'Cancelar'" (clicked)="navigateTo('/vehicle/view-company-vehicles')"></app-button>
         <app-button [name]="'Limpiar'" [type]="'reset'"></app-button>
         <app-button [name]="'Guardar'" [type]="'submit'"></app-button>
     </div>

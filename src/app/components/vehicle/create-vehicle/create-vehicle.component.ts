@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -16,14 +16,14 @@ import { Router } from '@angular/router';
   templateUrl: './create-vehicle.component.html',
   styleUrl: './create-vehicle.component.css'
 })
-export class CreateVehicleComponent implements OnInit{
+export class CreateVehicleComponent implements OnInit {
 
   formGroup!: FormGroup;
   nextYear = new Date().getFullYear() + 1;
   //agencies: Agency[] = [];
 
 
-  constructor(private service: VehicleService, private fb: FormBuilder, private router: Router) {}
+  constructor(private service: VehicleService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     //serviceAgency to obtain the agencies by company
@@ -44,13 +44,13 @@ export class CreateVehicleComponent implements OnInit{
   }
 
   submit(): void {
-    if(this.formGroup.invalid){
+    if (this.formGroup.invalid) {
       this.formGroup.markAllAsTouched();
       return;
-    } else{
+    } else {
       this.service.createVehicle(this.formGroup.value, sessionStorage.getItem('idCompany')!).subscribe((createVehicle) => {
-      this.router.navigate(['/vehicle/view'])
-    })
+        this.router.navigate(['/vehicle/view-company-vehicles'])
+      })
     }
   }
 
