@@ -19,7 +19,7 @@
           <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
             <mat-label>Agencia de Retiro</mat-label>
             <mat-select formControlName="idAgencyPickup" required>
-              <mat-option *ngFor="let agency of agencys" [value]="agency.id">
+              <mat-option *ngFor="let agency of agencies" [value]="agency.id">
                 {{ agency.name }}
               </mat-option>
             </mat-select>

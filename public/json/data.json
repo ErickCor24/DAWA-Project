@@ -1,5 +1,5 @@
 {
- "clients": [
+  "clients": [
     {
       "id": "1",
       "fullName": "diablo perez",
@@ -209,34 +209,14 @@
   ],
   "reserves": [
     {
-      "id": "4ac3",
+      "id": "5a93",
       "idClient": "1",
-      "idVehicle": "e2be",
-      "idAgencyPickup": "b9a9",
+      "idVehicle": "3",
+      "idAgencyPickup": "80d7",
       "pickupDate": "2025-05-16",
-      "dropoffDate": "2025-05-18",
-      "price": 80,
+      "dropoffDate": "2025-05-25",
+      "price": 500,
       "status": true
-    },
-    {
-      "id": "4f38",
-      "idClient": "3",
-      "idVehicle": "e2be",
-      "idAgencyPickup": "80d7",
-      "pickupDate": "2025-05-20",
-      "dropoffDate": "2025-05-22",
-      "price": 80,
-      "status": true
-    },
-    {
-      "id": "4fc8",
-      "idClient": "3",
-      "idVehicle": "e2be",
-      "idAgencyPickup": "80d7",
-      "pickupDate": "2025-04-20",
-      "dropoffDate": "2025-04-22",
-      "price": 80,
-      "status": false
     }
   ],
   "vehicles": [
@@ -253,7 +233,7 @@
       "seats": 5,
       "transmission": "Automática",
       "fuelType": "Gasolina",
-      "isAvailable": true,
+      "isAvailable": false,
       "pricePerDay": 70,
       "poster": "https://tuyomotor.com/wp-content/uploads/2024/03/corolla-xei-super-blanco-df.webp",
       "status": 1
@@ -271,7 +251,7 @@
       "seats": 5,
       "transmission": "Manual",
       "fuelType": "Diésel",
-      "isAvailable": false,
+      "isAvailable": true,
       "pricePerDay": 80,
       "poster": "https://s3.amazonaws.com/di-honda-enrollment/2019-civic-si-coupe/model-image-2019-civic-si-coupe-front.png",
       "status": 1
@@ -289,7 +269,7 @@
       "seats": 5,
       "transmission": "Automática",
       "fuelType": "Híbrido",
-      "isAvailable": true,
+      "isAvailable": false,
       "pricePerDay": 50,
       "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpIsAFUrZX1yDIqFNLqxNge47iJ1FNqQsflQ&s",
       "status": 1

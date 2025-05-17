@@ -17,7 +17,7 @@
     <!-- Vehículo -->
     <ng-container matColumnDef="vehicle">
       <th mat-header-cell *matHeaderCellDef> Vehículo </th>
-      <td mat-cell *matCellDef="let r"> {{ getVehicleName(r.idVehicle) }} </td>
+      <td mat-cell *matCellDef="let r"> {{ r.vehicleName || 'Desconocido' }} </td>
     </ng-container>
 
     <!-- Agencia -->
@@ -72,6 +72,6 @@
   <app-button
     [name]="'Nueva Reserva'"
     [type]="'button'"
-    (clicked)="goToRegister()">
+    (clicked)="goToSelectVehicle()">
   </app-button>
 </div>

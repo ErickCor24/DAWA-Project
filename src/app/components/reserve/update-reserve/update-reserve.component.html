@@ -1,0 +1,80 @@
+<section class="registerR-container">
+  <div class="container">
+    <header class="header-reserve">
+      <h1>Editar Reserva</h1>
+    </header>
+    <main>
+      <form [formGroup]="reserveForm" (ngSubmit)="onSubmit()">
+
+        <!-- Cliente (lectura) -->
+        <div class="double-group">
+          <mat-form-field class="form-group" appearance="outline" color="primary">
+            <mat-label>Cliente</mat-label>
+            <input matInput [value]="selectedClientName" disabled>
+          </mat-form-field>
+        </div>
+
+        <!-- Vehículo (lectura) -->
+        <div class="double-group">
+          <mat-form-field class="form-group" appearance="outline" color="primary">
+            <mat-label>Vehículo</mat-label>
+            <input matInput [value]="selectedVehicleName" disabled>
+          </mat-form-field>
+        </div>
+
+        <!-- Agencia -->
+        <div class="double-group">
+          <mat-form-field class="form-group" appearance="outline" color="primary">
+            <mat-label>Agencia de Retiro</mat-label>
+            <mat-select formControlName="idAgencyPickup" required>
+              <mat-option *ngFor="let a of agencies" [value]="a.id">
+                {{ a.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Fechas -->
+        <div class="double-group">
+          <mat-form-field class="form-group" appearance="outline" color="primary">
+            <mat-label>Fecha de Retiro</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="pickupDate" placeholder="MM/DD/YYYY" [min]="fechaMin" required>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="form-group" appearance="outline" color="primary">
+            <mat-label>Fecha de Entrega</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="dropoffDate" placeholder="MM/DD/YYYY" [min]="fechaMin" required>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <!-- Días y error -->
+        <div class="days-info" *ngIf="rentalDays > 0">
+          {{ rentalDays }} día{{ rentalDays > 1 ? 's' : '' }} seleccionados
+        </div>
+        <div class="error-message" *ngIf="reserveForm.errors?.['dateInvalid']">
+          ⚠ La fecha de entrega debe ser mayor que la de retiro.
+        </div>
+
+        <!-- Precio (lectura) -->
+        <div class="double-group">
+          <mat-form-field class="form-group" appearance="outline" color="primary">
+            <mat-label>Precio total</mat-label>
+            <input matInput formControlName="price" >
+            <mat-hint class="hint-label">USD</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <!-- Botones -->
+        <div class="double-group">
+          <app-button [name]="'Guardar Cambios'" [type]="'submit'"></app-button>
+          <app-button [name]="'Cancelar'" [type]="'button'" (clicked)="onCancel()"></app-button>
+        </div>
+
+      </form>
+    </main>
+  </div>
+</section>

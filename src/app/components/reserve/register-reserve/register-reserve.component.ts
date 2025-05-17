@@ -11,16 +11,17 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Reserve } from '../../../models/reserve';
 import { Router } from '@angular/router';
 import { Client } from '../../../models/clients/client.model';
-import { Vehicle } from '../../../models/vehicle';
+import { Vehicle } from '../../../models/Vehicle';
 import { Agency } from '../../../models/agency';
 import { ButtonComponent } from "../../shared/button/button.component";
 import { DialogService } from '../../../services/dialog-box/dialog.service';
 import { ClientSessionService } from '../../../services/clients/client-session.service';
 import { VehicleService } from '../../../services/vehicle/vehicle.service';
+import { AgencyService } from '../../../services/agency/agency.service';
+
 
 
 @Component({
-   standalone:true,
   selector: 'app-register-reserve',
   imports: [MatSelectModule, MatCheckboxModule, ReactiveFormsModule, FormsModule, NgFor, NgIf, CommonModule,
     MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, ButtonComponent],
@@ -33,7 +34,7 @@ export class RegisterReserveComponent implements OnInit {
   
   
   vehicles: Vehicle[] = [];
-  agencys:  Agency[] = [];
+  agencies:  Agency[] = [];
    selectedClientName = '';
   rentalDays: number = 0;
    fechaMin: Date = new Date();
@@ -46,7 +47,9 @@ export class RegisterReserveComponent implements OnInit {
     private router: Router,
     private dialogService: DialogService,
     private session: ClientSessionService,
-     private vehicleService: VehicleService,
+    private vehicleService: VehicleService,
+  
+  
     
   ) {}
 
@@ -70,21 +73,23 @@ export class RegisterReserveComponent implements OnInit {
       status: [true]
     }, { validators: this.dateRangeValidator });
 
-    // 3) Cargar selects
     this.http.get<Agency[]>('http://localhost:3000/agencys')
-      .subscribe(list => this.agencys = list);
-    this.http.get<Vehicle[]>('http://localhost:3000/vehicles')
-      .subscribe(list => this.vehicles = list);
+      .subscribe(list => this.agencies = list);
+      
+ this.vehicleService.getVehicles() 
+  .subscribe(list => this.vehicles = list);
 
     // 4) Simular vehículo seleccionado (temporal)
     const selVid = sessionStorage.getItem('selectedVehicleId');
-    if (selVid) {
-      this.reserveForm.patchValue({ idVehicle: Number(selVid) });
+if (selVid) {
+  this.reserveForm.patchValue({ idVehicle: selVid });
 }
 this.reserveForm.get('pickupDate')!.valueChanges.subscribe(() => this.calculatePrice());
     this.reserveForm.get('dropoffDate')!.valueChanges.subscribe(() => this.calculatePrice());
     this.reserveForm.get('idVehicle')!.valueChanges.subscribe(() => this.calculatePrice());
+  
   }
+  
 
      calculatePrice(): void {
     const p = new Date(this.reserveForm.get('pickupDate')!.value);
@@ -102,7 +107,7 @@ this.reserveForm.get('pickupDate')!.valueChanges.subscribe(() => this.calculateP
 
     const veh = this.vehicles.find(v => v.id === vid);
     if (veh) {
-      this.reserveForm.get('price')!.setValue(days * veh.dailyPrice);
+      this.reserveForm.get('price')!.setValue(days * veh.pricePerDay);
     }
   }
 
@@ -134,17 +139,20 @@ this.reserveForm.get('pickupDate')!.valueChanges.subscribe(() => this.calculateP
         return;
       }
 
-      // 2) Abrir diálogo de confirmación
       this.dialogService.openDialog(
         'Confirmar reserva',
         '¿Deseas guardar esta reserva?',
         () => {
-          // 3) Crear reserva
-          this.reserveService.addReserve(newRes).subscribe(res => {
-            // 4) Marcar vehículo no disponible
-            this.vehicleService.updateVehicle(newRes.idVehicle, { isAvailable: false })
-              .subscribe(() => this.router.navigate(['/reserve/list-reserve']));
-          });
+          //Crear reserva
+         this.reserveService.addReserve(newRes).subscribe(res => {
+          // Buscamos el vehículo
+        const veh = this.vehicles.find(v => v.id === newRes.idVehicle);
+           if (!veh) return;
+          // Lo marcamos no disponible
+        const updatedVeh: Vehicle = { ...veh, isAvailable: false };
+         this.vehicleService.updateVehicle(updatedVeh)
+          .subscribe(() => this.router.navigate(['/reserve/list']));
+        });
         }
       ).subscribe();
     });
@@ -154,7 +162,7 @@ this.reserveForm.get('pickupDate')!.valueChanges.subscribe(() => this.calculateP
     this.dialogService.openDialog(
       'Cancelar registro',
       '¿Estás seguro de que deseas cancelar?',
-      () => this.router.navigate(['/reserve/list-reserve'])
+      () => this.router.navigate(['/reserve/list'])
     ).subscribe();
   }
 

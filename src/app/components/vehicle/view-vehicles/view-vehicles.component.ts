@@ -128,4 +128,12 @@ export class ViewVehiclesComponent implements OnInit {
       console.log("Vehículo eliminado");
     });
   }
+
+  goToReserve(vehicleId: string): void {
+  sessionStorage.setItem('selectedVehicleId', vehicleId);
+  this.router.navigate(
+    ['/reserve/register'],
+    { queryParams: { vehicleId } }
+  );
+}
 }

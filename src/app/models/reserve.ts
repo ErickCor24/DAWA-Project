@@ -1,5 +1,5 @@
 export interface Reserve {
-  id?: string;        // Opcional si es autogenerado
+  id?: string;      
   idClient: number;
   idVehicle: string;
   idAgencyPickup: number;
@@ -7,4 +7,5 @@ export interface Reserve {
   dropoffDate: string;
   price: number;
   status: boolean;
+  vehicleName?: string;
 }
