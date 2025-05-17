@@ -87,7 +87,7 @@ export class ClientRegistrationComponent {
         const formattedDate = new Date(form.birthDate).toISOString().split('T')[0];
 
         const client: Client = {
-          id: nextId,
+          id: nextId.toString(),
           fullName: form.fullName,
           email: form.email,
           password: form.password,
@@ -100,7 +100,7 @@ export class ClientRegistrationComponent {
         };
 
         const userClient: UserClient = {
-          id: nextId,
+          id: nextId.toString(),
           userName: form.email,
           password: form.password,
           status: true

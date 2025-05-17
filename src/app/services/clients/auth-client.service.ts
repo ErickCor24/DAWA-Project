@@ -21,13 +21,13 @@ export class AuthClientService {
     return this.http.get<UserClient[]>(`${this.userClientUrl}${params}`).pipe(
       switchMap(users => {
         if (!users.length) {
-          return throwError(() => new Error('Credenciales inválidas'));
+          return throwError(() => new Error('Credenciales invalidas'));
         }
         const user = users[0];
         return this.clientService.getClientById(user.id).pipe(
           map(client => {
             if (!client.status) {
-              throw new Error('Este usuario está inactivo o dado de baja.');
+              throw new Error('Este usuario esta inactivo.');
             }
             return client;
           })

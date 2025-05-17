@@ -9,7 +9,7 @@ export class ClientService {
   private clientUrl = 'http://localhost:3000/clients';
   private userClientUrl = 'http://localhost:3000/userClients';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /** Obtener todos los clientes (para verificar existencia, duplicados, etc.) */
   getAllClients(): Observable<Client[]> {
@@ -27,35 +27,36 @@ export class ClientService {
   }
 
   /** Obtener cliente por ID – versión segura usando toda la coleccion */
-  getClientById(id: number): Observable<Client> {
+  getClientById(id: string | number): Observable<Client> {
     return this.getAllClients().pipe(
       map(clients => {
-        const found = clients.find(c => c.id === id);
+        const found = clients.find(c => c.id === id.toString()); 
         if (!found) throw new Error(`Cliente con ID ${id} no encontrado`);
         return found;
       })
     );
   }
 
-  /** actualizar datos del cliente - en arreglo (debo reiniciar jsonserc para que permita eliminar) */
-  updateClient(id: number, updatedData: Client): Observable<Client> {
+
+  /** actualizar datos del cliente */
+  updateClient(id: string | number, updatedData: Client): Observable<Client> {
     return this.http.put(`${this.clientUrl}/${id}`, updatedData).pipe(
       switchMap(() => this.getAllClients()),
       map(clients => {
-        const found = clients.find(c => c.id === id);
-        if (!found) throw new Error(`Cliente con ID ${id} no encontrado después de editar`);
+        const found = clients.find(c => c.id === id.toString());
+        if (!found) throw new Error(`Cliente con ID ${id} no encontrado despues de editar`);
         return found;
       })
     );
   }
 
-  /** eliminar cliente - en arreglo (debo reiniciar jsonserv para que permita eliminar) */
-  deleteClientLogically(id: number): Observable<Client> {
+  /** eliminar cliente  */
+  deleteClientLogically(id: string | number): Observable<Client> {
     return this.http.patch(`${this.clientUrl}/${id}`, { status: false }).pipe(
       switchMap(() => this.getAllClients()),
       map(clients => {
-        const found = clients.find(c => c.id === id);
-        if (!found) throw new Error(`Cliente con ID ${id} no encontrado después de eliminar`);
+        const found = clients.find(c => c.id === id.toString());
+        if (!found) throw new Error(`Cliente con ID ${id} no encontrado despues de eliminar`);
         return found;
       })
     );
