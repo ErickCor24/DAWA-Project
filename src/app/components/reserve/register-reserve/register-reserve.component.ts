@@ -37,9 +37,10 @@ export class RegisterReserveComponent implements OnInit {
   
   vehicles: Vehicle[] = [];
   agencies:  Agency[] = [];
-   selectedClientName = '';
+  selectedClientName = '';
+  selectedVehicleName = '';
   rentalDays: number = 0;
-   fechaMin: Date = new Date();
+  fechaMin: Date = new Date();
 
 
   constructor(
@@ -56,7 +57,7 @@ export class RegisterReserveComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // 1) Validar sesión
+    // Validar sesión
     const client = this.session.getClient();
     if (!client) {
       this.router.navigate(['/client/login']);
@@ -64,7 +65,7 @@ export class RegisterReserveComponent implements OnInit {
     }
     this.selectedClientName = client.fullName;
 
-    // 2) Inicializar formulario
+    // Inicializar formulario
     this.reserveForm = this.fb.group({
       idClient: [client.id, Validators.required],
       idVehicle: ['', Validators.required],
@@ -78,11 +79,26 @@ export class RegisterReserveComponent implements OnInit {
     this.http.get<Agency[]>('http://localhost:3000/agencys')
       .subscribe(list => this.agencies = list);
       
- this.vehicleService.getVehicles() 
-  .subscribe(list => this.vehicles = list);
-this.reserveForm.get('pickupDate')!.valueChanges.subscribe(() => this.calculatePrice());
+   this.vehicleService.getVehicles().subscribe(list => {
+      this.vehicles = list;
+
+      // Lee el vehículo que dejó la vista anterior
+      const sel = sessionStorage.getItem('selectedVehicleId');
+      if (sel) {
+  
+        this.reserveForm.patchValue({ idVehicle: sel });
+
+    
+        const veh = this.vehicles.find(v => v.id === sel);
+        if (veh) {
+          this.selectedVehicleName = `${veh.brand} ${veh.model}`;
+        }
+      }
+    });
+
+  this.reserveForm.get('pickupDate')!.valueChanges.subscribe(() => this.calculatePrice());
     this.reserveForm.get('dropoffDate')!.valueChanges.subscribe(() => this.calculatePrice());
-    this.reserveForm.get('idVehicle')!.valueChanges.subscribe(() => this.calculatePrice());
+  
   
   }
   

@@ -25,14 +25,14 @@ import { Client } from '../../../models/clients/client.model';
     MatListModule,
     MatChipsModule,
     ClientAccountDeleteComponent,
-    ButtonComponent 
+    ButtonComponent
   ],
   templateUrl: './client-profile-view.component.html',
   styleUrls: ['./client-profile-view.component.css']
 })
 export class ClientProfileViewComponent implements OnInit {
   private router = inject(Router);
-  private session = inject(ClientSessionService); 
+  private session = inject(ClientSessionService);
 
   client: Client | null = null;
 
@@ -49,8 +49,12 @@ export class ClientProfileViewComponent implements OnInit {
     this.router.navigate(['/client/edit-profile']);
   }
 
+
   logout(): void {
-    this.session.clear(); 
+    this.session.clear();
     this.router.navigate(['/client/login']);
+  }
+  goToReservationHistory(): void {
+    this.router.navigate(['/reserve/client-history']);
   }
 }

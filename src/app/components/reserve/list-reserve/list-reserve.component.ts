@@ -36,7 +36,8 @@ export class ListReserveComponent implements OnInit {
   clients: Client[] = [];
   vehicles: Vehicle[] = [];
   agencies: Agency[] = [];
-  displayedColumns: string[] = ['vehicle', 'agency', 'start', 'end', 'price', 'status', 'actions'];
+ displayedColumns = ['vehicle','agency','pickupDate','dropoffDate','price','status','actions'];
+
 
 
   constructor(
@@ -85,7 +86,7 @@ export class ListReserveComponent implements OnInit {
     this.filter = value;
   }
 
-  getVehicleName(id: string): string {
+  getVehicleNsiame(id: string): string {
     const v = this.vehicles.find(x => x.id === id);
     return v ? `${v.brand} ${v.model}` : 'Desconocido';
   }
@@ -153,6 +154,6 @@ deleteReserve(resId: string, vehId: string): void {
   }
 
   goToSelectVehicle(): void {
-    this.router.navigate(['/vehicle/view']);
+    this.router.navigate(['/vehicle/view-client-vehicles']);
   }
 }

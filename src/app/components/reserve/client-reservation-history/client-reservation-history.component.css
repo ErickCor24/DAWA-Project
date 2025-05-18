@@ -1,0 +1,86 @@
+.reservation-history-container {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.back-button-container {
+  margin-bottom: 1rem;
+  
+}
+.back-button-container button {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgb(229, 238, 238);
+  background-color: #3C6E71;
+}
+
+
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #0c2d45;
+}
+
+.reservation-table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table-header {
+  background-color: #3C6E71;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.table-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table-row:hover {
+  background-color: #eef6ff;
+}
+
+.mat-chip {
+  font-weight: bold;
+}
+.mi-chip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 90px;
+  height: 36px; 
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0 12px;
+  text-align: center;
+}
+
+
+.mi-chip.chip-activo {
+  background-color: #99f538;
+}
+
+.mi-chip.chip-inactivo {
+  background-color: #F13E2E;
+}
+
+.no-reservations {
+  margin-top: 2rem;
+  text-align: center;
+  color: #888;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
