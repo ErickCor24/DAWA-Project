@@ -16,7 +16,7 @@
   align-items: center;
   gap: 0.5rem;
   color: rgb(229, 238, 238);
-  background-color: #0c2d45;
+  background-color: #3C6E71;
 }
 
 
@@ -35,7 +35,7 @@
 }
 
 .table-header {
-  background-color: #0c2d45;
+  background-color: #3C6E71;
   color: white;
   font-weight: bold;
   font-size: 15px;
