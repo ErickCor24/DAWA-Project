@@ -1,18 +1,17 @@
-<div class="login-page"> 
-<div class="profile-container" *ngIf="client">
+<div class="login-page">
+  <div class="profile-container" *ngIf="client">
     <mat-card class="profile-card" [ngClass]="{ 'inactive-card': !client.status }">
-  
-      
+
       <div class="avatar-block">
         <mat-icon class="profile-avatar">account_circle</mat-icon>
         <h2 class="profile-name">{{ client.fullName }}</h2>
       </div>
-  
+
       <!-- estado -->
       <mat-chip [color]="client.status ? 'primary' : 'warn'" selected>
         {{ client.status ? 'Activo' : 'Inactivo' }}
       </mat-chip>
-  
+
       <!-- lista de datos -->
       <mat-list>
         <mat-list-item>
@@ -40,23 +39,25 @@
           <span matLine>Nacionalidad: {{ client.nationality }}</span>
         </mat-list-item>
       </mat-list>
-  
-      <!-- botones -->
-      <mat-card-actions align="end">
-        <app-button [name]="'Editar perfil'" [type]="'button'" (clicked)="goToEdit()"
-             class="edit-button"
-         ></app-button>
-         <app-button [name]="'Cerrar sesión'" [type]="'button'" (clicked)="logout()"
-             class="logout-button"
-          ></app-button>
-        <app-client-account-delete></app-client-account-delete>
 
-      </mat-card-actions>
-  
+      <!-- botones organizados -->
+      <div class="profile-actions">
+        <div class="main-buttons">
+          <app-button [name]="'Editar perfil'" [type]="'button'" (clicked)="goToEdit()"></app-button>
+          <app-button [name]="'Historial de Reservas'" [type]="'button'"
+            (clicked)="goToReservationHistory()"></app-button>
+        </div>
+
+        <div class="secondary-buttons">
+          <app-button [name]="'Cerrar sesión'" [type]="'button'" (clicked)="logout()"></app-button>
+          <app-client-account-delete></app-client-account-delete>
+        </div>
+      </div>
+
+
     </mat-card>
   </div>
-  
-  
+
   <div *ngIf="!client" class="loading-text">
     <p>Cargando perfil...</p>
   </div>
