@@ -37,7 +37,7 @@
                 <p><strong>Transmisión: </strong>{{vehicle.transmission}}</p>
             </mat-card-content>
             <mat-card-actions>
-                <app-button [name]="'Reservar'"></app-button>
+                <app-button [name]="'Reservar'"[type]="'button'"(clicked)="goToReserve(vehicle.id!)"></app-button>
             </mat-card-actions>
         </mat-card>
         }

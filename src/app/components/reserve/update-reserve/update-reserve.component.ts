@@ -50,33 +50,45 @@ export class UpdateReserveComponent implements OnInit {
     private vehicleService: VehicleService,
     private route: ActivatedRoute
   ) {}
-   ngOnInit(): void {
-   //Verificar sesión
-    const client = this.session.getClient();
-    if (!client) {
-      this.router.navigate(['/client/login']);
-      return;
-    }
-    this.selectedClientName = client.fullName;
+ ngOnInit(): void {
 
-    // Inicializar form
-    this.reserveForm = this.fb.group({
-      idClient:       [ client.id,    Validators.required ],
-      idVehicle:      [ '',           Validators.required ],
-      idAgencyPickup: [ '',           Validators.required ],
-      pickupDate:     [ '',           Validators.required ],
-      dropoffDate:    [ '',           Validators.required ],
-      price:          [ { value: 0, disabled: true }, Validators.required ],
-      status:         [ true ]
-    }, { validators: this.dateRangeValidator });
+  const client = this.session.getClient();
+  if (!client) {
+    this.router.navigate(['/client/login']);
+    return;
+  }
+  this.selectedClientName = client.fullName;
 
-    // Cargar sólo los vehículos disponibles
-    this.vehicleService.getVehicles().subscribe(vList => {
-      this.vehicles = vList;
+ 
+  this.reserveForm = this.fb.group({
+    idClient:       [ client.id,    Validators.required ],
+    idVehicle:      [ '',           Validators.required ],
+    idAgencyPickup: [ '',           Validators.required ],
+    pickupDate:     [ '',           Validators.required ],
+    dropoffDate:    [ '',           Validators.required ],
+    price:          [ { value: 0, disabled: true }, Validators.required ],
+    status:         [ true ]
+  }, { validators: this.dateRangeValidator });
 
-      // Cargar datos de la reserva a editar
-      const id = this.route.snapshot.paramMap.get('id')!;
-      this.reserveService.getReserve(id).subscribe(r => {
+
+  this.vehicleService.getVehicles().subscribe(vList => {
+    this.vehicles = vList;
+
+    // Obtener ID de reserva desde la URL
+    const reserveId = this.route.snapshot.paramMap.get('id')!;
+    this.reserveService.getReserve(reserveId).subscribe({
+      next: r => {
+        // Si no existe, redirigir
+        if (!r) {
+          this.router.navigate(['/not-found']);
+          return;
+        }
+        // Si no es del cliente logeado, redirigir
+        if (String(r.idClient) !== String(client.id)) {
+          this.router.navigate(['/not-found']);
+          return;
+        }
+
         this.reserveForm.patchValue({
           idVehicle:      r.idVehicle,
           idAgencyPickup: r.idAgencyPickup,
@@ -85,30 +97,32 @@ export class UpdateReserveComponent implements OnInit {
           status:         r.status
         });
 
-        //Traer el vehículo reservado aunque esté no disponible
+        //Mostrar nombre del vehículo (incluso si ya no está "disponible")
         this.vehicleService.getVehicle(r.idVehicle).subscribe(veh => {
           this.selectedVehicleName = `${veh.brand} ${veh.model}`;
-
-          //  Asegurar que el reserved vehicle esté en el array para el cálculo
+          // Asegurar que esté en la lista para el cálculo
           if (!this.vehicles.some(v => v.id === veh.id)) {
             this.vehicles.unshift(veh);
           }
-
           this.calculatePrice();
         });
-
-       
-        this.reserveForm.get('pickupDate')!.valueChanges
-          .subscribe(() => this.calculatePrice());
-        this.reserveForm.get('dropoffDate')!.valueChanges
-          .subscribe(() => this.calculatePrice());
-      });
+      },
+      error: _ => {
+        //En caso de un error redirige a Not Found
+        this.router.navigate(['/not-found']);
+      }
     });
 
-    // Cargar agencias (temporal)
-    this.http.get<Agency[]>('http://localhost:3000/agencys')
-      .subscribe(list => this.agencies = list);
-  }
+    this.reserveForm.get('pickupDate')!.valueChanges
+      .subscribe(() => this.calculatePrice());
+    this.reserveForm.get('dropoffDate')!.valueChanges
+      .subscribe(() => this.calculatePrice());
+  });
+
+  this.http.get<Agency[]>('http://localhost:3000/agencys')
+    .subscribe(list => this.agencies = list);
+}
+
 
   calculatePrice(): void {
     const p   = new Date(this.reserveForm.get('pickupDate')!.value);
