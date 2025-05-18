@@ -1,0 +1,15 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="agency-form">
+  <input formControlName="name" placeholder="Nombre" />
+  <input formControlName="address" placeholder="Dirección" />
+  <input formControlName="phone" placeholder="Teléfono" />
+  <input formControlName="email" placeholder="Email" />
+  <input formControlName="workingHours" placeholder="Horario" />
+
+  <label class="checkbox-label">
+    <input type="checkbox" formControlName="status" />
+    Activo
+  </label>
+
+  <button type="submit" class="btn save-btn">Guardar</button>
+</form>
+
