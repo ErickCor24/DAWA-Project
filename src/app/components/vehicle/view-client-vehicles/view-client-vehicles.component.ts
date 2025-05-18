@@ -65,4 +65,12 @@ export class ViewClientVehiclesComponent implements OnInit{
       this.loadVehicles();
     }
   }
+    goToReserve(vehicleId: string): void {
+    sessionStorage.setItem('selectedVehicleId', vehicleId);
+    this.router.navigate(
+    ['/reserve/register'],
+    { queryParams: { vehicleId } }
+    );
+  }
+  
 }

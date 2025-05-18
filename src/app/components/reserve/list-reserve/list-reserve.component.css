@@ -1,42 +1,61 @@
-.title {
-  color: #151515;
-  margin-bottom: 1rem;
+.div-view-reserves {
+  width: 80%;
+  box-sizing: border-box;
+  padding: 30px 40px;
+  margin: 30px auto;
+  background-color: #FEFFFE;
 }
 
-.filter-select {
-  width: 200px;
-  margin-bottom: 1rem;
+.div-view-reserves h3 {
+  margin: 0 0 20px;
+  color: #151515;
+}
+
+.div-search-new {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.form-filter {
+  display: flex;
+  gap: 20px;
+}
+
+.form-filter .mat-mdc-form-field {
+  height: 60px;
+  margin: 10px 0 5px;
+  background-color: #FEFFFE;
 }
 
 .table-card {
+  overflow: auto;
   background-color: #FEFFFE;
-  padding: 1rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 8px rgba(21, 21, 21, 0.15);
 }
 
-.custom-table th {
-  background-color: #151515;
-  color: #FEFFFE;
-  font-weight: bold;
+.custom-table {
+  width: 100%;
+  table-layout: fixed;
+  word-wrap: break-word;
 }
 
-.custom-table td {
-  background-color: #E3E3E3;
-  color: #151515;
-}
-
-.mat-header-cell, .mat-cell {
-  padding: 12px;
+.custom-table th.mat-mdc-header-cell,
+.custom-table td.mat-mdc-cell {
   text-align: center;
+  padding: 5px;
 }
 
-.btn-new {
-  margin-top: 1rem;
-  text-align: left;
-}
-.action-buttons {
+.div-cell-buttons {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+mat-paginator {
+  width: 100%;
+  text-align: end;
+  margin-top: 10px;
 }
