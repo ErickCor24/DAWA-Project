@@ -30,7 +30,7 @@ export class VehicleService {
     map((vehicles) =>
       vehicles.filter((vehicle) =>
         dataInput
-          ? String((vehicle as any)[field]).toLowerCase().includes(dataInput.toLowerCase())
+          ? String((vehicle as any)[field]).toLowerCase().includes(dataInput.toLowerCase()) && vehicle.isAvailable
           : true
       )
     )

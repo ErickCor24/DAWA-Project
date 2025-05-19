@@ -30,6 +30,7 @@ export class ViewClientVehiclesComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
+    sessionStorage.removeItem('selectedVehicleId');
     console.log(`idClientLogued ${sessionStorage.getItem('clientSession')}`);
     this.idClient = sessionStorage.getItem('clientSession') ?? '';
     if (this.idClient != null &&
@@ -72,5 +73,5 @@ export class ViewClientVehiclesComponent implements OnInit{
     { queryParams: { vehicleId } }
     );
   }
-  
+
 }

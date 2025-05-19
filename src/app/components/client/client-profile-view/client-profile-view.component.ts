@@ -55,6 +55,6 @@ export class ClientProfileViewComponent implements OnInit {
     this.router.navigate(['/client/login']);
   }
   goToReservationHistory(): void {
-    this.router.navigate(['/reserve/client-history']);
+    this.router.navigate(['/reserve/list']);
   }
 }

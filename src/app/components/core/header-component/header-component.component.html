@@ -1,5 +1,5 @@
 <header>
-  <div class="logo-header">
+  <a routerLink="/home" class="logo-header">
     <svg class="img-logo" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve" fill="#ef2917">
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -36,16 +36,28 @@
       </g>
     </svg>
     <p class="header-title">CarRental</p>
-  </div>
-  <nav *ngIf="sessionAvalible" class="nav-bar-header">
+  </a>
+
+  <!-- Client nav -->
+  <nav *ngIf="sessionAvalible && typeaccountLoggued == 1" class="nav-bar-header">
     <a routerLink="/home">Inicio</a>
+    <a routerLink='/vehicle/view-client-vehicles' routerLinkActive="router-link-active">Vehiculos</a>
+    <a routerLink="/company/companies">Empresas</a>
+    <a routerLink="/client/profile">Profile</a>
+  </nav>
+
+  <!-- Company nav -->
+  <nav *ngIf="sessionAvalible && typeaccountLoggued == 2" class="nav-bar-header">
+    <a routerLink="/home">Inicio</a>
+    <a routerLink="/client/search">Clientes</a>
     <a routerLink='/vehicle/view-company-vehicles' routerLinkActive="router-link-active">Vehiculos</a>
-    <a routerLink="">Empresas</a>
     <a routerLink="/company/profile">Profile</a>
   </nav>
+
+
   <div *ngIf="!sessionAvalible" class="btn-container">
-    <a routerLink="/company/login" class="btn-header login-btn">Iniciar Sesión</a>
-    <a routerLink="/register" class="btn-header register-btn">Registrarse</a>
+    <a routerLink="/client/login" class="btn-header login-btn">Iniciar Sesión</a>
+    <a routerLink="/client/register" class="btn-header register-btn">Registrarse</a>
   </div>
 
   <div *ngIf="sessionAvalible" class="btn-container">

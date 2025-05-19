@@ -33,8 +33,8 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 export class RegisterReserveComponent implements OnInit {
 
   reserveForm!: FormGroup;
-  
-  
+
+
   vehicles: Vehicle[] = [];
   agencies:  Agency[] = [];
   selectedClientName = '';
@@ -51,9 +51,9 @@ export class RegisterReserveComponent implements OnInit {
     private dialogService: DialogService,
     private session: ClientSessionService,
     private vehicleService: VehicleService,
-  
-  
-    
+
+
+
   ) {}
 
   ngOnInit(): void {
@@ -78,17 +78,17 @@ export class RegisterReserveComponent implements OnInit {
 
     this.http.get<Agency[]>('http://localhost:3000/agencys')
       .subscribe(list => this.agencies = list);
-      
+
    this.vehicleService.getVehicles().subscribe(list => {
       this.vehicles = list;
 
       // Lee el vehículo que dejó la vista anterior
       const sel = sessionStorage.getItem('selectedVehicleId');
       if (sel) {
-  
+
         this.reserveForm.patchValue({ idVehicle: sel });
 
-    
+
         const veh = this.vehicles.find(v => v.id === sel);
         if (veh) {
           this.selectedVehicleName = `${veh.brand} ${veh.model}`;
@@ -98,10 +98,10 @@ export class RegisterReserveComponent implements OnInit {
 
   this.reserveForm.get('pickupDate')!.valueChanges.subscribe(() => this.calculatePrice());
     this.reserveForm.get('dropoffDate')!.valueChanges.subscribe(() => this.calculatePrice());
-  
-  
+
+
   }
-  
+
 
      calculatePrice(): void {
     const p = new Date(this.reserveForm.get('pickupDate')!.value);
@@ -155,15 +155,15 @@ export class RegisterReserveComponent implements OnInit {
         'Confirmar reserva',
         '¿Deseas guardar esta reserva?',
         () => {
-          
+
          this.reserveService.addReserve(newRes).subscribe(res => {
-       
+
         const veh = this.vehicles.find(v => v.id === newRes.idVehicle);
            if (!veh) return;
 
         const updatedVeh: Vehicle = { ...veh, isAvailable: false };
          this.vehicleService.updateVehicle(updatedVeh)
-          .subscribe(() => this.router.navigate(['/reserve/list']));
+          .subscribe(() => this.router.navigate(['/reserve/client-history']));
         });
         }
       ).subscribe();
@@ -174,7 +174,7 @@ export class RegisterReserveComponent implements OnInit {
     this.dialogService.openDialog(
       'Cancelar registro',
       '¿Estás seguro de que deseas cancelar?',
-      () => this.router.navigate(['/reserve/list'])
+      () => this.router.navigate(['/vehicle/view-client-vehicles'])
     ).subscribe();
   }
 

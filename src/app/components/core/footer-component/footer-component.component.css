@@ -1,15 +1,16 @@
 footer{
     display: flex;
-    flex-direction: column;
-    gap: 25px;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     color: #fff;
     background-color: #151515;
-    padding: 10px 25px;
+    padding: 25px 25px;
 }
 
 h3,p{
     margin: 0;
+    padding: 0 25px;
 }
 
 h3{
