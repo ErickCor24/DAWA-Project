@@ -239,7 +239,6 @@
     {
       "id": "1",
       "idCompany": "0",
-      "idAgency": 0,
       "brand": "Toyota",
       "model": "Corolla",
       "year": 2020,
@@ -257,7 +256,6 @@
     {
       "id": "2",
       "idCompany": "1",
-      "idAgency": "1",
       "brand": "Hondarrr",
       "model": "Civic",
       "year": 2019,
@@ -275,7 +273,6 @@
     {
       "id": "3",
       "idCompany": "1",
-      "idAgency": 0,
       "brand": "Ford",
       "model": "Escape",
       "year": 2021,
@@ -293,7 +290,6 @@
     {
       "id": "4",
       "idCompany": "1",
-      "idAgency": 1,
       "brand": "Chevrolet",
       "model": "Spark",
       "year": 2018,

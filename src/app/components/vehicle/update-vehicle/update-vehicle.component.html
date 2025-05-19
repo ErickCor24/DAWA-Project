@@ -1,13 +1,5 @@
 <form class="form" [formGroup]="formGroup" (submit)="submit()">
     <h2>Actualizar vehículo</h2>
-    <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
-            <mat-label>Agencia:</mat-label>
-            <mat-select formControlName="idAgency" required>
-                <mat-option value="">Seleccione la agencia..</mat-option>
-                <mat-option value="1">Norte</mat-option>
-                <mat-option value="2">Sur</mat-option>
-            </mat-select>
-        </mat-form-field>
     <div class="pair-group">
         <mat-form-field class="form-group" floatLabel="always" appearance="outline" color="primary">
             <mat-label>Marca:</mat-label>
