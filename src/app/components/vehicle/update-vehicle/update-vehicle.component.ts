@@ -28,9 +28,7 @@ export class UpdateVehicleComponent implements OnInit {
     private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    //serviceAgency to obtain the agencies by company
     this.formGroup = this.fb.group({
-      idAgency: ['', Validators.required],
       brand: ['', [Validators.required, Validators.minLength(3)]],
       type: ['', [Validators.required, Validators.minLength(3)]],
       model: ['', [Validators.required, Validators.minLength(3)]],
@@ -52,7 +50,6 @@ export class UpdateVehicleComponent implements OnInit {
         this.service.getVehicle(this.id).subscribe((data: Vehicle) => {
           this.currentVehicle = data;
           this.formGroup.setValue({
-            idAgency: this.currentVehicle.idAgency,
             brand: this.currentVehicle.brand,
             type: this.currentVehicle.type,
             model: this.currentVehicle.model,
