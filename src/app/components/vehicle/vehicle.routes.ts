@@ -10,6 +10,6 @@ export const VehicleRoutes: Routes = [
     { path: 'view-client-vehicles', component: ViewClientVehiclesComponent, canActivate: [ClientAuthGuard] },
     { path: 'view-company-vehicles', component: ViewCompanyVehiclesComponent, canActivate: [companyGuard] },
     { path: 'create', component: CreateVehicleComponent, canActivate: [companyGuard] },
-    { path: 'update/:id', component: UpdateVehicleComponent, canActivate: [companyGuard] }
-
+    { path: 'update/:id', component: UpdateVehicleComponent, canActivate: [companyGuard] },
+    { path: '', redirectTo: '/', pathMatch: 'full' }
 ];

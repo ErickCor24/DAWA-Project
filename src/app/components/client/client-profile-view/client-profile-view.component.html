@@ -14,38 +14,40 @@
       </mat-chip>
 
       <!-- Lista personalizada sin mat-list-item -->
-      <div class="info-list">
-        <div class="info-item">
-          <mat-icon>badge</mat-icon>
-          <span>CI: {{ client.ci }}</span>
-        </div>
+       <div>
 
-        <div class="info-item">
-          <mat-icon>email</mat-icon>
-          <span>Email: {{ client.email }}</span>
-        </div>
+         <div class="info-list">
+           <div class="info-item">
+             <mat-icon>badge</mat-icon>
+             <span>CI: {{ client.ci }}</span>
+            </div>
 
-        <div class="info-item">
-          <mat-icon>cake</mat-icon>
-          <span>Fecha de nacimiento: {{ client.birthDate | date }}</span>
-        </div>
+            <div class="info-item">
+              <mat-icon>email</mat-icon>
+              <span>Email: {{ client.email }}</span>
+            </div>
 
-        <div class="info-item">
-          <mat-icon>phone</mat-icon>
-          <span>Teléfono: {{ client.phone }}</span>
-        </div>
+            <div class="info-item">
+              <mat-icon>cake</mat-icon>
+              <span>Fecha de nacimiento: {{ client.birthDate | date }}</span>
+            </div>
 
-        <div class="info-item">
-          <mat-icon>place</mat-icon>
-          <span>Dirección: {{ client.address }}</span>
-        </div>
+            <div class="info-item">
+              <mat-icon>phone</mat-icon>
+              <span>Teléfono: {{ client.phone }}</span>
+            </div>
 
-        <div class="info-item">
-          <mat-icon>flag</mat-icon>
-          <span>Nacionalidad: {{ client.nationality }}</span>
-        </div>
-      </div>
+            <div class="info-item">
+              <mat-icon>place</mat-icon>
+              <span>Dirección: {{ client.address }}</span>
+            </div>
 
+            <div class="info-item">
+              <mat-icon>flag</mat-icon>
+              <span>Nacionalidad: {{ client.nationality }}</span>
+            </div>
+          </div>
+        </div>
       <!-- Botones -->
       <div class="profile-actions">
         <div class="main-buttons">

@@ -50,10 +50,10 @@ export class RegisterCompanyComponent implements OnInit {
 
   registerCompanyUser = (user: UserCompany, company: Company) => {
     this._companyServ.addCompany(company).subscribe(data => {
-      alert("Company registered successfully");
+      console.log("Company registered successfully");
     });
     this._userCompServ.addUserCompany(user).subscribe(data => {
-      alert("Company registered successfully");
+      console.log("Company registered successfully");
     })
     this.router.navigate(['/company/login']);
   }

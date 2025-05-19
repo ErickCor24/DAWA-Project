@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { catchError, finalize, of } from 'rxjs';
 
 
@@ -27,7 +27,7 @@ import { ClientSessionService } from '../../../services/clients/client-session.s
     MatIconModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-  
+    RouterLink
   ],
   templateUrl: './client-login.component.html',
   styleUrls: ['./client-login.component.css']
@@ -82,7 +82,7 @@ export class ClientLoginComponent {
           verticalPosition: 'top',
           panelClass: ['snackbar-success']
         });
-        this.router.navigate(['/client/profile']);
+        this.router.navigate(['/home']);
       }
     });
   }
