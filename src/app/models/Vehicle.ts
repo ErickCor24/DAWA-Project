@@ -1,7 +1,6 @@
 export interface Vehicle {
     id?: string;
     idCompany: string;
-    idAgency: number;
     brand: string;
     model: string;
     year: number;
