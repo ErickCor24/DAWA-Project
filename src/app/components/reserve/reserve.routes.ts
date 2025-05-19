@@ -4,14 +4,15 @@ import { RegisterReserveComponent } from "./register-reserve/register-reserve.co
 import { UpdateReserveComponent } from "./update-reserve/update-reserve.component";
 import { ListReserveComponent } from "./list-reserve/list-reserve.component";
 import { ClientReservationHistoryComponent } from "./client-reservation-history/client-reservation-history.component";
+import { ClientAuthGuard } from "../auth/clientguard/client-auth.guard";
 
 
 export const ReserveRoutes: Routes = [
- {path: 'register',component: RegisterReserveComponent},
-  
- {path: 'list',component: ListReserveComponent},
+ {path: 'register',component: RegisterReserveComponent, canActivate: [ClientAuthGuard]},
 
-{ path: 'update/:id', component: UpdateReserveComponent },
-{ path: 'client-history', component: ClientReservationHistoryComponent },
-{ path: '', redirectTo: 'list', pathMatch: 'full' }    
+ {path: 'list',component: ListReserveComponent, canActivate: [ClientAuthGuard]},
+
+{ path: 'update/:id', component: UpdateReserveComponent, canActivate: [ClientAuthGuard] },
+{ path: 'client-history', component: ClientReservationHistoryComponent, canActivate: [ClientAuthGuard] },
+{ path: '', redirectTo: '/', pathMatch: 'full' }
 ]

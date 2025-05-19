@@ -15,7 +15,7 @@
     </form>
 
     <app-button
-      [type]="'button'"
+      [type]="'submit'"
       [name]="'Nueva Reserva'"
       (clicked)="goToSelectVehicle()">
     </app-button>
@@ -74,7 +74,7 @@
             <app-button
               *ngIf="canModify(r)"
               [name]="'Eliminar'"
-              [type]="'button'"
+              [type]="'submit'"
               (clicked)="deleteReserve(r.id!, r.idVehicle)">
             </app-button>
           </div>

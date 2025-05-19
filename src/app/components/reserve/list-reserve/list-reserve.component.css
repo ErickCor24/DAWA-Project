@@ -2,8 +2,10 @@
   width: 80%;
   box-sizing: border-box;
   padding: 30px 40px;
-  margin: 30px auto;
+  margin: 40px auto;
   background-color: #FEFFFE;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .div-view-reserves h3 {

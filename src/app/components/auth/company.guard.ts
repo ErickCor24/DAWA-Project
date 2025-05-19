@@ -13,7 +13,7 @@ export const companyGuard: CanActivateFn = (route, state) => {
   if (typeof token === 'string') {
     return true;
   } else {
-    router.navigate(['/a']);
+    router.navigate(['/client/login']);
     return false;
   }
 };

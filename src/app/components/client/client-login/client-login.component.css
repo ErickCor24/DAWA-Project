@@ -12,7 +12,7 @@ h1 {
 }
 
 .login-container {
-  background-color: #e3e3e3; 
+  background-color: #e3e3e3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,6 +20,7 @@ h1 {
 }
 
 .card-login {
+  margin-top: 20px;
   background-color: #fff;
   padding: 0 32px 32px 32px;
   width: 28%;
@@ -48,6 +49,7 @@ h1 {
   width: 100%;
 }
 .form-login {
+  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
   min-width: 150px;
@@ -73,3 +75,4 @@ p{
   color: #f13e2e;
   font-weight: bold;
 }
+
