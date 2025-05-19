@@ -92,8 +92,8 @@ export class UpdateReserveComponent implements OnInit {
         this.reserveForm.patchValue({
           idVehicle:      r.idVehicle,
           idAgencyPickup: r.idAgencyPickup,
-          pickupDate:     r.pickupDate,
-          dropoffDate:    r.dropoffDate,
+          pickupDate:  this.parseDateString(r.pickupDate),
+          dropoffDate: this.parseDateString(r.dropoffDate),
           status:         r.status
         });
 
@@ -186,5 +186,10 @@ export class UpdateReserveComponent implements OnInit {
   private formatDateOnly(date: Date | string) {
     const d   = new Date(date),y = d.getFullYear(),m=String(d.getMonth() + 1).padStart(2, '0'),day = String(d.getDate()).padStart(2, '0');
     return `${y}-${m}-${day}`;
+  }
+   private parseDateString(dateStr: string): Date {
+  const [year, month, day] = dateStr.split('-').map(s => +s);
+  // month-1 porque en JS los meses van 0–11
+  return new Date(year, month - 1, day);
   }
 }
