@@ -163,7 +163,7 @@ export class RegisterReserveComponent implements OnInit {
 
         const updatedVeh: Vehicle = { ...veh, isAvailable: false };
          this.vehicleService.updateVehicle(updatedVeh)
-          .subscribe(() => this.router.navigate(['/reserve/client-history']));
+          .subscribe(() => this.router.navigate(['/reserve/list']));
         });
         }
       ).subscribe();
