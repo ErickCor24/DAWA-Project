@@ -1,45 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Company } from '../../../models/Company';
+import { Company } from '../../../models/company';
 import { CompanyService } from '../../../services/company/company.service';
 import { CommonModule } from '@angular/common';
-import { MatFormField, MatHint, MatInput, MatLabel } from '@angular/material/input';
+import {
+  MatFormField,
+  MatHint,
+  MatInput,
+  MatLabel,
+} from '@angular/material/input';
 
 @Component({
   selector: 'app-list-companies',
   imports: [MatIconModule, CommonModule, MatFormField, MatLabel, MatInput],
   templateUrl: './list-companies.component.html',
-  styleUrl: './list-companies.component.css'
+  styleUrl: './list-companies.component.css',
 })
 export class ListCompaniesComponent implements OnInit {
-
   companies: Company[] = [];
 
-  constructor(private _companyService: CompanyService) { }
-
+  constructor(private _companyService: CompanyService) {}
 
   ngOnInit(): void {
     this.getAllCompanies();
   }
 
-
-  searchNameCompany = (serachInput: HTMLInputElement) =>{
-    if(serachInput.value){
+  searchNameCompany = (serachInput: HTMLInputElement) => {
+    if (serachInput.value) {
       this.getAllCompaniesByInput(serachInput.value);
     } else {
       this.getAllCompanies();
     }
-  }
+  };
 
   getAllCompanies = () => {
-    this._companyService.getCompanies().subscribe(data => {
-      this.companies = data;
-    })
-  }
+    this._companyService.getCompanies().subscribe((data) => {
+      if (Array.isArray(data.result)) {
+        this.companies = data.result;
+        console.log(this.companies);
+      }
+    });
+  };
 
   getAllCompaniesByInput = (input: string) => {
-    this._companyService.getCompaniesByName(input).subscribe( data => {
+    this._companyService.getCompaniesByName(input).subscribe((data) => {
       this.companies = data;
-    })
-  }
+    });
+  };
 }
