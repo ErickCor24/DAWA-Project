@@ -1,6 +1,6 @@
 export interface UserCompany {
-  id?: string,
-  idCompany: string,
-  userName: string,
+  id?: number,
+  idCompany: number,
+  email: string,
   password: string,
 }

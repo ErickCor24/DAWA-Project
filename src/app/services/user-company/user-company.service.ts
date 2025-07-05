@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
 })
 export class UserCompanyService {
 
-  private URL_USER_COMPANY = "http://localhost:3000/userCompanys";
+  private URL_USER_COMPANY = "https://localhost:7214/api/Authcompany";
 
   constructor(private http: HttpClient) { }
 
@@ -17,18 +17,18 @@ export class UserCompanyService {
   }
 
 
-  addUserCompany = (user: UserCompany): Observable<UserCompany> => {
+/*   addUserCompany = (user: UserCompany): Observable<UserCompany> => {
     return this.http.post<UserCompany>(this.URL_USER_COMPANY, user);
-  }
+  } */
 
-  loginSystem = (username: string, password: string): Observable<UserCompany | number> => {
+/*   loginSystem = (username: string, password: string): Observable<UserCompany | number> => {
     return this.http.get<UserCompany[]>(this.URL_USER_COMPANY).pipe(
       map(users => {
         const match = users.find(x => x.userName === username && x.password === password);
         return match ? match : -1;
       })
     );
-  }
+  } */
 
   createSessionUser = (result: UserCompany | number): boolean => {
     if (typeof result !== 'number') {

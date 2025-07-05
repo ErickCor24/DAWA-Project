@@ -8,11 +8,11 @@ import { ClientAuthGuard } from "../auth/clientguard/client-auth.guard";
 
 
 export const ReserveRoutes: Routes = [
- {path: 'register',component: RegisterReserveComponent, canActivate: [ClientAuthGuard]},
+ {path: 'register',component: RegisterReserveComponent, /* canActivate: [ClientAuthGuard] */},
 
- {path: 'list',component: ListReserveComponent, canActivate: [ClientAuthGuard]},
+ {path: 'list',component: ListReserveComponent, /* canActivate: [ClientAuthGuard] */},
 
-{ path: 'update/:id', component: UpdateReserveComponent, canActivate: [ClientAuthGuard] },
-{ path: 'client-history', component: ClientReservationHistoryComponent, canActivate: [ClientAuthGuard] },
+{ path: 'update/:id', component: UpdateReserveComponent, /* canActivate: [ClientAuthGuard] */ },
+{ path: 'client-history', component: ClientReservationHistoryComponent, /* canActivate: [ClientAuthGuard]  */},
 { path: '', redirectTo: '/', pathMatch: 'full' }
 ]

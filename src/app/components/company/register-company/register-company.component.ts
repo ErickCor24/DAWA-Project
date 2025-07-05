@@ -1,4 +1,4 @@
-import { Company } from './../../../models/Company';
+import {Company} from '../../../models/company'
 import { UserCompany } from './../../../models/UserCompany';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CompanyService } from '../../../services/company/company.service';
@@ -21,9 +21,8 @@ export class RegisterCompanyComponent implements OnInit {
 
   companyForm!: FormGroup;
   companies: Company[] = [];
-  randomCode: string;
 
-  constructor(private _companyServ: CompanyService, private _userCompServ: UserCompanyService, private fb: FormBuilder, private router: Router) { this.randomCode = this.generateRandomString(4) }
+  constructor(private _companyServ: CompanyService, private _userCompServ: UserCompanyService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.companyForm = this.fb.group({
@@ -42,57 +41,32 @@ export class RegisterCompanyComponent implements OnInit {
     const rawFormValue = this.companyForm.value;
 
     if (this.companyForm.valid) {
-      const company: Company = this.createCompanyObject(rawFormValue, this.randomCode);
-      const userCompany: UserCompany = this.createUserCompany(rawFormValue, this.randomCode);
-      this.registerCompanyUser(userCompany, company);
+      const company: Company = this.createCompanyObject(rawFormValue);
+      console.log(company);
+      this.registerCompanyUser(company, rawFormValue.password);
     }
   }
 
-  registerCompanyUser = (user: UserCompany, company: Company) => {
-    this._companyServ.addCompany(company).subscribe(data => {
+  registerCompanyUser = (company: Company, password: string) => {
+    this._companyServ.addCompany(company, password).subscribe(data => {
       console.log("Company registered successfully");
+      console.log(data.isSucces);
+      console.log(data.result);
     });
-    this._userCompServ.addUserCompany(user).subscribe(data => {
-      console.log("Company registered successfully");
-    })
-    this.router.navigate(['/company/login']);
+    /* this.router.navigate(['/company/login']); */
   }
 
-  createCompanyObject = (rawFormValue: any, id: string): Company => {
+  createCompanyObject = (rawFormValue: any): Company => {
     const company: Company = {
-      id: id,
+      id: 0,
       name: rawFormValue.name,
       contactPerson: rawFormValue.contactPerson,
       email: rawFormValue.email,
       phone: "0" + rawFormValue.phone,
-      rucNumber: rawFormValue.rucNumber,
+      rucNumber: rawFormValue.rucNumber.toString(),
       registerDate: new Date(),
       status: true
     }
     return company;
   }
-
-  createUserCompany = (rawFormValue: any, id: string): UserCompany => {
-    const userCompany: UserCompany = {
-      id: id,
-      idCompany: id,
-      userName: rawFormValue.userName,
-      password: rawFormValue.password
-    }
-    return userCompany;
-  }
-
-
-  generateRandomString(length: number): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    const charactersLength = characters.length;
-
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-
-    return result;
-  }
-
 }

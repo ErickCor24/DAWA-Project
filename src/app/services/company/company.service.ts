@@ -1,30 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { find, map, Observable } from 'rxjs';
-import { Company } from '../../models/Company';
+import { Company } from '../../models/company';
 import { UserCompany } from '../../models/UserCompany';
+import { CompanyDTO } from '../../models/CompanyDTO';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
 
-  private URL_COMPANY = "http://localhost:3000/companys";
+  private URL_AUTHCOMPANY = "https://localhost:7214/api/AuthCompany";
+  private URL_COMPANY = "https://localhost:7214/api/Company";
 
   constructor(private http: HttpClient) { }
 
-  getCompanies = (): Observable<Company[]> => {
-    return this.http.get<Company[]>(this.URL_COMPANY);
+  getCompanies = (): Observable<CompanyDTO> => {
+    return this.http.get<CompanyDTO>(this.URL_COMPANY);
   }
 
-  addCompany = (company: Company): Observable<Company> => {
-    return this.http.post<Company>(this.URL_COMPANY, company);
+  addCompany = (company: Company, password: string): Observable<CompanyDTO> => {
+    return this.http.post<CompanyDTO>(`${this.URL_AUTHCOMPANY}/register/${password}`, company);
   }
 
   getCompanyById = (id: string): Observable<Company | number> => {
     return this.http.get<Company[]>(this.URL_COMPANY).pipe(
       map((companies: Company[]) => {
-        const match = companies.find(x => x.id === id)
+        const match = companies.find(x => x.id?.toString() === id) //FIX THAT
         return match ? match : -1;
       })
     )
