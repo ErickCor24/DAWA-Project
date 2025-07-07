@@ -1,6 +1,12 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -9,8 +15,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReserveService } from '../../../services/reserve/reserve.service';
 import { DialogService } from '../../../services/dialog-box/dialog.service';
-import { ClientSessionService } from '../../../services/clients/client-session.service';
 import { VehicleService } from '../../../services/vehicle/vehicle.service';
+import { AuthServiceService } from '../../../services/auth/auth-service.service';
+import { ClientService } from '../../../services/clients/client.service';
 
 import { Vehicle } from '../../../models/Vehicle';
 import { Agency } from '../../../models/agency';
@@ -25,7 +32,16 @@ import { provideNativeDateAdapter } from '@angular/material/core';
   templateUrl: './update-reserve.component.html',
   styleUrls: ['./update-reserve.component.css'],
   imports: [
-    CommonModule, NgFor, NgIf, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, ButtonComponent
+    CommonModule,
+    NgFor,
+    NgIf,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatDatepickerModule,
+    ButtonComponent
   ],
   providers: [provideNativeDateAdapter()]
 })
@@ -37,8 +53,6 @@ export class UpdateReserveComponent implements OnInit {
   selectedClientName = '';
   selectedVehicleName = '';
   fechaMin: Date = new Date();
-  
-
 
   constructor(
     private fb: FormBuilder,
@@ -46,83 +60,87 @@ export class UpdateReserveComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private dialogService: DialogService,
-    private session: ClientSessionService,
     private vehicleService: VehicleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthServiceService, // ← CAMBIO: reemplazo de ClientSessionService
+    private clientService: ClientService      // ← CAMBIO: para obtener el cliente desde el backend
   ) {}
- ngOnInit(): void {
 
-  const client = this.session.getClient();
-  if (!client) {
-    this.router.navigate(['/client/login']);
-    return;
-  }
-  this.selectedClientName = client.fullName;
+  ngOnInit(): void {
+    const clientId = this.authService.getIdToken(); // ← CAMBIO: obtener ID desde el token
+    if (!clientId) {
+      this.authService.removeAuthToken();           // ← CAMBIO: limpiar token si es inválido
+      this.router.navigate(['/client/login']);
+      return;
+    }
 
- 
-  this.reserveForm = this.fb.group({
-    idClient:       [ client.id,    Validators.required ],
-    idVehicle:      [ '',           Validators.required ],
-    idAgencyPickup: [ '',           Validators.required ],
-    pickupDate:     [ '',           Validators.required ],
-    dropoffDate:    [ '',           Validators.required ],
-    price:          [ { value: 0, disabled: true }, Validators.required ],
-    status:         [ true ]
-  }, { validators: this.dateRangeValidator });
-
-
-  this.vehicleService.getVehicles().subscribe(vList => {
-    this.vehicles = vList;
-
-    // Obtener ID de reserva desde la URL
-    const reserveId = this.route.snapshot.paramMap.get('id')!;
-    this.reserveService.getReserve(reserveId).subscribe({
-      next: r => {
-        // Si no existe, redirigir
-        if (!r) {
-          this.router.navigate(['/not-found']);
-          return;
-        }
-        // Si no es del cliente logeado, redirigir
-        if (String(r.idClient) !== String(client.id)) {
-          this.router.navigate(['/not-found']);
+    this.clientService.getClientById(clientId).subscribe({
+      next: client => {
+        if (!client || !client.status) {
+          this.authService.removeAuthToken();       // ← CAMBIO: validación del cliente desde backend
+          this.router.navigate(['/client/login']);
           return;
         }
 
-        this.reserveForm.patchValue({
-          idVehicle:      r.idVehicle,
-          idAgencyPickup: r.idAgencyPickup,
-          pickupDate:  this.parseDateString(r.pickupDate),
-          dropoffDate: this.parseDateString(r.dropoffDate),
-          status:         r.status
+        this.selectedClientName = client.fullName;
+
+        this.reserveForm = this.fb.group({
+          idClient:       [client.id, Validators.required],
+          idVehicle:      ['', Validators.required],
+          idAgencyPickup: ['', Validators.required],
+          pickupDate:     ['', Validators.required],
+          dropoffDate:    ['', Validators.required],
+          price:          [{ value: 0, disabled: true }, Validators.required],
+          status:         [true]
+        }, { validators: this.dateRangeValidator });
+
+        this.vehicleService.getVehicles().subscribe(vList => {
+          this.vehicles = vList;
+
+          const reserveId = this.route.snapshot.paramMap.get('id')!;
+          this.reserveService.getReserve(reserveId).subscribe({
+            next: r => {
+              if (!r || r.idClient !== client.id) {
+                this.router.navigate(['/not-found']);
+                return;
+              }
+
+              this.reserveForm.patchValue({
+                idVehicle:      r.idVehicle,
+                idAgencyPickup: r.idAgencyPickup,
+                pickupDate:     this.parseDateString(r.pickupDate),
+                dropoffDate:    this.parseDateString(r.dropoffDate),
+                status:         r.status
+              });
+
+              this.vehicleService.getVehicle(r.idVehicle).subscribe(veh => {
+                this.selectedVehicleName = `${veh.brand} ${veh.model}`;
+                if (!this.vehicles.some(v => v.id === veh.id)) {
+                  this.vehicles.unshift(veh);
+                }
+                this.calculatePrice();
+              });
+            },
+            error: () => {
+              this.router.navigate(['/not-found']);
+            }
+          });
+
+          this.reserveForm.get('pickupDate')!.valueChanges
+            .subscribe(() => this.calculatePrice());
+          this.reserveForm.get('dropoffDate')!.valueChanges
+            .subscribe(() => this.calculatePrice());
         });
 
-        //Mostrar nombre del vehículo (incluso si ya no está "disponible")
-        this.vehicleService.getVehicle(r.idVehicle).subscribe(veh => {
-          this.selectedVehicleName = `${veh.brand} ${veh.model}`;
-          // Asegurar que esté en la lista para el cálculo
-          if (!this.vehicles.some(v => v.id === veh.id)) {
-            this.vehicles.unshift(veh);
-          }
-          this.calculatePrice();
-        });
+        this.http.get<Agency[]>('http://localhost:3000/agencys')
+          .subscribe(list => this.agencies = list);
       },
-      error: _ => {
-        //En caso de un error redirige a Not Found
-        this.router.navigate(['/not-found']);
+      error: () => {
+        this.authService.removeAuthToken();
+        this.router.navigate(['/client/login']);
       }
     });
-
-    this.reserveForm.get('pickupDate')!.valueChanges
-      .subscribe(() => this.calculatePrice());
-    this.reserveForm.get('dropoffDate')!.valueChanges
-      .subscribe(() => this.calculatePrice());
-  });
-
-  this.http.get<Agency[]>('http://localhost:3000/agencys')
-    .subscribe(list => this.agencies = list);
-}
-
+  }
 
   calculatePrice(): void {
     const p   = new Date(this.reserveForm.get('pickupDate')!.value);
@@ -184,12 +202,15 @@ export class UpdateReserveComponent implements OnInit {
   }
 
   private formatDateOnly(date: Date | string) {
-    const d   = new Date(date),y = d.getFullYear(),m=String(d.getMonth() + 1).padStart(2, '0'),day = String(d.getDate()).padStart(2, '0');
+    const d = new Date(date);
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
     return `${y}-${m}-${day}`;
   }
-   private parseDateString(dateStr: string): Date {
-  const [year, month, day] = dateStr.split('-').map(s => +s);
-  // month-1 porque en JS los meses van 0–11
-  return new Date(year, month - 1, day);
+
+  private parseDateString(dateStr: string): Date {
+    const [year, month, day] = dateStr.split('-').map(s => +s);
+    return new Date(year, month - 1, day);
   }
 }

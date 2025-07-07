@@ -8,12 +8,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule, Router } from '@angular/router';
 
 import { ReserveService } from '../../../services/reserve/reserve.service';
-import { ClientSessionService } from '../../../services/clients/client-session.service';
-
+import { AuthServiceService } from '../../../services/auth/auth-service.service'; // ✅ CAMBIO: reemplazo del ClientSessionService
+import { ClientService } from '../../../services/clients/client.service';        // ✅ CAMBIO: obtener cliente por ID desde backend
+import { VehicleService } from '../../../services/vehicle/vehicle.service';
 
 import { Reserve } from '../../../models/reserve';
 import { Client } from '../../../models/clients/client.model';
-import { VehicleService } from '../../../services/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-client-reservation-history',
@@ -37,54 +37,64 @@ export class ClientReservationHistoryComponent implements OnInit {
 
   constructor(
     private reserveService: ReserveService,
-    private sessionService: ClientSessionService,
+    private authService: AuthServiceService,     // CAMBIO: accede al token JWT
+    private clientService: ClientService,        // CAMBIO: consulta al backend
     private router: Router,
     private vehicleService: VehicleService,
     private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    const storedClient = this.sessionService.getClient();
-    if (!storedClient) {
-      console.warn('Cliente no logueado o inválido');
+    const clientId = this.authService.getIdToken(); // CAMBIO: obtiene ID desde el token
+    if (!clientId) {
+      this.authService.removeAuthToken();           // CAMBIO: limpia token si no es válido
+      this.router.navigate(['/client/login']);
       return;
     }
 
-    this.client = storedClient;
+    this.clientService.getClientById(clientId).subscribe({ // CAMBIO: obtiene datos del cliente desde API
+      next: (storedClient: Client) => {
+        if (!storedClient || !storedClient.status) {
+          this.authService.removeAuthToken();
+          this.router.navigate(['/client/login']);
+          return;
+        }
 
-    this.reserveService.getReserves().subscribe({
-      next: (reserves: Reserve[]) => {
-        this.clientReserves = reserves.filter(
-          r => r.idClient === String(this.client.id)
-        );
+        this.client = storedClient;
 
-        // Obtener el nombre del vehículo por cada reserva
-        this.clientReserves.forEach(res => {
-          this.vehicleService.getVehicle(String(res.idVehicle)).subscribe({
-            next: veh => {
-              res.vehicleName = `${veh.brand} ${veh.model}`;
-              this.cdRef.detectChanges(); 
-            },
-            error: err => {
-              console.warn(`Vehículo no encontrado para ID ${res.idVehicle}`, err);
-              res.vehicleName = 'Desconocido';
-              this.cdRef.detectChanges();
-            }
-          });
+        this.reserveService.getReserves().subscribe({
+          next: (reserves: Reserve[]) => {
+            this.clientReserves = reserves.filter(
+              r => r.idClient === storedClient.id // CAMBIO: comparación directa entre number y number , Cambie el Modelo de IdClient a tipo number
+            );
+
+            this.clientReserves.forEach(res => {
+              this.vehicleService.getVehicle(res.idVehicle).subscribe({
+                next: veh => {
+                  res.vehicleName = `${veh.brand} ${veh.model}`;
+                  this.cdRef.detectChanges();
+                },
+                error: err => {
+                  console.warn(`Vehículo no encontrado para ID ${res.idVehicle}`, err);
+                  res.vehicleName = 'Desconocido';
+                  this.cdRef.detectChanges();
+                }
+              });
+            });
+          },
+          error: err => {
+            console.error('Error al cargar reservas:', err);
+          }
         });
       },
-      error: (err) => {
-        console.error('Error al cargar reservas:', err);
+      error: () => {
+        this.authService.removeAuthToken();
+        this.router.navigate(['/client/login']);
       }
     });
   }
 
-  /** Botón para volver al perfil */
   goBackToProfile(): void {
-    if (this.sessionService.isLoggedIn()) {
-      this.router.navigate(['/client/profile']);
-    } else {
-      this.router.navigate(['/client/login']);
-    }
+    this.router.navigate(['/client/profile']);
   }
 }
