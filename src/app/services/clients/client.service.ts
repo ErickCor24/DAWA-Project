@@ -1,64 +1,68 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map, switchMap } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Client } from '../../models/clients/client.model';
-import { UserClient } from '../../models/clients/user-client.model';
+import { AuthServiceService } from '../../services/auth/auth-service.service';
 
 @Injectable({ providedIn: 'root' })
 export class ClientService {
-  private clientUrl = 'http://localhost:3000/clients';
-  private userClientUrl = 'http://localhost:3000/userClients';
+  private baseUrl = 'https://localhost:7214/api/Client';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthServiceService
+  ) {}
 
-  /** Obtener todos los clientes (para verificar existencia, duplicados, etc.) */
+  /* btener todos los clientes (público o admin) */
   getAllClients(): Observable<Client[]> {
-    return this.http.get<Client[]>(this.clientUrl);
+    return this.http.get<Client[]>(this.baseUrl);
   }
 
   /** Crear un nuevo cliente */
   createClient(client: Client): Observable<Client> {
-    return this.http.post<Client>(this.clientUrl, client);
+    return this.http.post<Client>(this.baseUrl, client);
   }
 
-  /** Crear un nuevo usuario asociado al cliente */
-  createUserClient(user: UserClient): Observable<UserClient> {
-    return this.http.post<UserClient>(this.userClientUrl, user);
-  }
-
-  /** Obtener cliente por ID – versión segura usando toda la coleccion */
+  /** Obtener cliente por ID */
   getClientById(id: string | number): Observable<Client> {
-    return this.getAllClients().pipe(
-      map(clients => {
-        const found = clients.find(c => c.id === id.toString()); 
-        if (!found) throw new Error(`Cliente con ID ${id} no encontrado`);
-        return found;
-      })
-    );
+    return this.http.get<Client>(`${this.baseUrl}/${id}`);
   }
 
-
-  /** actualizar datos del cliente */
+  /** Actualizar datos del cliente */
   updateClient(id: string | number, updatedData: Client): Observable<Client> {
-    return this.http.put(`${this.clientUrl}/${id}`, updatedData).pipe(
-      switchMap(() => this.getAllClients()),
-      map(clients => {
-        const found = clients.find(c => c.id === id.toString());
-        if (!found) throw new Error(`Cliente con ID ${id} no encontrado despues de editar`);
-        return found;
-      })
-    );
+    return this.http.put<Client>(`${this.baseUrl}/${id}`, updatedData);
   }
 
-  /** eliminar cliente  */
+  /** Eliminar cliente lógicamente */
   deleteClientLogically(id: string | number): Observable<Client> {
-    return this.http.patch(`${this.clientUrl}/${id}`, { status: false }).pipe(
-      switchMap(() => this.getAllClients()),
-      map(clients => {
-        const found = clients.find(c => c.id === id.toString());
-        if (!found) throw new Error(`Cliente con ID ${id} no encontrado despues de eliminar`);
-        return found;
-      })
-    );
+    return this.http.patch<Client>(`${this.baseUrl}/${id}`, {});
+  }
+
+  /** Buscar clientes por filtros */
+  searchClients(filters: {
+    name?: string;
+    email?: string;
+    ci?: string;
+    phone?: string;
+    status?: boolean;
+  }): Observable<Client[]> {
+    let params = new HttpParams();
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        params = params.set(key, value.toString());
+      }
+    });
+
+    return this.http.get<Client[]>(`${this.baseUrl}/search`, { params });
+  }
+
+  /** Obtener cliente por CI */
+  getClientByCi(ci: string): Observable<Client> {
+    return this.http.get<Client>(`${this.baseUrl}/ci/${ci}`);
+  }
+  
+  /** Validar si existe email */
+  checkEmailExists(email: string): Observable<Client[]> {
+    return this.searchClients({ email });
   }
 }

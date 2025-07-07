@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ReserveService } from '../../../services/reserve/reserve.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,40 +14,47 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { Reserve } from '../../../models/reserve';
 import { Router } from '@angular/router';
-import { Client } from '../../../models/clients/client.model';
+import { Reserve } from '../../../models/reserve';
 import { Agency } from '../../../models/agency';
-import { ButtonComponent } from "../../shared/button/button.component";
+import { Vehicle } from '../../../models/Vehicle';
+import { ButtonComponent } from '../../shared/button/button.component';
 import { DialogService } from '../../../services/dialog-box/dialog.service';
-import { ClientSessionService } from '../../../services/clients/client-session.service';
 import { VehicleService } from '../../../services/vehicle/vehicle.service';
 import { AgencyService } from '../../../services/agency/agency.service';
-import { Vehicle } from '../../../models/Vehicle';
-import {provideNativeDateAdapter} from '@angular/material/core';
-
-
+import { AuthServiceService } from '../../../services/auth/auth-service.service'; //  CAMBIO
+import { ClientService } from '../../../services/clients/client.service';         //  CAMBIO
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-register-reserve',
-  imports: [MatSelectModule, MatCheckboxModule, ReactiveFormsModule, FormsModule, NgFor, NgIf, CommonModule,
-    MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepickerModule, ButtonComponent],
+  standalone: true,
+  imports: [
+    MatSelectModule,
+    MatCheckboxModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgFor,
+    NgIf,
+    CommonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatDatepickerModule,
+    ButtonComponent
+  ],
   templateUrl: './register-reserve.component.html',
   styleUrl: './register-reserve.component.css',
-   providers: [provideNativeDateAdapter()]
+  providers: [provideNativeDateAdapter()]
 })
 export class RegisterReserveComponent implements OnInit {
-
   reserveForm!: FormGroup;
-
-
   vehicles: Vehicle[] = [];
-  agencies:  Agency[] = [];
+  agencies: Agency[] = [];
   selectedClientName = '';
   selectedVehicleName = '';
-  rentalDays: number = 0;
+  rentalDays = 0;
   fechaMin: Date = new Date();
-
 
   constructor(
     private fb: FormBuilder,
@@ -49,61 +62,75 @@ export class RegisterReserveComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private dialogService: DialogService,
-    private session: ClientSessionService,
-    private vehicleService: VehicleService,
-
-
-
+    private authService: AuthServiceService,      // CAMBIO
+    private clientService: ClientService,         // CAMBIO
+    private vehicleService: VehicleService
   ) {}
 
   ngOnInit(): void {
-    // Validar sesión
-    const client = this.session.getClient();
-    if (!client) {
+    const clientId = this.authService.getIdToken(); // CAMBIO
+    if (!clientId) {
+      this.authService.removeAuthToken();           //  CAMBIO
       this.router.navigate(['/client/login']);
       return;
     }
-    this.selectedClientName = client.fullName;
 
-    // Inicializar formulario
-    this.reserveForm = this.fb.group({
-      idClient: [client.id, Validators.required],
-      idVehicle: ['', Validators.required],
-      idAgencyPickup: ['', Validators.required],
-      pickupDate: ['', Validators.required],
-      dropoffDate: ['', Validators.required],
-      price: [{ value: 0, disabled: true }, Validators.required],
-      status: [true]
-    }, { validators: this.dateRangeValidator });
-
-    this.http.get<Agency[]>('http://localhost:3000/agencys')
-      .subscribe(list => this.agencies = list);
-
-   this.vehicleService.getVehicles().subscribe(list => {
-      this.vehicles = list;
-
-      // Lee el vehículo que dejó la vista anterior
-      const sel = sessionStorage.getItem('selectedVehicleId');
-      if (sel) {
-
-        this.reserveForm.patchValue({ idVehicle: sel });
-
-
-        const veh = this.vehicles.find(v => v.id === sel);
-        if (veh) {
-          this.selectedVehicleName = `${veh.brand} ${veh.model}`;
+    this.clientService.getClientById(clientId).subscribe({ // CAMBIO
+      next: client => {
+        if (!client || !client.status) {
+          this.authService.removeAuthToken();       //  CAMBIO
+          this.router.navigate(['/client/login']);
+          return;
         }
+
+        this.selectedClientName = client.fullName;
+
+        this.reserveForm = this.fb.group(
+          {
+            idClient: [client.id, Validators.required],
+            idVehicle: ['', Validators.required],
+            idAgencyPickup: ['', Validators.required],
+            pickupDate: ['', Validators.required],
+            dropoffDate: ['', Validators.required],
+            price: [{ value: 0, disabled: true }, Validators.required],
+            status: [true]
+          },
+          { validators: this.dateRangeValidator }
+        );
+
+        this.http
+          .get<Agency[]>('http://localhost:3000/agencys')  //debes cambiar a el endppoint que le corresponde
+          .subscribe(list => (this.agencies = list));
+
+        this.vehicleService.getVehicles().subscribe(list => {
+          this.vehicles = list;
+
+          const sel = sessionStorage.getItem('selectedVehicleId');
+          if (sel) {
+            this.reserveForm.patchValue({ idVehicle: sel });
+
+            const veh = this.vehicles.find(v => v.id === sel);
+            if (veh) {
+              this.selectedVehicleName = `${veh.brand} ${veh.model}`;
+            }
+          }
+
+          this.reserveForm
+            .get('pickupDate')!
+            .valueChanges.subscribe(() => this.calculatePrice());
+          this.reserveForm
+            .get('dropoffDate')!
+            .valueChanges.subscribe(() => this.calculatePrice());
+        });
+      },
+      error: () => {
+        this.authService.removeAuthToken();         // CAMBIO
+        this.router.navigate(['/client/login']);
       }
     });
-
-  this.reserveForm.get('pickupDate')!.valueChanges.subscribe(() => this.calculatePrice());
-    this.reserveForm.get('dropoffDate')!.valueChanges.subscribe(() => this.calculatePrice());
-
-
   }
 
-
-     calculatePrice(): void {
+  calculatePrice(): void {
     const p = new Date(this.reserveForm.get('pickupDate')!.value);
     const d = new Date(this.reserveForm.get('dropoffDate')!.value);
     const vid = this.reserveForm.get('idVehicle')!.value as string;
@@ -114,7 +141,9 @@ export class RegisterReserveComponent implements OnInit {
       return;
     }
 
-    const days = Math.ceil((d.getTime() - p.getTime()) / (1000 * 60 * 60 * 24));
+    const days = Math.ceil(
+      (d.getTime() - p.getTime()) / (1000 * 60 * 60 * 24)
+    );
     this.rentalDays = days;
 
     const veh = this.vehicles.find(v => v.id === vid);
@@ -140,56 +169,65 @@ export class RegisterReserveComponent implements OnInit {
       status: raw.status
     };
 
-   this.reserveService.getReserves().subscribe(existing => {
-      const conflict = existing.some(r =>
-        r.idVehicle === newRes.idVehicle &&
-        r.status &&
-        !(newRes.dropoffDate <= r.pickupDate || newRes.pickupDate >= r.dropoffDate)
+    this.reserveService.getReserves().subscribe(existing => {
+      const conflict = existing.some(
+        r =>
+          r.idVehicle === newRes.idVehicle &&
+          r.status &&
+          !(
+            newRes.dropoffDate <= r.pickupDate ||
+            newRes.pickupDate >= r.dropoffDate
+          )
       );
       if (conflict) {
         alert('Este vehículo ya está reservado en ese rango de fechas.');
         return;
       }
 
-      this.dialogService.openDialog(
-        'Confirmar reserva',
-        '¿Deseas guardar esta reserva?',
-        () => {
+      this.dialogService
+        .openDialog(
+          'Confirmar reserva',
+          '¿Deseas guardar esta reserva?',
+          () => {
+            this.reserveService.addReserve(newRes).subscribe(res => {
+              const veh = this.vehicles.find(v => v.id === newRes.idVehicle);
+              if (!veh) return;
 
-         this.reserveService.addReserve(newRes).subscribe(res => {
-
-        const veh = this.vehicles.find(v => v.id === newRes.idVehicle);
-           if (!veh) return;
-
-        const updatedVeh: Vehicle = { ...veh, isAvailable: false };
-         this.vehicleService.updateVehicle(updatedVeh)
-          .subscribe(() => this.router.navigate(['/reserve/list']));
-        });
-        }
-      ).subscribe();
+              const updatedVeh: Vehicle = {
+                ...veh,
+                isAvailable: false
+              };
+              this.vehicleService
+                .updateVehicle(updatedVeh)
+                .subscribe(() => this.router.navigate(['/reserve/list']));
+            });
+          }
+        )
+        .subscribe();
     });
   }
 
   onCancel(): void {
-    this.dialogService.openDialog(
-      'Cancelar registro',
-      '¿Estás seguro de que deseas cancelar?',
-      () => this.router.navigate(['/vehicle/view-client-vehicles'])
-    ).subscribe();
+    this.dialogService
+      .openDialog(
+        'Cancelar registro',
+        '¿Estás seguro de que deseas cancelar?',
+        () => this.router.navigate(['/vehicle/view-client-vehicles'])
+      )
+      .subscribe();
   }
 
   private dateRangeValidator(group: FormGroup): { [key: string]: boolean } | null {
     const p = new Date(group.get('pickupDate')!.value);
     const d = new Date(group.get('dropoffDate')!.value);
-    return (p && d && d <= p) ? { dateInvalid: true } : null;
+    return p && d && d <= p ? { dateInvalid: true } : null;
   }
 
-  private formatDateOnly(date: Date|string): string {
+  private formatDateOnly(date: Date | string): string {
     const d = new Date(date);
     const y = d.getFullYear();
     const m = String(d.getMonth() + 1).padStart(2, '0');
     const day = String(d.getDate()).padStart(2, '0');
     return `${y}-${m}-${day}`;
   }
-
 }

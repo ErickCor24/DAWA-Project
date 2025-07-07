@@ -54,10 +54,10 @@
         <div class="form-group">
           <mat-form-field appearance="outline" color="primary">
             <mat-label>Phone Number</mat-label>
-            <input matInput formControlName="phone" placeholder="N° Celular">
+            <input matInput formControlName="phoneNumber" placeholder="N° Celular">
             <mat-icon matSuffix>call</mat-icon>
           </mat-form-field>
-          <div class="error" *ngIf="registrationForm.get('phone')?.touched && registrationForm.get('phone')?.invalid">
+          <div class="error" *ngIf="registrationForm.get('phoneNumber')?.touched && registrationForm.get('phoneNumber')?.invalid">
             El numero debe tener exactamente 10 digitos.
           </div>
         </div>

@@ -1,21 +1,19 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {FormBuilder,FormGroup,ReactiveFormsModule,Validators} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
+import {MatNativeDateModule,provideNativeDateAdapter} from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatSnackBar,MatSnackBarModule} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { switchMap, map } from 'rxjs';
+import { catchError, of } from 'rxjs';
 
 import { Client } from '../../../models/clients/client.model';
-import { UserClient } from '../../../models/clients/user-client.model';
 import { ClientService } from '../../../services/clients/client.service';
-import { ClientSessionService } from '../../../services/clients/client-session.service';
 
 @Component({
   selector: 'app-client-registration',
@@ -39,7 +37,6 @@ import { ClientSessionService } from '../../../services/clients/client-session.s
 export class ClientRegistrationComponent {
   private fb = inject(FormBuilder);
   private clientService = inject(ClientService);
-  private clientSession = inject(ClientSessionService);
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
 
@@ -49,8 +46,14 @@ export class ClientRegistrationComponent {
   registrationForm: FormGroup = this.fb.group({
     fullName: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/)]],
-    phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+    password: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/)
+      ]
+    ],
+    phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
     ci: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
     address: ['', [Validators.required, Validators.minLength(5)]],
     birthDate: ['', Validators.required],
@@ -73,62 +76,64 @@ export class ClientRegistrationComponent {
 
     this.loading = true;
     const form = this.registrationForm.value;
+    const formattedDate = new Date(form.birthDate).toISOString().split('T')[0];
 
-    this.clientService.getAllClients().pipe(
-      switchMap(clients => {
-        const emailExists = clients.some(c => c.email === form.email);
-        const ciExists = clients.some(c => c.ci === form.ci);
+    const client: Client = {
+      fullName: form.fullName,
+      email: form.email,
+      password: form.password,
+      phoneNumber: form.phoneNumber,
+      ci: form.ci,
+      address: form.address,
+      birthDate: formattedDate,
+      nationality: form.nationality,
+      status: true,
+    }
 
-        if (emailExists || ciExists) {
-          throw new Error('Ya existe un cliente con este correo o cédula.');
+    this.clientService
+      .createClient(client)
+      .pipe(
+        catchError(error => {
+          this.loading = false;
+
+          let errorMessage = 'Error al registrar el cliente.';
+
+          if (error.status === 400) {
+            if (error.error?.message?.includes('email')) {
+              errorMessage =
+                'Ya existe un cliente con este correo electrónico.';
+            } else {
+              errorMessage =
+                'Datos inválidos. Por favor verifica la información.';
+            }
+          } else if (error.status === 409) {
+            errorMessage =
+              'Ya existe un cliente con este correo o cédula.';
+          } else if (error.error?.message) {
+            errorMessage = error.error.message;
+          }
+
+          this.showError(errorMessage);
+          return of(null);
+        })
+      )
+      .subscribe({
+        next: (createdClient: Client | null) => {
+          if (createdClient) {
+            this.registrationForm.reset();
+            this.loading = false;
+
+            this.snackBar.open('Registro exitoso. ¡Bienvenido!', '', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: ['snackbar-success']
+            });
+
+            this.router.navigate(['/client/login']);
+          }
         }
-
-        const nextId = Math.max(...clients.map(c => Number(c.id) || 0)) + 1;
-        const formattedDate = new Date(form.birthDate).toISOString().split('T')[0];
-
-        const client: Client = {
-          id: nextId.toString(),
-          fullName: form.fullName,
-          email: form.email,
-          password: form.password,
-          phone: form.phone,
-          ci: form.ci,
-          address: form.address,
-          birthDate: formattedDate,
-          nationality: form.nationality,
-          status: true
-        };
-
-        const userClient: UserClient = {
-          id: nextId.toString(),
-          userName: form.email,
-          password: form.password,
-          status: true
-        };
-
-        return this.clientService.createClient(client).pipe(
-          switchMap(() => this.clientService.createUserClient(userClient)),
-          map(() => client)
-        );
-      })
-    ).subscribe({
-      next: (client: Client) => {
-        this.clientSession.setClient(client);
-        this.registrationForm.reset();
-        this.loading = false;
-        this.snackBar.open('Registro exitoso. ¡Bienvenido!', '', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: ['snackbar-success']
-        });
-        this.router.navigate(['/client/login']);
-      },
-      error: (error) => {
-        this.loading = false;
-        this.showError(error.message || 'Error al registrar el cliente.');
-      }
-    });
+      });
   }
 
   private showError(message: string): void {

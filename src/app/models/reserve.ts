@@ -1,6 +1,6 @@
 export interface Reserve {
   id?: string;      
-  idClient: string;
+  idClient: number; //Ahora es tipo number
   idVehicle: string;
   idAgencyPickup: number;
   pickupDate: string;

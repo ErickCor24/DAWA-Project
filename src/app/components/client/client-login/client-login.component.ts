@@ -8,12 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, RouterLink } from '@angular/router';
-import { catchError, finalize, of } from 'rxjs';
 
-
-import { AuthClientService } from '../../../services/clients/auth-client.service';
-import { ClientSessionService } from '../../../services/clients/client-session.service';
-
+import { AuthServiceService } from '../../../services/auth/auth-service.service';
 
 @Component({
   selector: 'app-client-login',
@@ -37,8 +33,7 @@ export class ClientLoginComponent {
   loading = false;
 
   private fb = inject(FormBuilder);
-  private authService = inject(AuthClientService);
-  private session = inject(ClientSessionService);
+  private authService = inject(AuthServiceService);
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
 
@@ -50,40 +45,35 @@ export class ClientLoginComponent {
   }
 
   submit(): void {
-    if (this.loginForm.invalid) {
+    if (this.loginForm.valid) {
+      const formValue = this.loginForm.value;
+      const email = formValue.userName.trim();
+      const password = formValue.password.trim();
+
+      this.authService.loginUserClient(email, password).subscribe(response => {
+        if (response.isSucces) {
+          this.authService.setAuthToken(response.token);
+          console.log('Token guardado para cliente:\n' + this.authService.getAuthToken());
+
+          this.snackBar.open('Inicio de sesión exitoso', 'Cerrar', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['snackbar-success']
+          });
+
+          this.router.navigate(['/home']);
+        } else {
+          this.snackBar.open('Usuario o contraseña incorrectos', 'Cerrar', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['snackbar-error']
+          });
+        }
+      });
+    } else {
       this.loginForm.markAllAsTouched();
-      return;
     }
-
-    this.loading = true;
-
-    const form = {
-      userName: this.loginForm.value.userName.trim(),
-      password: this.loginForm.value.password.trim()
-    };
-
-    this.authService.loginAndFetchClient(form.userName, form.password).pipe(
-      finalize(() => this.loading = false),
-      catchError(error => {
-        this.snackBar.open(error.message || 'Usuario o contraseña incorrectos', 'Cerrar', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: ['snackbar-error']
-        });
-        return of(null);
-      })
-    ).subscribe(client => {
-      if (client) {
-        this.session.setClient(client);
-        this.snackBar.open('Inicio de sesion exitoso', 'Cerrar', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: ['snackbar-success']
-        });
-        this.router.navigate(['/home']);
-      }
-    });
   }
 }
