@@ -3,7 +3,7 @@ import { CreateVehicleComponent } from "./create-vehicle/create-vehicle.componen
 import { UpdateVehicleComponent } from "./update-vehicle/update-vehicle.component";
 import { companyGuard } from "../auth/company.guard";
 import { ViewClientVehiclesComponent } from "./view-client-vehicles/view-client-vehicles.component";
-import { ClientAuthGuard } from "../auth/clientguard/client-auth.guard";
+
 import { ViewCompanyVehiclesComponent } from "./view-company-vehicles/view-company-vehicles.component";
 
 export const VehicleRoutes: Routes = [
