@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { DialogService } from '../../../services/dialog-box/dialog.service';
 import { ClientService } from '../../../services/clients/client.service';
-import { ClientSessionService } from '../../../services/clients/client-session.service';
+import { AuthServiceService } from '../../../services/auth/auth-service.service';
 import { Client } from '../../../models/clients/client.model';
 
 @Component({
@@ -36,7 +36,7 @@ export class ClientProfileEditComponent implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private clientService = inject(ClientService);
-  private session = inject(ClientSessionService);
+  private authService = inject(AuthServiceService);
   private dialogService = inject(DialogService);
   private snackBar = inject(MatSnackBar);
 
@@ -45,30 +45,41 @@ export class ClientProfileEditComponent implements OnInit {
   loading = signal(false);
 
   ngOnInit(): void {
-    const sessionClient = this.session.getClient();
+    const clientId = this.authService.getIdToken();
 
-    if (!sessionClient || !sessionClient.id) {
+    if (!clientId) {
+      this.authService.removeAuthToken();
       this.router.navigate(['/client/login']);
       return;
     }
 
-    this.clientService.getAllClients().subscribe(clients => {
-      const found = clients.find(c => c.id === sessionClient.id);
+    this.clientService.getClientById(clientId).subscribe({
+      next: (found) => {
+        if (!found || !found.status) {
+          this.authService.removeAuthToken();
+          this.router.navigate(['/client/login']);
+          return;
+        }
 
-      if (!found || !found.status) {
-        this.session.clear();
+        this.client = found;
+
+        this.form = this.fb.group({
+          fullName: [found.fullName, [Validators.required, Validators.minLength(3)]],
+          phone: [found.phoneNumber, [Validators.required, Validators.pattern(/^\d{10}$/)]],
+          address: [found.address, Validators.required],
+          nationality: [found.nationality, Validators.required]
+        });
+      },
+      error: () => {
+        this.snackBar.open('No se pudo cargar tu información de perfil.', '', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['snackbar-error']
+        });
+        this.authService.removeAuthToken();
         this.router.navigate(['/client/login']);
-        return;
       }
-
-      this.client = found;
-
-      this.form = this.fb.group({
-        fullName: [found.fullName, [Validators.required, Validators.minLength(3)]],
-        phone: [found.phone, [Validators.required, Validators.pattern(/^\d{10}$/)]],
-        address: [found.address, Validators.required],
-        nationality: [found.nationality, Validators.required]
-      });
     });
   }
 
@@ -98,8 +109,7 @@ export class ClientProfileEditComponent implements OnInit {
     };
 
     this.clientService.updateClient(this.client.id, updatedClient).subscribe({
-      next: (response) => {
-        this.session.setClient(response);
+      next: () => {
         this.snackBar.open('Perfil actualizado correctamente.', '', {
           duration: 3000,
           horizontalPosition: 'center',
