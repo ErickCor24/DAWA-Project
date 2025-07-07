@@ -1,13 +1,14 @@
 
 export interface Client {
-  id: string;                
-  fullName: string;
-  email: string;
-  password: string;         
-  phone: string;
-  ci: string;
-  address?: string;
-  birthDate: string;
-  nationality: string;
-  status: boolean;
+  id?: number // Cambiado a number para coincidir con el backend
+  fullName: string
+  email: string
+  password?: string 
+  phoneNumber: string // Cambiado para coincidir con el backend
+  ci: string
+  address?: string
+  birthDate: string
+  nationality: string
+  status: boolean
 }
+
