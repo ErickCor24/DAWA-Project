@@ -14,7 +14,7 @@ export class AuthServiceService {
   constructor(private http: HttpClient) {}
 
   API_COMPANY_URL: string = 'https://localhost:7214/api/Authcompany/login';
-  API_USER_URL: string = 'API0';
+  API_USER_URL: string =  'https://localhost:7214/api/AuthClient/login';
 
   loginUserCompany = (_email: string, _password: string): Observable<ReponseDTO> => {
 
@@ -24,10 +24,12 @@ export class AuthServiceService {
     }
     return this.http.post<ReponseDTO>(this.API_COMPANY_URL, user);
   };
+  
+  loginUserClient = (email: string, password: string): Observable<ReponseDTO> => {
+  const user: UserCredentials = { email, password };
+  return this.http.post<ReponseDTO>(this.API_USER_URL, user);
+  };
 
-/*   loginUserClient = (user: UserCompany): Observable<ReponseDTO> => {
-    return null;
-  }; */
 
   isAuthenticated = (): boolean => {
     return this.getAuthToken() != '';
