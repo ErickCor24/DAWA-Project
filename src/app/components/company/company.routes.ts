@@ -9,6 +9,6 @@ export const CompanyRoutes: Routes = [
   { path: 'register', component: RegisterCompanyComponent },
   { path: 'login', component: LoginUserCompanyComponent },
   { path: 'profile', component: ViewCompanyComponent, canActivate: [authGuardGuard], data: {role: 'company'} },
-  { path: 'companies', component: ListCompaniesComponent, canActivate: [authGuardGuard], data: {role: 'company'}  },
+  { path: 'companies', component: ListCompaniesComponent, canActivate: [authGuardGuard], data: {role: 'client'}  },
   { path: '', redirectTo: '/', pathMatch: 'full' }
 ]

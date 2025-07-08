@@ -44,7 +44,9 @@ export class ListCompaniesComponent implements OnInit {
 
   getAllCompaniesByInput = (input: string) => {
     this._companyService.getCompaniesByName(input).subscribe((data) => {
-      this.companies = data;
+      if(Array.isArray(data.result)){
+        this.companies = data.result;
+      }
     });
   };
 }
