@@ -1,7 +1,6 @@
 import { Routes } from "@angular/router";
 import { CreateVehicleComponent } from "./create-vehicle/create-vehicle.component";
 import { UpdateVehicleComponent } from "./update-vehicle/update-vehicle.component";
-import { companyGuard } from "../auth/company.guard";
 import { ViewClientVehiclesComponent } from "./view-client-vehicles/view-client-vehicles.component";
 
 import { ViewCompanyVehiclesComponent } from "./view-company-vehicles/view-company-vehicles.component";

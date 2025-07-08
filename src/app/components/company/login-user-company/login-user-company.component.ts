@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { Router, RouterLink } from '@angular/router';
 import { UserCompanyService } from '../../../services/user-company/user-company.service';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from "../../shared/button/button.component";
 import { AuthServiceService } from '../../../services/auth/auth-service.service';
@@ -39,12 +39,20 @@ export class LoginUserCompanyComponent implements OnInit {
       const rawFormValue = this.companyLoginForm.value;
       this._authService.loginUserCompany(rawFormValue.email.trim(), rawFormValue.password.trim())
       .subscribe(response => {
-
+        
         if(response.isSucces){
           this._authService.setAuthToken(response.token);
-          console.log('Test in login componente: \n' + this._authService.getAuthToken());
+          //console.log('Test in login componente: \n' + this._authService.getAuthToken());
+          this.router.navigate(['/home']);
+        } else {
+          console.log('user dont found')
         }
-
+        
+        catchError(err => {
+          console.log('user dont found');
+          return err
+        }
+        )
       });
     }
   }
