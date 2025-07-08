@@ -1,6 +1,6 @@
 export interface Vehicle {
-    id?: string;
-    idCompany: string;
+    id?: number;
+    companyId: number;
     brand: string;
     model: string;
     year: number;
@@ -9,9 +9,9 @@ export interface Vehicle {
     type: string;
     seats: number;
     transmission: string;
-    fuelType: string;
+    fueType: string;
     isAvailable: boolean;
     pricePerDay: number;
     poster: string;
-    status: number;
+    status: boolean;
 }

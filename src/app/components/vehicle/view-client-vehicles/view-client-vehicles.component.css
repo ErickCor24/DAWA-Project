@@ -49,9 +49,9 @@
                 height: 150px;
             }
 
-            & mat-card-content {
+            & mat-card-content, & mat-card-header {
 
-                p {
+                p, mat-card-title {
                     margin: 10px;
                     display: -webkit-box;
                     -webkit-line-clamp: 1;
@@ -60,6 +60,7 @@
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
+
             }
         }
     }

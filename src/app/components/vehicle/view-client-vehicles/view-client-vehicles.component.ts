@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -6,6 +6,8 @@ import { ButtonComponent } from '../../shared/button/button.component';
 import { MatCardModule } from '@angular/material/card';
 import { Vehicle } from '../../../models/Vehicle';
 import { VehicleService } from '../../../services/vehicle/vehicle.service';
+import { AuthServiceService } from '../../../services/auth/auth-service.service';
+
 import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 
@@ -16,12 +18,14 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './view-client-vehicles.component.html',
   styleUrl: './view-client-vehicles.component.css'
 })
-export class ViewClientVehiclesComponent implements OnInit{
+export class ViewClientVehiclesComponent implements OnInit {
+
+  private authService = inject(AuthServiceService);
 
   formSearch!: FormGroup;
   vehicles: Vehicle[] = [];
 
-  idClient!: string;
+  idClient!: number;
 
   constructor(
     private service: VehicleService,
@@ -31,11 +35,9 @@ export class ViewClientVehiclesComponent implements OnInit{
 
   ngOnInit(): void {
     sessionStorage.removeItem('selectedVehicleId');
-    console.log(`idClientLogued ${sessionStorage.getItem('clientSession')}`);
-    this.idClient = sessionStorage.getItem('clientSession') ?? '';
-    if (this.idClient != null &&
-      typeof this.idClient === 'string' &&
-      this.idClient != '') {
+    console.log(`idClientLogued ${this.authService.getIdToken()}`);
+    this.idClient = this.authService.getIdToken();
+    if (!isNaN(this.idClient) && this.idClient !== -1) {
       this.loadVehicles();
     } else {
       this.navigateTo("/client/login")
@@ -45,6 +47,7 @@ export class ViewClientVehiclesComponent implements OnInit{
       inputSearch: ['', Validators.required]
     })
   }
+
   loadVehicles(): void {
     this.service.getVehicles().subscribe((data: Vehicle[]) => {
       this.vehicles = data;
@@ -66,11 +69,12 @@ export class ViewClientVehiclesComponent implements OnInit{
       this.loadVehicles();
     }
   }
-    goToReserve(vehicleId: string): void {
-    sessionStorage.setItem('selectedVehicleId', vehicleId);
+  
+  goToReserve(vehicleId: number): void {
+    sessionStorage.setItem('selectedVehicleId', vehicleId.toString());
     this.router.navigate(
-    ['/reserve/register'],
-    { queryParams: { vehicleId } }
+      ['/reserve/register'],
+      { queryParams: { vehicleId } }
     );
   }
 

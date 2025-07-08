@@ -88,7 +88,7 @@ export class ListReserveComponent implements OnInit {
           this.allReserves = r.filter(x => x.idClient === client.id); //  CAMBIO: comparación directa entre números
 
           this.allReserves.forEach(res => {
-            this.vehicleService.getVehicle(res.idVehicle).subscribe(veh => {
+            this.vehicleService.getVehicle(Number(res.idVehicle)).subscribe(veh => {
               res['vehicleName'] = `${veh.brand} ${veh.model}`;
             });
           });
@@ -115,7 +115,7 @@ export class ListReserveComponent implements OnInit {
   }
 
   getVehicleName(id: string): string {
-    const v = this.vehicles.find(x => x.id === id);
+    const v = this.vehicles.find(x => x.id === Number(id));
     return v ? `${v.brand} ${v.model}` : 'Desconocido';
   }
 
@@ -140,7 +140,7 @@ export class ListReserveComponent implements OnInit {
     return pickup > today;
   }
 
-  deleteReserve(resId: string, vehId: string): void {
+  deleteReserve(resId: string, vehId: number): void {
     this.dialogService.openDialog(
       'Eliminar reserva',
       '¿Seguro quieres eliminar esta reserva?',
