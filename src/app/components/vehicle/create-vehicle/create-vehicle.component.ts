@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { VehicleService } from '../../../services/vehicle/vehicle.service';
 import { ButtonComponent } from "../../shared/button/button.component";
 import { Router } from '@angular/router';
+import { AuthServiceService } from '../../../services/auth/auth-service.service';
 
 @Component({
   selector: 'app-create-vehicle',
@@ -17,6 +18,8 @@ import { Router } from '@angular/router';
   styleUrl: './create-vehicle.component.css'
 })
 export class CreateVehicleComponent implements OnInit {
+
+  private authService = inject(AuthServiceService);
 
   formGroup!: FormGroup;
   nextYear = new Date().getFullYear() + 1;
@@ -33,7 +36,7 @@ export class CreateVehicleComponent implements OnInit {
       transmission: ['', Validators.required],
       color: ['', [Validators.required, Validators.minLength(3)]],
       seats: ['', [Validators.required, Validators.min(2)]],
-      fuelType: ['', [Validators.required, Validators.minLength(3)]],
+      fueType: ['', [Validators.required, Validators.minLength(3)]],
       poster: [''],
       pricePerDay: ['', [Validators.required, Validators.min(1)]]
     });
@@ -44,9 +47,21 @@ export class CreateVehicleComponent implements OnInit {
       this.formGroup.markAllAsTouched();
       return;
     } else {
-      this.service.createVehicle(this.formGroup.value, sessionStorage.getItem('idCompany')!).subscribe((createVehicle) => {
-        this.router.navigate(['/vehicle/view-company-vehicles'])
-      })
+      const vehicleData = {
+      ...this.formGroup.value,
+      CompanyId: this.authService.getIdToken(), // Asegúrate que este valor sea correcto
+      isAvailable: true,
+      status: true
+    };
+    this.service.createVehicle(vehicleData, vehicleData.CompanyId).subscribe({
+      next: (vehicle) => {
+        console.log('Vehículo creado:', vehicle);
+        this.router.navigate(['/vehicle/view-company-vehicles']);
+      },
+      error: (err) => {
+        console.error('Error al crear vehículo:', err);
+      }
+    });
     }
   }
 

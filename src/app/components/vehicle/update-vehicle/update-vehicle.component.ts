@@ -35,7 +35,7 @@ export class UpdateVehicleComponent implements OnInit {
       plateNumber: ['', [Validators.required, Validators.pattern(/^[A-Z]{3}[0-9]{4}$/)]],
       transmission: ['', Validators.required],
       year: ['', [Validators.required, Validators.min(1886), Validators.max(new Date().getFullYear() + 1)]],
-      fuelType: ['', [Validators.required, Validators.minLength(3)]],
+      fueType: ['', [Validators.required, Validators.minLength(3)]],
       color: ['', [Validators.required, Validators.minLength(3)]],
       seats: ['', [Validators.required, Validators.min(2)]],
       poster: [''],
@@ -47,7 +47,7 @@ export class UpdateVehicleComponent implements OnInit {
 
       this.id = this.route.snapshot.paramMap.get('id')!;
       if (this.id) {
-        this.service.getVehicle(this.id).subscribe((data: Vehicle) => {
+        this.service.getVehicle(Number(this.id)).subscribe((data: Vehicle) => {
           this.currentVehicle = data;
           this.formGroup.setValue({
             brand: this.currentVehicle.brand,
@@ -56,7 +56,7 @@ export class UpdateVehicleComponent implements OnInit {
             plateNumber: this.currentVehicle.plateNumber,
             transmission: this.currentVehicle.transmission,
             year: this.currentVehicle.year,
-            fuelType: this.currentVehicle.fuelType,
+            fueType: this.currentVehicle.fueType,
             color: this.currentVehicle.color,
             seats: this.currentVehicle.seats,
             poster: this.currentVehicle.poster,

@@ -109,7 +109,7 @@ export class RegisterReserveComponent implements OnInit {
           if (sel) {
             this.reserveForm.patchValue({ idVehicle: sel });
 
-            const veh = this.vehicles.find(v => v.id === sel);
+            const veh = this.vehicles.find(v => v.id === Number(sel));
             if (veh) {
               this.selectedVehicleName = `${veh.brand} ${veh.model}`;
             }
@@ -146,7 +146,7 @@ export class RegisterReserveComponent implements OnInit {
     );
     this.rentalDays = days;
 
-    const veh = this.vehicles.find(v => v.id === vid);
+    const veh = this.vehicles.find(v => v.id === Number(vid));
     if (veh) {
       this.reserveForm.get('price')!.setValue(days * veh.pricePerDay);
     }
@@ -190,7 +190,7 @@ export class RegisterReserveComponent implements OnInit {
           '¿Deseas guardar esta reserva?',
           () => {
             this.reserveService.addReserve(newRes).subscribe(res => {
-              const veh = this.vehicles.find(v => v.id === newRes.idVehicle);
+              const veh = this.vehicles.find(v => v.id === Number(newRes.idVehicle));
               if (!veh) return;
 
               const updatedVeh: Vehicle = {
