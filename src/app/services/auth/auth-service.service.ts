@@ -48,11 +48,11 @@ export class AuthServiceService {
   };
 
   //JWT
-  getIdToken = () => {
+  getIdToken = (): number => {
     const token:string = this.getAuthToken();
-    if(!token) return null;
+    if(!token) return -1;
     const decode = this.decodeToken(token);
-    return decode?.id || null;
+    return parseInt(decode?.id);
   }
 
   getRole(): string | null {
