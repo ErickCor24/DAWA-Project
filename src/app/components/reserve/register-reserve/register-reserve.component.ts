@@ -16,12 +16,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
 import { Reserve } from '../../../models/reserve';
-import { Agency } from '../../../models/agency';
 import { Vehicle } from '../../../models/Vehicle';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { DialogService } from '../../../services/dialog-box/dialog.service';
 import { VehicleService } from '../../../services/vehicle/vehicle.service';
-import { AgencyService } from '../../../services/agency/agency.service';
 import { AuthServiceService } from '../../../services/auth/auth-service.service'; //  CAMBIO
 import { ClientService } from '../../../services/clients/client.service';         //  CAMBIO
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -50,7 +48,6 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 export class RegisterReserveComponent implements OnInit {
   reserveForm!: FormGroup;
   vehicles: Vehicle[] = [];
-  agencies: Agency[] = [];
   selectedClientName = '';
   selectedVehicleName = '';
   rentalDays = 0;
@@ -87,31 +84,27 @@ export class RegisterReserveComponent implements OnInit {
 
         this.reserveForm = this.fb.group(
           {
-            idClient: [client.id, Validators.required],
-            idVehicle: ['', Validators.required],
-            idAgencyPickup: ['', Validators.required],
+            clientId: [client.id, Validators.required],
+            vehicleId: ['', Validators.required],
             pickupDate: ['', Validators.required],
             dropoffDate: ['', Validators.required],
-            price: [{ value: 0, disabled: true }, Validators.required],
+            price: [0, Validators.required] ,
             status: [true]
           },
           { validators: this.dateRangeValidator }
         );
 
-        this.http
-          .get<Agency[]>('http://localhost:3000/agencys')  //debes cambiar a el endppoint que le corresponde
-          .subscribe(list => (this.agencies = list));
-
         this.vehicleService.getVehicles().subscribe(list => {
           this.vehicles = list;
 
           const sel = sessionStorage.getItem('selectedVehicleId');
-          if (sel) {
-            this.reserveForm.patchValue({ idVehicle: sel });
+            if (sel) {
+             this.reserveForm.patchValue({ vehicleId: sel });
 
-            const veh = this.vehicles.find(v => v.id === Number(sel));
+          const veh = this.vehicles.find(v => v.id === Number(sel));
             if (veh) {
               this.selectedVehicleName = `${veh.brand} ${veh.model}`;
+              this.calculatePrice(); // ← 💡 esto soluciona todo
             }
           }
 
@@ -133,7 +126,7 @@ export class RegisterReserveComponent implements OnInit {
   calculatePrice(): void {
     const p = new Date(this.reserveForm.get('pickupDate')!.value);
     const d = new Date(this.reserveForm.get('dropoffDate')!.value);
-    const vid = this.reserveForm.get('idVehicle')!.value as string;
+    const vid = this.reserveForm.get('vehicleId')!.value as string;
 
     if (!vid || isNaN(p.getTime()) || isNaN(d.getTime()) || d <= p) {
       this.reserveForm.get('price')!.setValue(0);
@@ -160,19 +153,19 @@ export class RegisterReserveComponent implements OnInit {
 
     const raw = this.reserveForm.getRawValue();
     const newRes: Reserve = {
-      idClient: raw.idClient,
-      idVehicle: raw.idVehicle,
-      idAgencyPickup: raw.idAgencyPickup,
+      clientId: raw.clientId,
+      vehicleId: raw.vehicleId,
       pickupDate: this.formatDateOnly(raw.pickupDate),
       dropoffDate: this.formatDateOnly(raw.dropoffDate),
       price: raw.price,
       status: raw.status
     };
 
+
     this.reserveService.getReserves().subscribe(existing => {
       const conflict = existing.some(
         r =>
-          r.idVehicle === newRes.idVehicle &&
+          r.vehicleId === newRes.vehicleId &&
           r.status &&
           !(
             newRes.dropoffDate <= r.pickupDate ||
@@ -190,7 +183,7 @@ export class RegisterReserveComponent implements OnInit {
           '¿Deseas guardar esta reserva?',
           () => {
             this.reserveService.addReserve(newRes).subscribe(res => {
-              const veh = this.vehicles.find(v => v.id === Number(newRes.idVehicle));
+              const veh = this.vehicles.find(v => v.id === Number(newRes.vehicleId));
               if (!veh) return;
 
               const updatedVeh: Vehicle = {

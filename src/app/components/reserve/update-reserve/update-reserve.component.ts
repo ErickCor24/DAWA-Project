@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import {
-  ReactiveFormsModule,
-  FormsModule,
-  FormBuilder,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import {ReactiveFormsModule,FormsModule,FormBuilder, FormGroup,Validators} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -20,7 +14,6 @@ import { AuthServiceService } from '../../../services/auth/auth-service.service'
 import { ClientService } from '../../../services/clients/client.service';
 
 import { Vehicle } from '../../../models/Vehicle';
-import { Agency } from '../../../models/agency';
 import { Reserve } from '../../../models/reserve';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { HttpClient } from '@angular/common/http';
@@ -48,7 +41,6 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 export class UpdateReserveComponent implements OnInit {
   reserveForm!: FormGroup;
   vehicles: Vehicle[] = [];
-  agencies: Agency[] = [];
   rentalDays = 0;
   selectedClientName = '';
   selectedVehicleName = '';
@@ -85,9 +77,8 @@ export class UpdateReserveComponent implements OnInit {
         this.selectedClientName = client.fullName;
 
         this.reserveForm = this.fb.group({
-          idClient:       [client.id, Validators.required],
-          idVehicle:      ['', Validators.required],
-          idAgencyPickup: ['', Validators.required],
+          clientId:       [client.id, Validators.required],
+          vehicleId:      ['', Validators.required],
           pickupDate:     ['', Validators.required],
           dropoffDate:    ['', Validators.required],
           price:          [{ value: 0, disabled: true }, Validators.required],
@@ -97,23 +88,22 @@ export class UpdateReserveComponent implements OnInit {
         this.vehicleService.getVehicles().subscribe(vList => {
           this.vehicles = vList;
 
-          const reserveId = this.route.snapshot.paramMap.get('id')!;
+          const reserveId = Number(this.route.snapshot.paramMap.get('id'));
           this.reserveService.getReserve(reserveId).subscribe({
             next: r => {
-              if (!r || r.idClient !== client.id) {
+              if (!r || r.clientId !== client.id) {
                 this.router.navigate(['/not-found']);
                 return;
               }
 
               this.reserveForm.patchValue({
-                idVehicle:      r.idVehicle,
-                idAgencyPickup: r.idAgencyPickup,
+                vehicleId:      r.vehicleId,
                 pickupDate:     this.parseDateString(r.pickupDate),
                 dropoffDate:    this.parseDateString(r.dropoffDate),
                 status:         r.status
               });
 
-              this.vehicleService.getVehicle(Number(r.idVehicle)).subscribe(veh => {
+              this.vehicleService.getVehicle(Number(r.vehicleId)).subscribe(veh => {
                 this.selectedVehicleName = `${veh.brand} ${veh.model}`;
                 if (!this.vehicles.some(v => v.id === veh.id)) {
                   this.vehicles.unshift(veh);
@@ -131,9 +121,6 @@ export class UpdateReserveComponent implements OnInit {
           this.reserveForm.get('dropoffDate')!.valueChanges
             .subscribe(() => this.calculatePrice());
         });
-
-        this.http.get<Agency[]>('http://localhost:3000/agencys')
-          .subscribe(list => this.agencies = list);
       },
       error: () => {
         this.authService.removeAuthToken();
@@ -145,7 +132,7 @@ export class UpdateReserveComponent implements OnInit {
   calculatePrice(): void {
     const p   = new Date(this.reserveForm.get('pickupDate')!.value);
     const d   = new Date(this.reserveForm.get('dropoffDate')!.value);
-    const vid = this.reserveForm.get('idVehicle')!.value as string;
+    const vid = this.reserveForm.get('vehicleId')!.value as string;
 
     if (!vid || isNaN(p.getTime()) || isNaN(d.getTime()) || d <= p) {
       this.reserveForm.get('price')!.setValue(0);
@@ -170,10 +157,9 @@ export class UpdateReserveComponent implements OnInit {
 
     const raw = this.reserveForm.getRawValue();
     const updated: Reserve = {
-      id:             this.route.snapshot.paramMap.get('id')!,
-      idClient:       raw.idClient,
-      idVehicle:      raw.idVehicle,
-      idAgencyPickup: raw.idAgencyPickup,
+      id:             Number(this.route.snapshot.paramMap.get('id')),
+      clientId:       raw.clientId,
+      vehicleId:      raw.vehicleId,
       pickupDate:     this.formatDateOnly(raw.pickupDate),
       dropoffDate:    this.formatDateOnly(raw.dropoffDate),
       price:          raw.price,

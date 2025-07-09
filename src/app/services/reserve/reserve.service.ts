@@ -8,24 +8,29 @@ import { Reserve } from '../../models/reserve';
   providedIn: 'root'
 })
 export class ReserveService {
-private jsonUrl:string = "http://localhost:3000/reserves";
-  constructor(private http: HttpClient) { }
-  
-  getReserves():Observable<Reserve[]>{
-    return this.http.get<Reserve[]>(this.jsonUrl);
+  private apiUrl: string = 'https://localhost:7214/api/Reserve';
+
+  constructor(private http: HttpClient) {}
+
+  getReserves(): Observable<Reserve[]> {
+    return this.http.get<Reserve[]>(this.apiUrl);
   }
-  getReserve(id: string): Observable<Reserve> {
-    return this.http.get<Reserve>(`${this.jsonUrl}/${id}`);
+
+  getReserve(id: number): Observable<Reserve> {
+    return this.http.get<Reserve>(`${this.apiUrl}/${id}`);
   }
+
   addReserve(reserve: Reserve): Observable<Reserve> {
-      const reserveCleaned = { ...reserve };
-  delete (reserveCleaned as any).id;
-    return this.http.post<Reserve>(this.jsonUrl, reserve);
+    const reserveCleaned = { ...reserve };
+    delete (reserveCleaned as any).id; // prevenir conflicto si tiene un id
+    return this.http.post<Reserve>(this.apiUrl, reserveCleaned);
   }
-    deleteReserve(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.jsonUrl}/${id}`);
+
+  deleteReserve(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
-    updateReserve(r: Reserve): Observable<Reserve> {
-    return this.http.put<Reserve>(`${this.jsonUrl}/${r.id}`, r);
+
+  updateReserve(r: Reserve): Observable<Reserve> {
+    return this.http.put<Reserve>(`${this.apiUrl}/${r.id}`, r);
   }
 }
