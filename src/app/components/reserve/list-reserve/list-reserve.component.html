@@ -30,12 +30,6 @@
         <td mat-cell *matCellDef="let r"> {{ r.vehicleName || 'Desconocido' }} </td>
       </ng-container>
 
-      <!-- agencia -->
-      <ng-container matColumnDef="agency">
-        <th mat-header-cell *matHeaderCellDef>Agencia</th>
-        <td mat-cell *matCellDef="let r"> {{ getAgencyName(r.idAgencyPickup) }} </td>
-      </ng-container>
-
       <!-- inicio -->
       <ng-container matColumnDef="pickupDate">
         <th mat-header-cell *matHeaderCellDef>Inicio</th>
@@ -75,7 +69,7 @@
               *ngIf="canModify(r)"
               [name]="'Eliminar'"
               [type]="'submit'"
-              (clicked)="deleteReserve(r.id!, r.idVehicle)">
+              (clicked)="deleteReserve(r.id!, r.vehicleId)">
             </app-button>
           </div>
         </td>

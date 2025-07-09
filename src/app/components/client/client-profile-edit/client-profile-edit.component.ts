@@ -65,7 +65,7 @@ export class ClientProfileEditComponent implements OnInit {
 
         this.form = this.fb.group({
           fullName: [found.fullName, [Validators.required, Validators.minLength(3)]],
-          phone: [found.phoneNumber, [Validators.required, Validators.pattern(/^\d{10}$/)]],
+          phoneNumber: [found.phoneNumber, [Validators.required, Validators.pattern(/^\d{10}$/)]],
           address: [found.address, Validators.required],
           nationality: [found.nationality, Validators.required]
         });
