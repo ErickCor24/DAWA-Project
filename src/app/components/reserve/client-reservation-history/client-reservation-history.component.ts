@@ -65,17 +65,17 @@ export class ClientReservationHistoryComponent implements OnInit {
         this.reserveService.getReserves().subscribe({
           next: (reserves: Reserve[]) => {
             this.clientReserves = reserves.filter(
-              r => r.idClient === storedClient.id // CAMBIO: comparación directa entre number y number , Cambie el Modelo de IdClient a tipo number
+              r => r.clientId === storedClient.id // CAMBIO: comparación directa entre number y number , Cambie el Modelo de IdClient a tipo number
             );
 
             this.clientReserves.forEach(res => {
-              this.vehicleService.getVehicle(Number(res.idVehicle)).subscribe({
+              this.vehicleService.getVehicle(Number(res.vehicleId)).subscribe({
                 next: veh => {
                   res.vehicleName = `${veh.brand} ${veh.model}`;
                   this.cdRef.detectChanges();
                 },
                 error: err => {
-                  console.warn(`Vehículo no encontrado para ID ${res.idVehicle}`, err);
+                  console.warn(`Vehículo no encontrado para ID ${res.vehicleId}`, err);
                   res.vehicleName = 'Desconocido';
                   this.cdRef.detectChanges();
                 }

@@ -1,11 +1,10 @@
 export interface Reserve {
-  id?: string;      
-  idClient: number; //Ahora es tipo number
-  idVehicle: string;
-  idAgencyPickup: number;
+  id?: number;
   pickupDate: string;
   dropoffDate: string;
   price: number;
   status: boolean;
+  clientId: number;       // ← CAMBIO aquí
+  vehicleId: number;      // ← CAMBIO aquí
   vehicleName?: string;
 }

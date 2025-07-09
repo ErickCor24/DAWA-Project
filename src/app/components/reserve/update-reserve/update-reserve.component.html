@@ -4,7 +4,7 @@
       <h1>Editar Reserva</h1>
     </header>
     <main>
-      <form [formGroup]="reserveForm" (ngSubmit)="onSubmit()">
+      <form class="form" *ngIf="reserveForm" [formGroup]="reserveForm" (ngSubmit)="onSubmit()">
 
         <!-- Cliente (lectura) -->
         <div class="double-group">
@@ -19,18 +19,6 @@
           <mat-form-field class="form-group" appearance="outline" color="primary">
             <mat-label>Vehículo</mat-label>
             <input matInput [value]="selectedVehicleName" disabled>
-          </mat-form-field>
-        </div>
-
-        <!-- Agencia -->
-        <div class="double-group">
-          <mat-form-field class="form-group" appearance="outline" color="primary">
-            <mat-label>Agencia de Retiro</mat-label>
-            <mat-select formControlName="idAgencyPickup" required>
-              <mat-option *ngFor="let a of agencies" [value]="a.id">
-                {{ a.name }}
-              </mat-option>
-            </mat-select>
           </mat-form-field>
         </div>
 

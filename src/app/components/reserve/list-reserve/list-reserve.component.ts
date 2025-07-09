@@ -3,7 +3,6 @@ import { ReserveService } from '../../../services/reserve/reserve.service';
 import { Reserve } from '../../../models/reserve';
 import { Client } from '../../../models/clients/client.model';
 import { Vehicle } from '../../../models/Vehicle';
-import { Agency } from '../../../models/agency';
 import { HttpClient } from '@angular/common/http';
 import { DialogService } from '../../../services/dialog-box/dialog.service';
 import { Router } from '@angular/router';
@@ -46,10 +45,8 @@ export class ListReserveComponent implements OnInit {
   allReserves: Reserve[] = [];
   clients: Client[] = [];
   vehicles: Vehicle[] = [];
-  agencies: Agency[] = [];
   displayedColumns = [
     'vehicle',
-    'agency',
     'pickupDate',
     'dropoffDate',
     'price',
@@ -85,17 +82,14 @@ export class ListReserveComponent implements OnInit {
         }
 
         this.reserveService.getReserves().subscribe(r => {
-          this.allReserves = r.filter(x => x.idClient === client.id); //  CAMBIO: comparación directa entre números
+          this.allReserves = r.filter(x => x.clientId === client.id); //  CAMBIO: comparación directa entre números
 
           this.allReserves.forEach(res => {
-            this.vehicleService.getVehicle(Number(res.idVehicle)).subscribe(veh => {
+            this.vehicleService.getVehicle(Number(res.vehicleId)).subscribe(veh => {
               res['vehicleName'] = `${veh.brand} ${veh.model}`;
             });
           });
         });
-
-        this.http.get<Agency[]>('http://localhost:3000/agencys') //debes cambiar a el endppoint que le corresponde
-          .subscribe(a => this.agencies = a);
       },
       error: () => {
         this.authService.removeAuthToken();
@@ -119,11 +113,6 @@ export class ListReserveComponent implements OnInit {
     return v ? `${v.brand} ${v.model}` : 'Desconocido';
   }
 
-  getAgencyName(id: number): string {
-    const a = this.agencies.find(x => x.id === id);
-    return a ? a.name : 'Desconocido';
-  }
-
   getStatusLabel(r: Reserve): string {
     return r.status ? 'Activo' : 'Realizado';
   }
@@ -140,7 +129,7 @@ export class ListReserveComponent implements OnInit {
     return pickup > today;
   }
 
-  deleteReserve(resId: string, vehId: number): void {
+  deleteReserve(resId: number, vehId: number): void {
     this.dialogService.openDialog(
       'Eliminar reserva',
       '¿Seguro quieres eliminar esta reserva?',
