@@ -113,7 +113,7 @@ export class UpdateReserveComponent implements OnInit {
                 status:         r.status
               });
 
-              this.vehicleService.getVehicle(r.idVehicle).subscribe(veh => {
+              this.vehicleService.getVehicle(Number(r.idVehicle)).subscribe(veh => {
                 this.selectedVehicleName = `${veh.brand} ${veh.model}`;
                 if (!this.vehicles.some(v => v.id === veh.id)) {
                   this.vehicles.unshift(veh);
@@ -156,7 +156,7 @@ export class UpdateReserveComponent implements OnInit {
     const days = Math.ceil((d.getTime() - p.getTime()) / (1000 * 60 * 60 * 24));
     this.rentalDays = days;
 
-    const veh = this.vehicles.find(v => v.id === vid);
+    const veh = this.vehicles.find(v => v.id === Number(vid));
     if (veh) {
       this.reserveForm.get('price')!.setValue(days * veh.pricePerDay);
     }

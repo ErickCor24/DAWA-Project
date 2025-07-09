@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { NotFoundComponent } from './components/view/not-found/not-found.component';
-import { companyGuard } from './components/auth/company.guard';
 import { HomeComponent } from './components/view/home/home.component';
 import { CompanyRoutes } from './components/company/company.routes';
 import { RegisterCompanyComponent } from './components/company/register-company/register-company.component';
@@ -18,10 +17,7 @@ export const routes: Routes = [
   // Reserve
   { path: 'reserve', loadChildren: () => import('./components/reserve/reserve.routes').then(m => m.ReserveRoutes) },
   //Vehicle
-  {
-    path: 'vehicle',
-    loadChildren: () => import('./components/vehicle/vehicle.routes').then(m => m.VehicleRoutes)
-  },
+  { path: 'vehicle', loadChildren: () => import('./components/vehicle/vehicle.routes').then(m => m.VehicleRoutes)},
 
   //Special
   { path: 'home', component: HomeComponent },

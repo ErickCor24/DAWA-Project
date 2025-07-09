@@ -8,48 +8,55 @@ import { Vehicle } from '../../models/Vehicle';
 })
 export class VehicleService {
 
-  private dataUrl: string = 'http://localhost:3000/vehicles';
+  private URL_VEHICLE: string = 'https://localhost:7214/api/Vehicle';
 
   constructor(private http: HttpClient) { }
 
-  getVehicles(idCompany?: string): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(this.dataUrl).pipe(
-      map((vehicles) =>
-      (idCompany ? vehicles.filter(vehicle => vehicle.idCompany === idCompany) :
-        vehicles.filter(vehicle => vehicle.isAvailable === true))
-      )
-    );
+  getVehicles(idCompany?: number): Observable<Vehicle[]> {
+    if (idCompany !== undefined && idCompany !== null) {
+      return this.http.get<Vehicle[]>(`${this.URL_VEHICLE}/by-company/${idCompany}`).pipe(
+        map((vehicles) => vehicles.filter(vehicle => vehicle.status === true))
+      );
+    } else {
+      return this.http.get<Vehicle[]>(this.URL_VEHICLE).pipe(
+        map((vehicles) => vehicles.filter(vehicle => vehicle.isAvailable === true))
+      );
+    }
   }
 
-  getVehicle(id: string): Observable<Vehicle> {
-    return this.http.get<Vehicle>(`${this.dataUrl}/${id}`);
+  getVehicle(id: number): Observable<Vehicle> {
+    return this.http.get<Vehicle>(`${this.URL_VEHICLE}/by-id/${id}`);
   }
 
   getVehicleByField(field: string, dataInput: string) {
-  return this.http.get<Vehicle[]>(this.dataUrl).pipe(
-    map((vehicles) =>
-      vehicles.filter((vehicle) =>
-        dataInput
-          ? String((vehicle as any)[field]).toLowerCase().includes(dataInput.toLowerCase()) && vehicle.isAvailable
-          : true
-      )
-    )
+  console.log("getserivce");
+  console.log(field, dataInput);
+  return this.http.get<Vehicle[]>(`${this.URL_VEHICLE}/by-field/${field}/${dataInput}`).pipe(
+    map((vehicles) => {
+      console.log('Vehículos recibidos:', vehicles);
+      return vehicles.filter((vehicle) => {
+        const value = (vehicle as any)[field];
+        return dataInput
+          ? value && String(value).toLowerCase().includes(dataInput.toLowerCase()) && vehicle.status
+          : vehicle.isAvailable;
+      });
+    })
   );
 }
 
-  createVehicle(vehicle: Vehicle, idCompany: string): Observable<Vehicle> {
+  createVehicle(vehicle: Vehicle, idCompany: number): Observable<Vehicle> {
     vehicle.isAvailable = true;
-    vehicle.status = 1;
-    vehicle.idCompany = idCompany;
-    return this.http.post<Vehicle>(this.dataUrl, vehicle);
+    vehicle.status = true;
+    vehicle.companyId = idCompany;
+    return this.http.post<Vehicle>(this.URL_VEHICLE, vehicle);
   }
 
   updateVehicle(vehicle: Vehicle): Observable<Vehicle> {
-    return this.http.put<Vehicle>(`${this.dataUrl}/${vehicle.id}`, vehicle);
+    return this.http.put<Vehicle>(`${this.URL_VEHICLE}/${vehicle.id}`, vehicle);
   }
 
   deleteVehicle(vehicle: Vehicle): Observable<void> {
-    return this.http.delete<void>(`${this.dataUrl}/${vehicle.id}`);
+    return this.http.put<void>(`${this.URL_VEHICLE}/delete/${vehicle.id}`, vehicle);
   }
 
 }

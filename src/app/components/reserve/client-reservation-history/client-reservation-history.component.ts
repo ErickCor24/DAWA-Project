@@ -69,7 +69,7 @@ export class ClientReservationHistoryComponent implements OnInit {
             );
 
             this.clientReserves.forEach(res => {
-              this.vehicleService.getVehicle(res.idVehicle).subscribe({
+              this.vehicleService.getVehicle(Number(res.idVehicle)).subscribe({
                 next: veh => {
                   res.vehicleName = `${veh.brand} ${veh.model}`;
                   this.cdRef.detectChanges();
