@@ -43,10 +43,11 @@
                 margin-left: 0;
                 text-align: center;
             }
-
             & img {
+                display: flex;
                 width: 225px;
                 height: 150px;
+                align-self: center;
             }
 
             & mat-card-content, & mat-card-header {
