@@ -4,7 +4,8 @@
       <h2>Editar Perfil</h2>
     </div>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+    
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
 
       <!-- Nombre completo -->
       <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
@@ -18,9 +19,9 @@
       <!-- celular -->
       <mat-form-field class="form-group" appearance="outline" color="primary" floatLabel="always">
         <mat-label>Celular</mat-label>
-        <input matInput formControlName="phone" placeholder="Celular">
+        <input matInput formControlName="phoneNumber" placeholder="Celular">
         <mat-hint>10 dígitos</mat-hint>
-        <mat-error *ngIf="form.get('phone')?.touched && form.get('phone')?.invalid">
+        <mat-error *ngIf="form.get('phoneNumber')?.touched && form.get('phoneNumber')?.invalid">
           Ingrese un número válido (10 dígitos)
         </mat-error>
       </mat-form-field>
