@@ -32,7 +32,6 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatCheckboxModule,
     ReactiveFormsModule,
     FormsModule,
-    NgFor,
     NgIf,
     CommonModule,
     MatFormFieldModule,

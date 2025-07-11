@@ -42,7 +42,6 @@ export class LoginUserCompanyComponent implements OnInit {
         
         if(response.isSucces){
           this._authService.setAuthToken(response.token);
-          //console.log('Test in login componente: \n' + this._authService.getAuthToken());
           this.router.navigate(['/home']);
         } else {
           console.log('user dont found')

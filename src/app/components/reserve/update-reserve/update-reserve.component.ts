@@ -26,7 +26,6 @@ import { provideNativeDateAdapter } from '@angular/material/core';
   styleUrls: ['./update-reserve.component.css'],
   imports: [
     CommonModule,
-    NgFor,
     NgIf,
     ReactiveFormsModule,
     FormsModule,

@@ -21,7 +21,7 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError(err => {
       router.navigate(['/home']);
-      /* _service.removeAuthToken(); */
+      _service.removeAuthToken();
       return throwError(() => err);
     })
   );

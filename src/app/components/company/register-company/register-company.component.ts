@@ -51,9 +51,8 @@ export class RegisterCompanyComponent implements OnInit {
     this._companyServ.addCompany(company, password).subscribe(data => {
       console.log("Company registered successfully");
       console.log(data.isSucces);
-      console.log(data.result);
+      if(data.isSucces) this.router.navigate(["/home"])
     });
-    /* this.router.navigate(['/company/login']); */
   }
 
   createCompanyObject = (rawFormValue: any): Company => {
